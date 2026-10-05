@@ -179,6 +179,7 @@ export interface AboutConfig {
     title: string;
     items: ImpactItem[];
   };
+  projects?: string[];
 }
 
 export interface ContactFormField {

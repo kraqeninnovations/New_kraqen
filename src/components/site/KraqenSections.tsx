@@ -57,42 +57,36 @@ export function HeroSection() {
       <div className="pointer-events-none absolute inset-0 hidden md:block z-10">
         {/* Upper Left */}
         <motion.div
-          animate={{ x: mousePos.x * -0.5, y: mousePos.y * -0.5 }}
-          transition={{ type: "spring", stiffness: 90, damping: 22 }}
           initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)", x: mousePos.x * -0.5, y: mousePos.y * -0.5 }}
           transition={{ duration: 1.2, delay: 0.3 }}
           className="absolute top-[18%] left-[4%] w-[190px] lg:w-[230px] aspect-[4/5] overflow-hidden rounded-xs border border-white/10 shadow-2xl"
         >
           <img
             src={heroImages[0]}
-            alt={site.name}
+            alt={site?.name || "KRAQEN"}
             className="h-full w-full object-cover"
           />
         </motion.div>
 
         {/* Upper Right */}
         <motion.div
-          animate={{ x: mousePos.x * 0.7, y: mousePos.y * 0.7 }}
-          transition={{ type: "spring", stiffness: 90, damping: 22 }}
           initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)", x: mousePos.x * 0.7, y: mousePos.y * 0.7 }}
           transition={{ duration: 1.2, delay: 0.45 }}
           className="absolute top-[14%] right-[5%] w-[220px] lg:w-[270px] aspect-[16/10] overflow-hidden rounded-xs border border-white/10 shadow-2xl"
         >
           <img
             src={heroImages[1]}
-            alt={site.tagline}
+            alt={site?.tagline || "CREATIVE TECHNOLOGY"}
             className="h-full w-full object-cover"
           />
         </motion.div>
 
         {/* Lower Left */}
         <motion.div
-          animate={{ x: mousePos.x * 0.4, y: mousePos.y * 0.4 }}
-          transition={{ type: "spring", stiffness: 90, damping: 22 }}
           initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)", x: mousePos.x * 0.4, y: mousePos.y * 0.4 }}
           transition={{ duration: 1.2, delay: 0.6 }}
           className="absolute bottom-[22%] left-[6%] w-[170px] lg:w-[210px] aspect-[4/3] overflow-hidden rounded-xs border border-white/10 shadow-2xl"
         >
@@ -105,10 +99,8 @@ export function HeroSection() {
 
         {/* Lower Right */}
         <motion.div
-          animate={{ x: mousePos.x * -0.6, y: mousePos.y * -0.6 }}
-          transition={{ type: "spring", stiffness: 90, damping: 22 }}
           initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)", x: mousePos.x * -0.6, y: mousePos.y * -0.6 }}
           transition={{ duration: 1.2, delay: 0.75 }}
           className="absolute bottom-[18%] right-[4%] w-[230px] lg:w-[290px] aspect-[4/3] overflow-hidden rounded-xs border border-white/10 shadow-2xl"
         >
@@ -366,14 +358,16 @@ export function BrandStatementSection() {
 // ==========================================
 export function BuiltWithSection() {
   const { site, about } = useSiteData();
-  const projects = about.projects.length > 0 ? about.projects : [
-    "KRAQEN INNOVATIONS",
-    "CONTENTHUB.DIY",
-    "MCC BCA",
-    "SHINE ON STORIES",
-    "RSS GARMENTS",
-    "QUICKMEET",
-  ];
+  const projects = (about?.projects && Array.isArray(about.projects) && about.projects.length > 0)
+    ? about.projects
+    : [
+        "KRAQEN INNOVATIONS",
+        "CONTENTHUB.DIY",
+        "MCC BCA",
+        "SHINE ON STORIES",
+        "RSS GARMENTS",
+        "QUICKMEET",
+      ];
 
   return (
     <section id="built-with" className="bg-[#0d0d0d] px-5 py-32 lg:py-48 md:px-10 border-t border-cream/10">
