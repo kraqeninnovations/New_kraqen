@@ -1,0 +1,453 @@
+{
+  "site": {
+    "name": "KRAQEN INNOVATIONS",
+    "shortName": "KRAQEN",
+    "tagline": "CREATIVE TECHNOLOGY AGENCY",
+    "description": "We build digital products, experiences and technology that help brands move forward.",
+    "location": "CHENNAI · INDIA",
+    "year": "2026"
+  },
+
+  "theme": {
+    "background": "#111111",
+    "surface": "#151515",
+    "text": "#F3F0E6",
+    "mutedText": "#B7B4AC",
+    "border": "rgba(243,240,230,0.15)",
+    "accent": "#FF3B00",
+    "footerBackground": "#FF3B00",
+    "footerText": "#111111"
+  },
+
+  "typography": {
+    "displayFont": "Anton",
+    "bodyFont": "Plus Jakarta Sans",
+    "displayWeight": 900,
+    "bodyWeight": 400,
+    "heroSize": "clamp(48px, 9.5vw, 150px)",
+    "sectionHeadingSize": "clamp(52px, 10vw, 140px)",
+    "serviceSize": "clamp(44px, 7.5vw, 110px)",
+    "footerSize": "clamp(60px, 17vw, 240px)"
+  },
+
+  "navigation": {
+    "logo": "KRAQEN",
+    "links": [
+      {
+        "label": "WORK",
+        "href": "/work"
+      },
+      {
+        "label": "ABOUT",
+        "href": "/about"
+      },
+      {
+        "label": "CONTACT",
+        "href": "/contact"
+      }
+    ],
+    "cta": {
+      "label": "START A PROJECT ↗",
+      "href": "/contact"
+    },
+    "mobileLabel": "MENU"
+  },
+
+  "home": {
+    "hero": {
+      "eyebrow": "CREATIVE TECHNOLOGY AGENCY",
+      "title": [
+        "WE BUILD",
+        "YOUR DIGITAL",
+        "POINT OF VIEW."
+      ],
+      "description": "We build digital products, experiences and technology that help brands move forward.",
+      "cta": {
+        "label": "VIEW OUR WORK ↗",
+        "href": "/work"
+      },
+      "images": [
+        "/assets/kraqen_hero_1.jpg",
+        "/assets/kraqen_hero_2.jpg",
+        "/assets/p1.jpg",
+        "/assets/kraqen_hero_3.jpg"
+      ]
+    },
+
+    "selectedWork": {
+      "eyebrow": "PORTFOLIO",
+      "title": [
+        "SELECTED",
+        "WORK"
+      ],
+      "description": "A selection of digital products, websites, campaigns and technology experiences built by Kraqen Innovations.",
+      "projects": [
+        {
+          "id": "mcc-bca",
+          "number": "01",
+          "title": "MCC BCA DEPARTMENT WEBSITE",
+          "category": "Web Development · UI/UX",
+          "year": "2026",
+          "description": "A modern responsive digital experience designed for the BCA department at Madras Christian College with interactive student hubs and academic portals.",
+          "image": "/assets/kraqen_hero_2.jpg",
+          "href": "/work",
+          "featured": true,
+          "align": "left"
+        },
+        {
+          "id": "contenthub",
+          "number": "02",
+          "title": "CONTENTHUB.DIY",
+          "category": "AI · Social Media · Web Platform",
+          "year": "2026",
+          "description": "AI-powered social media management platform designed for content creation, automated scheduling, and multi-channel publishing.",
+          "image": "/assets/kraqen_hero_3.jpg",
+          "href": "/work",
+          "featured": true,
+          "align": "right"
+        },
+        {
+          "id": "quickmeet",
+          "number": "03",
+          "title": "QUICKMEET",
+          "category": "Video Conferencing · WebRTC · Real-time",
+          "year": "2026",
+          "description": "A modern high-concurrency video conferencing platform focused on low-latency streaming, screen sharing, and seamless room collaboration.",
+          "image": "/assets/kraqen_hero_1.jpg",
+          "href": "/work",
+          "featured": true,
+          "align": "left"
+        }
+      ]
+    },
+
+    "services": {
+      "eyebrow": "WHAT WE DO",
+      "title": "FULL SERVICE DIGITAL DEVELOPMENT",
+      "items": [
+        {
+          "number": "01",
+          "title": "WEB DEVELOPMENT",
+          "description": "Modern responsive websites and web applications built for performance, scalability, and seamless user interaction.",
+          "href": "/contact"
+        },
+        {
+          "number": "02",
+          "title": "UI / UX DESIGN",
+          "description": "Clean, intuitive and conversion-focused digital experiences designed around user behavior and brand identity.",
+          "href": "/contact"
+        },
+        {
+          "number": "03",
+          "title": "DIGITAL MARKETING",
+          "description": "Creative digital marketing, social media strategy, SEO optimization and content experiences that build maximum visibility.",
+          "href": "/contact"
+        },
+        {
+          "number": "04",
+          "title": "DEVOPS & CLOUD",
+          "description": "Cloud infrastructure, deployment automation, containerization and DevOps solutions for high-performance applications.",
+          "href": "/contact"
+        }
+      ]
+    },
+
+    "statement": {
+      "eyebrow": "OUR PHILOSOPHY",
+      "title": [
+        "GOOD IDEAS.",
+        "GREAT DIGITAL",
+        "EXPERIENCES."
+      ],
+      "description": "Kraqen Innovations combines technology, creativity and strategy to build digital experiences that people remember. We work with forward-thinking brands to craft software, websites and tools that redefine digital presence."
+    }
+  },
+
+  "work": {
+    "eyebrow": "PORTFOLIO",
+    "title": "WORK",
+    "description": "A curated gallery of web applications, platforms and interactive technology solutions produced by Kraqen Innovations.",
+    "filters": [
+      { "key": "all", "label": "ALL WORK" },
+      { "key": "web", "label": "WEB DEVELOPMENT" },
+      { "key": "ai", "label": "AI PLATFORMS" },
+      { "key": "realtime", "label": "REAL-TIME / MEDIA" },
+      { "key": "brand", "label": "BRANDING" }
+    ],
+    "projects": [
+      {
+        "id": "mcc-bca",
+        "number": "01",
+        "title": "MCC BCA DEPARTMENT WEBSITE",
+        "categoryKey": "web",
+        "categoryLabel": "WEB DEVELOPMENT",
+        "description": "A modern responsive digital experience created for the BCA department at Madras Christian College with interactive student portals.",
+        "year": "2026",
+        "image": "/assets/kraqen_hero_2.jpg",
+        "aspect": "aspect-[16/9]",
+        "column": "left",
+        "marginTop": "mt-0"
+      },
+      {
+        "id": "contenthub",
+        "number": "02",
+        "title": "CONTENTHUB.DIY",
+        "categoryKey": "ai",
+        "categoryLabel": "AI / WEB PLATFORM",
+        "description": "An AI-powered social media management platform designed for content creation, automated scheduling, and multi-channel publishing.",
+        "year": "2026",
+        "image": "/assets/kraqen_hero_3.jpg",
+        "aspect": "aspect-[3/4]",
+        "column": "right",
+        "marginTop": "mt-12 lg:mt-24"
+      },
+      {
+        "id": "quickmeet",
+        "number": "03",
+        "title": "QUICKMEET",
+        "categoryKey": "realtime",
+        "categoryLabel": "VIDEO CONFERENCING / REAL-TIME",
+        "description": "A modern video conferencing platform focused on low-latency WebRTC streaming, screen sharing, and seamless room collaboration.",
+        "year": "2026",
+        "image": "/assets/kraqen_hero_1.jpg",
+        "aspect": "aspect-[4/5]",
+        "column": "left",
+        "marginTop": "mt-16 lg:mt-36"
+      },
+      {
+        "id": "shine-on-stories",
+        "number": "04",
+        "title": "SHINE ON STORIES",
+        "categoryKey": "realtime",
+        "categoryLabel": "DIGITAL MEDIA / BRAND",
+        "description": "A digital storytelling and technology platform focused on AI tools, interactive learning and creative video content.",
+        "year": "2026",
+        "image": "/assets/kraqen_project_4.jpg",
+        "aspect": "aspect-[16/9]",
+        "column": "right",
+        "marginTop": "mt-12 lg:mt-28"
+      },
+      {
+        "id": "rss-garments",
+        "number": "05",
+        "title": "RSS GARMENTS",
+        "categoryKey": "brand",
+        "categoryLabel": "BRANDING / DIGITAL MARKETING",
+        "description": "Digital branding, modern lookbook photography and social media creative direction for a contemporary garments brand.",
+        "year": "2026",
+        "image": "/assets/kraqen_project_5.jpg",
+        "aspect": "aspect-[16/9]",
+        "column": "left",
+        "marginTop": "mt-16 lg:mt-32"
+      },
+      {
+        "id": "kraqen-experiences",
+        "number": "06",
+        "title": "KRAQEN DIGITAL EXPERIENCES",
+        "categoryKey": "web",
+        "categoryLabel": "WEB / CREATIVE TECHNOLOGY",
+        "description": "Custom digital experiences combining bespoke web design, WebGL graphics, motion primitives, and cloud technology.",
+        "year": "2026",
+        "image": "/assets/p1.jpg",
+        "aspect": "aspect-[4/5]",
+        "column": "right",
+        "marginTop": "mt-16 lg:mt-40"
+      }
+    ]
+  },
+
+  "about": {
+    "eyebrow": "KRAQEN INNOVATIONS",
+    "title": "ABOUT",
+    "description": "Kraqen Innovations creates digital experiences where technology, creativity and strategy come together. We build websites, digital products and technology solutions designed to help modern brands move forward.",
+    
+    "team": [
+      {
+        "name": "KRAQEN CREATIVE LEAD",
+        "role": "FOUNDER / CREATIVE DIRECTOR",
+        "image": "/assets/kraqen_team_1.jpg",
+        "description": "Leading digital product strategy, visual direction, and user experience engineering for Kraqen Innovations."
+      },
+      {
+        "name": "KRAQEN TECH LEAD",
+        "role": "TECHNICAL DIRECTOR / FULL STACK",
+        "image": "/assets/kraqen_team_2.jpg",
+        "description": "Architecting web applications, cloud infrastructure, AI platform models, and high-concurrency systems."
+      }
+    ],
+
+    "services": [
+      {
+        "number": "01",
+        "title": "WEB DEVELOPMENT",
+        "description": "Modern responsive websites and web applications built for performance, accessibility, and scalability."
+      },
+      {
+        "number": "02",
+        "title": "UI / UX DESIGN",
+        "description": "Clean and intuitive interfaces designed around users, usability, and strong visual brand systems."
+      },
+      {
+        "number": "03",
+        "title": "DIGITAL MARKETING",
+        "description": "Creative digital marketing, social media strategy, and content experiences designed to build brand visibility."
+      },
+      {
+        "number": "04",
+        "title": "DEVOPS & CLOUD",
+        "description": "Cloud infrastructure, deployment automation, containerization, and DevOps solutions for modern applications."
+      }
+    ],
+
+    "studioImages": [
+      "/assets/kraqen_office_1.jpg",
+      "/assets/kraqen_hero_3.jpg"
+    ],
+
+    "statement": {
+      "eyebrow": "CREATIVE MANIFESTO",
+      "title": [
+        "A POINT OF VIEW.",
+        "CARRIED THROUGH",
+        "EVERY EXPERIENCE."
+      ]
+    },
+
+    "projects": [
+      "CONTENTHUB.DIY",
+      "MCC BCA",
+      "QUICKMEET",
+      "SHINE ON STORIES",
+      "RSS GARMENTS",
+      "KRAQEN INNOVATIONS"
+    ]
+  },
+
+  "contact": {
+    "eyebrow": "START A PROJECT",
+    "title": [
+      "BRING",
+      "US INTO",
+      "THE",
+      "PICTURE"
+    ],
+    "description": "Have a project, idea or story to bring to life? Let's create a digital experience with a point of view. Reach out to Kraqen Innovations today.",
+
+    "form": {
+      "name": {
+        "label": "NAME (REQUIRED)",
+        "placeholder": "Your full name",
+        "required": true
+      },
+      "email": {
+        "label": "EMAIL (REQUIRED)",
+        "placeholder": "your.email@example.com",
+        "required": true
+      },
+      "company": {
+        "label": "COMPANY (OPTIONAL)",
+        "placeholder": "Company or organization name",
+        "required": false
+      },
+      "budget": {
+        "label": "APPROXIMATE BUDGET (REQUIRED)",
+        "placeholder": "Choose a range",
+        "required": true,
+        "options": [
+          { "value": "20k-50k", "label": "₹20K – ₹50K" },
+          { "value": "50k-1l", "label": "₹50K – ₹1L" },
+          { "value": "1l-3l", "label": "₹1L – ₹3L" },
+          { "value": "3l+", "label": "₹3L+" },
+          { "value": "discuss", "label": "Let's discuss" }
+        ]
+      },
+      "timing": {
+        "label": "TIMING (REQUIRED)",
+        "placeholder": "Choose timing",
+        "required": true,
+        "options": [
+          { "value": "asap", "label": "ASAP" },
+          { "value": "1month", "label": "Within 1 Month" },
+          { "value": "1-3months", "label": "1–3 Months" },
+          { "value": "3-6months", "label": "3–6 Months" },
+          { "value": "flexible", "label": "Flexible" }
+        ]
+      },
+      "message": {
+        "label": "TELL US ABOUT THE PROJECT (REQUIRED)",
+        "helper": "What are you building, who is it for, and what should the work accomplish?",
+        "placeholder": "Provide details on your project goals, scope, and key deliverables...",
+        "required": true
+      },
+      "submit": "SEND ENQUIRY"
+    },
+
+    "info": {
+      "email": "hello@kraqen.com",
+      "location": "CHENNAI · INDIA",
+      "address": "Kraqen Innovations Headquarters, Chennai, Tamil Nadu, India"
+    }
+  },
+
+  "footer": {
+    "eyebrow": "HAVE A PROJECT IN MIND?",
+    "title": [
+      "LET'S WORK",
+      "TOGETHER ↗"
+    ],
+    "brand": "KRAQEN",
+    "brandSubtitle": "INNOVATIONS",
+    "description": "Have an idea, product or brand that needs a digital experience? LET'S BUILD SOMETHING GREAT.",
+    "cta": {
+      "label": "START A PROJECT ↗",
+      "href": "/contact"
+    },
+    "navigation": [
+      { "label": "WORK", "href": "/work" },
+      { "label": "ABOUT", "href": "/about" },
+      { "label": "CONTACT", "href": "/contact" }
+    ],
+    "socials": [
+      { "label": "INSTAGRAM ↗", "href": "https://instagram.com" },
+      { "label": "LINKEDIN ↗", "href": "https://linkedin.com" },
+      { "label": "GITHUB ↗", "href": "https://github.com" },
+      { "label": "YOUTUBE ↗", "href": "https://youtube.com" }
+    ],
+    "location": "KRAQEN INNOVATIONS · CHENNAI · INDIA",
+    "copyright": "©2026 Kraqen Innovations. All rights reserved.",
+    "backToTop": "BACK TO TOP ↗"
+  },
+
+  "animations": {
+    "enabled": true,
+    "pageTransition": {
+      "duration": 600,
+      "ease": "power3.out"
+    },
+    "textReveal": {
+      "duration": 900,
+      "stagger": 100,
+      "y": 60
+    },
+    "imageReveal": {
+      "duration": 1000,
+      "scale": 1.05,
+      "blur": 8
+    },
+    "hover": {
+      "duration": 400,
+      "scale": 1.03
+    },
+    "parallax": {
+      "enabled": true,
+      "amount": 20
+    }
+  },
+
+  "responsive": {
+    "mobileBreakpoint": 768,
+    "tabletBreakpoint": 1024,
+    "mobileParallax": false,
+    "mobileCustomCursor": false
+  }
+}
