@@ -1,0 +1,63 @@
+{
+  "seo": {
+    "title": "About — Kraqen Innovations LLP",
+    "description": "Kraqen Innovations translates brand moments into visceral perspectives, flexing between the quietude of the ethereal and the grit of the expressive."
+  },
+  "intro": {
+    "title": "ABOUT",
+    "paragraph": "Kraqen Innovations translates brand moments into visceral perspectives, flexing between the quietude of the ethereal and the grit of the expressive. We are a close-knit production team drawn to ideas with texture, movement and feeling, shaping each frame with cinematic intent from first conversation through final delivery."
+  },
+  "team": {
+    "heading": "THE TEAM",
+    "members": [
+      {
+        "id": "victor-yuen",
+        "name": "VICTOR YUEN",
+        "role": "FOUNDER / CREATIVE DIRECTOR",
+        "bio": "Victor has worked in the creative industry for more than a decade, collaborating with clients at every scale. With a background in design, he puts storytelling and strong visual direction at the forefront of every project. From large in-house creative teams to small businesses, he finds the most compelling way through each production.",
+        "image": "/about/victor-yuen.jpg",
+        "alt": "Victor Yuen, Founder and Creative Director at Kraqen Innovations",
+        "isGreyscaleDefault": true
+      },
+      {
+        "id": "max-tagesen",
+        "name": "MAX TAGESEN",
+        "role": "EDITOR / CAMERA OPERATOR / ASSISTANT",
+        "bio": "Max is a multidisciplinary creator with an undying passion for sport. He tells real, meaningful stories through photography and video, looking for the emotion and movement that make each frame unique. No project is too small or too large. If there is a story worth telling, he is all in.",
+        "image": "/about/max-tagesen.jpg",
+        "alt": "Max Tagesen, Editor and Camera Operator at Kraqen Innovations",
+        "isGreyscaleDefault": false
+      }
+    ]
+  },
+  "services": {
+    "labelLeft": "WHAT WE DO",
+    "labelRight": "FULL SERVICE PRODUCTION",
+    "useHomeServices": true,
+    "items": []
+  },
+  "studioSplit": {
+    "left": {
+      "src": "/about/studio-left.jpg",
+      "alt": "Kraqen Innovations team working at long white desk with large monitors and hanging paper globe lamp in airy studio",
+      "widthRatio": "66%"
+    },
+    "right": {
+      "src": "/about/studio-right.jpg",
+      "alt": "Studio interior shelf with potted plants, rugby ball, designer yellow lamp, books and gear",
+      "widthRatio": "34%"
+    }
+  },
+  "approach": {
+    "labelLeft": "APPROACH",
+    "labelRight": "SELECTED PARTNERS",
+    "headlineLines": [
+      "A POINT OF VIEW, CARRIED",
+      "THROUGH EVERY FRAME."
+    ],
+    "useHomePartners": true,
+    "fillEmptyCells": true,
+    "clients": []
+  }
+}
+

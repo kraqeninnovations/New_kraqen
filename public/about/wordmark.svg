@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 240" fill="#1a1a1a">
+  <style>
+    @font-face {
+      font-family: 'Tanker';
+      src: url('https://api.fontshare.com/v2/css?f[]=tanker@400&amp;display=swap');
+    }
+    .wm {
+      font-family: 'Tanker', sans-serif;
+      font-size: 280px;
+      letter-spacing: -0.01em;
+      text-transform: lowercase;
+    }
+  </style>
+  <text x="0" y="210" class="wm" textLength="1000" lengthAdjust="spacingAndGlyphs">kraqen</text>
+</svg>
+

@@ -1,0 +1,140 @@
+{
+  "brand": {
+    "name": "Kraqen Innovations LLP",
+    "legalName": "Kraqen Innovations LLP",
+    "shortName": "Kraqen",
+    "url": "https://www.kraqeninc.com",
+    "email": "support@kraqeninc.com",
+    "phone": "+91 8939651621",
+    "tagline": "We Build Brands That Perform, Scale & Dominate",
+    "description": "Kraqen Innovations LLP is a creative, technology and digital innovation studio. We build brands that perform, scale and dominate.",
+    "giantWordmark": "kraqen",
+    "copyright": "© 2026 KRAQEN INNOVATIONS LLP. ALL RIGHTS RESERVED.",
+    "instagramHandle": "kraqen.innovations"
+  },
+  "seo": {
+    "title": "Kraqen Innovations LLP — Creative, Technology & Production Studio",
+    "description": "We build brands that perform, scale and dominate. Creativity, technology and digital innovation under one roof.",
+    "ogImage": "/og-image.png",
+    "keywords": [
+      "production studio",
+      "creative technology",
+      "digital innovation",
+      "branding",
+      "video production",
+      "commercial photography"
+    ]
+  },
+  "logos": {
+    "navbarLogo": "/brand/kraqen-mark.png",
+    "whiteLogo": "/brand/kraqen-mark.png",
+    "darkLogo": "/brand/kraqen-mark.png",
+    "mark": "/brand/kraqen-mark.png",
+    "favicon": "/brand/kraqen-mark.png",
+    "alt": "Kraqen Innovations LLP"
+  },
+  "navigation": {
+    "links": [
+      {
+        "label": "WORK",
+        "href": "/work"
+      },
+      {
+        "label": "ABOUT",
+        "href": "/about"
+      },
+      {
+        "label": "CONTACT",
+        "href": "/contact"
+      }
+    ],
+    "cta": {
+      "label": "START A PROJECT",
+      "href": "/contact"
+    },
+    "mobileMenuLabel": "MENU",
+    "mobileCloseLabel": "CLOSE"
+  },
+  "socials": [
+    {
+      "label": "INSTAGRAM",
+      "href": "https://www.instagram.com/kraqen.innovations/"
+    },
+    {
+      "label": "LINKEDIN",
+      "href": "https://linkedin.com/company/kraqeninc"
+    },
+    {
+      "label": "TWITTER / X",
+      "href": "https://x.com/kraqeninc"
+    },
+    {
+      "label": "YOUTUBE",
+      "href": "https://youtube.com/@kraqeninc"
+    }
+  ],
+  "marquee": {
+    "pill": "KRAQEN INNOVATIONS",
+    "category": "CREATIVE + TECH + MARKETING",
+    "p1": "WE BUILD BRANDS THAT PERFORM, SCALE AND DOMINATE. CREATIVITY, TECHNOLOGY AND DIGITAL INNOVATION UNDER ONE ROOF.",
+    "p2": "FROM BRANDING AND VIDEO TO MARKETING, WEBSITES AND SOFTWARE. CREATIVITY THAT PERFORMS."
+  },
+  "footer": {
+    "cta": {
+      "line1": "LET'S WORK",
+      "line2": "TOGETHER",
+      "href": "/contact"
+    },
+    "navColumns": [
+      [
+        {
+          "label": "WORK",
+          "href": "/work"
+        },
+        {
+          "label": "ABOUT",
+          "href": "/about"
+        },
+        {
+          "label": "CONTACT",
+          "href": "/contact"
+        }
+      ],
+      [
+        {
+          "label": "INSTAGRAM",
+          "href": "https://instagram.com/kraqeninc"
+        },
+        {
+          "label": "LINKEDIN",
+          "href": "https://linkedin.com/company/kraqeninc"
+        },
+        {
+          "label": "TWITTER / X",
+          "href": "https://x.com/kraqeninc"
+        }
+      ]
+    ]
+  },
+  "reelWidget": {
+    "title": "KRAQEN INNOVATIONS — 2026 REEL",
+    "label": "VIEW REEL",
+    "videoSrc": "/about/showreel.mp4",
+    "previewSrc": "/about/showreel-preview.mp4",
+    "posterSrc": "/about/showreel-poster.jpg",
+    "enabled": true
+  },
+  "notFound": {
+    "title": "PAGE NOT FOUND",
+    "message": "The frame you are looking for does not exist or has moved.",
+    "buttonLabel": "RETURN HOME",
+    "buttonHref": "/"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again later.",
+    "network": "Network connection error. Please verify your connection.",
+    "formRequired": "This field is required.",
+    "formInvalidEmail": "Please provide a valid email address.",
+    "formServerError": "Failed to send message. Please email us directly."
+  }
+}

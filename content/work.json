@@ -1,0 +1,125 @@
+{
+  "seo": {
+    "title": "Work — Kraqen Innovations LLP",
+    "description": "A selection of films, photographs, campaigns, and brand worlds created by Kraqen Innovations LLP."
+  },
+  "header": {
+    "title": "WORK",
+    "countFormat": "{count} / {total}",
+    "filters": [
+      { "id": "all", "label": "ALL WORK" },
+      { "id": "photography", "label": "PHOTOGRAPHY" },
+      { "id": "videography", "label": "VIDEOGRAPHY" },
+      { "id": "creative-direction", "label": "CREATIVE DIRECTION" },
+      { "id": "post-production", "label": "POST-PRODUCTION" },
+      { "id": "social-content", "label": "SOCIAL CONTENT" },
+      { "id": "film-production", "label": "FILM PRODUCTION" },
+      { "id": "campaign", "label": "CAMPAIGN" }
+    ]
+  },
+  "projects": [
+    {
+      "id": "rugby-bricks",
+      "title": "RUGBY BRICKS",
+      "category": "PHOTOGRAPHY + VIDEOGRAPHY",
+      "tags": ["photography", "videography", "campaign"],
+      "year": "2026",
+      "image": "/images/hero-runner.jpg",
+      "aspect": "aspect-[16/9]",
+      "column": "left"
+    },
+    {
+      "id": "smart-sweets-campaign",
+      "title": "SMART SWEETS",
+      "category": "CAMPAIGN + SOCIAL CONTENT",
+      "tags": ["campaign", "social-content", "photography"],
+      "year": "2026",
+      "image": "/images/hero-snacks.jpg",
+      "aspect": "aspect-[16/9]",
+      "column": "left"
+    },
+    {
+      "id": "mug-co",
+      "title": "MUG CO.",
+      "category": "COMMERCIAL PHOTOGRAPHY",
+      "tags": ["photography", "creative-direction"],
+      "year": "2026",
+      "image": "/images/hover-mug.jpg",
+      "aspect": "aspect-[3/4]",
+      "column": "left"
+    },
+    {
+      "id": "snackish-food",
+      "title": "SNACKISH",
+      "category": "PHOTOGRAPHY + FILM",
+      "tags": ["photography", "film-production", "campaign"],
+      "year": "2026",
+      "image": "/images/project-snackish.jpg",
+      "aspect": "aspect-[16/9]",
+      "column": "left"
+    },
+    {
+      "id": "staffbase-cinema",
+      "title": "STAFFBASE",
+      "category": "BRAND FILM + EDITORIAL",
+      "tags": ["film-production", "creative-direction", "videography"],
+      "year": "2026",
+      "image": "/images/hover-staffbase.jpg",
+      "aspect": "aspect-[16/9]",
+      "column": "left"
+    },
+    {
+      "id": "kodama-ice",
+      "title": "KODAMA ICE CO.",
+      "category": "PRODUCT PHOTOGRAPHY",
+      "tags": ["photography", "creative-direction"],
+      "year": "2026",
+      "image": "/images/hero-ice.jpg",
+      "aspect": "aspect-[3/5]",
+      "column": "right"
+    },
+    {
+      "id": "kraqen-showreel",
+      "title": "KRAQEN SHOWREEL",
+      "category": "FILM PRODUCTION",
+      "tags": ["film-production", "videography", "post-production"],
+      "year": "2026",
+      "image": "/images/hero-city.jpg",
+      "isVideo": true,
+      "videoSrc": "/about/showreel-preview.mp4",
+      "aspect": "aspect-[16/9]",
+      "column": "right"
+    },
+    {
+      "id": "snackish-packaging",
+      "title": "SNACKISH VARIETY",
+      "category": "PACKAGING + CAMPAIGN",
+      "tags": ["campaign", "photography", "creative-direction"],
+      "year": "2026",
+      "image": "/images/snack-bags-yellow.jpg",
+      "aspect": "aspect-[16/9]",
+      "column": "right"
+    },
+    {
+      "id": "cafe-kitsune",
+      "title": "CAFÉ KITSUNÉ PARIS",
+      "category": "BRAND FILM + EDITORIAL",
+      "tags": ["film-production", "photography", "videography"],
+      "year": "2026",
+      "image": "/images/hover-kitsune.jpg",
+      "aspect": "aspect-[3/4]",
+      "column": "right"
+    },
+    {
+      "id": "sweet-greens",
+      "title": "SWEET GREENS",
+      "category": "SOCIAL CONTENT + CAMPAIGN",
+      "tags": ["social-content", "campaign", "photography"],
+      "year": "2026",
+      "image": "/images/hover-smart-sweets.jpg",
+      "aspect": "aspect-[16/9]",
+      "column": "right"
+    }
+  ]
+}
+
