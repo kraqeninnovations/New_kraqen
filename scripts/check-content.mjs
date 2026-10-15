@@ -14,6 +14,27 @@ const files = ['site', 'home', 'about', 'work', 'contact'];
 let totalErrors = 0;
 const report = [];
 
+// Check conflicting public files and route files in app/
+const conflictingPairs = [
+  { app: 'app/icon.png', pub: 'public/icon.png', route: '/icon.png' },
+  { app: 'app/apple-icon.png', pub: 'public/apple-icon.png', route: '/apple-icon.png' },
+  { app: 'app/favicon.ico', pub: 'public/favicon.ico', route: '/favicon.ico' },
+];
+
+for (const pair of conflictingPairs) {
+  const appPath = path.join(rootDir, pair.app);
+  const pubPath = path.join(rootDir, pair.pub);
+  if (fs.existsSync(appPath) && fs.existsSync(pubPath)) {
+    console.error(`\x1b[31mCONFLICT: ${pair.pub} and ${pair.app} both serve ${pair.route}. Delete the file in /public.\x1b[0m`);
+    report.push({
+      file: pair.pub,
+      path: pair.route,
+      message: `CONFLICT: ${pair.pub} and ${pair.app} both serve ${pair.route}. Delete the file in /public.`,
+    });
+    totalErrors++;
+  }
+}
+
 function checkAssetExists(assetPath, contextStr) {
   if (!assetPath || typeof assetPath !== 'string') return;
   if (assetPath.startsWith('http://') || assetPath.startsWith('https://')) return;
@@ -22,10 +43,13 @@ function checkAssetExists(assetPath, contextStr) {
   const fullPath = path.join(publicDir, normalized);
 
   if (!fs.existsSync(fullPath)) {
+    const extra = contextStr.path && contextStr.path.includes('apkUrl')
+      ? ' Build the APK (see docs/ANDROID_APK.md) or set install.enabled to false.'
+      : '';
     report.push({
       file: contextStr.file,
       path: contextStr.path,
-      message: `file "${assetPath}" not found in /public.`,
+      message: `file "${assetPath}" not found in /public.${extra}`,
     });
     totalErrors++;
   }
@@ -56,7 +80,9 @@ function scanForAssets(obj, file, currentPath = '') {
         key === 'navbarLogo' ||
         key === 'mark' ||
         key === 'whiteLogo' ||
-        key === 'darkLogo'
+        key === 'darkLogo' ||
+        key === 'appIcon' ||
+        key === 'apkUrl'
       ) {
         checkAssetExists(value, { file: `content/${file}.json`, path: keyPath });
       }
@@ -184,6 +210,40 @@ const siteSchema = z.object({
     formInvalidEmail: z.string().min(1),
     formServerError: z.string().min(1),
   }),
+  install: z
+    .object({
+      enabled: z.boolean().default(true),
+      label: z.string().default('GET THE APP'),
+      title: z.string().default('INSTALL KRAQEN'),
+      text: z.string().default('Add Kraqen to your phone for faster access. Works with the latest content, every time.'),
+      appIcon: z.string().default('/brand/kraqen-mark.png'),
+      closeLabel: z.string().default('CLOSE'),
+      installedLabel: z.string().default('ALREADY INSTALLED'),
+      android: z.object({
+        label: z.string().default('ANDROID'),
+        subLabel: z.string().default('DOWNLOAD APK'),
+        apkUrl: z.string().default('/downloads/kraqen.apk'),
+        version: z.string().default('1.0.0'),
+        playStoreUrl: z.string().default(''),
+        helpTitle: z.string().default('INSTALL ON ANDROID'),
+        helpSteps: z.array(z.string()).min(1, 'needs at least 1 step'),
+      }),
+      ios: z.object({
+        label: z.string().default('iOS'),
+        subLabel: z.string().default('INSTALL ON IPHONE'),
+        appStoreUrl: z.string().default(''),
+        helpTitle: z.string().default('INSTALL ON IPHONE OR IPAD'),
+        helpSteps: z.array(z.string()).min(1, 'needs at least 1 step'),
+        inAppBrowserNote: z.string().default('Open this page in Safari to install the app.'),
+        copyLinkLabel: z.string().default('COPY LINK'),
+      }),
+      qr: z.object({
+        enabled: z.boolean().default(true),
+        caption: z.string().default('SCAN TO INSTALL ON YOUR PHONE'),
+        url: z.string().default('https://www.kraqeninc.com/install'),
+      }),
+    })
+    .optional(),
 });
 
 const homeSchema = z.object({

@@ -136,5 +136,47 @@
     "formRequired": "This field is required.",
     "formInvalidEmail": "Please provide a valid email address.",
     "formServerError": "Failed to send message. Please email us directly."
+  },
+  "install": {
+    "enabled": true,
+    "label": "GET THE APP",
+    "title": "INSTALL KRAQEN",
+    "text": "Add Kraqen to your phone for faster access. Works with the latest content, every time.",
+    "appIcon": "/brand/kraqen-mark.png",
+    "closeLabel": "CLOSE",
+    "installedLabel": "ALREADY INSTALLED",
+    "android": {
+      "label": "ANDROID",
+      "subLabel": "DOWNLOAD APK",
+      "apkUrl": "/downloads/kraqen.apk",
+      "version": "1.0.0",
+      "playStoreUrl": "",
+      "helpTitle": "INSTALL ON ANDROID",
+      "helpSteps": [
+        "Tap the download button. Your phone may ask to allow installs from this browser.",
+        "Open the downloaded file Kraqen.apk.",
+        "Tap Install, then Open.",
+        "Tip: in Chrome you can also use the menu and choose Install app."
+      ]
+    },
+    "ios": {
+      "label": "iOS",
+      "subLabel": "INSTALL ON IPHONE",
+      "appStoreUrl": "",
+      "helpTitle": "INSTALL ON IPHONE OR IPAD",
+      "helpSteps": [
+        "Open this website in Safari.",
+        "Tap the Share button.",
+        "Choose Add to Home Screen.",
+        "Tap Add."
+      ],
+      "inAppBrowserNote": "Open this page in Safari to install the app.",
+      "copyLinkLabel": "COPY LINK"
+    },
+    "qr": {
+      "enabled": true,
+      "caption": "SCAN TO INSTALL ON YOUR PHONE",
+      "url": "https://www.kraqeninc.com/install"
+    }
   }
 }

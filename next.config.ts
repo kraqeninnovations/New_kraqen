@@ -20,6 +20,32 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizeCss: false,
   },
+  async headers() {
+    return [
+      {
+        source: '/downloads/:path*.apk',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/vnd.android.package-archive',
+          },
+          {
+            key: 'Content-Disposition',
+            value: 'attachment',
+          },
+        ],
+      },
+      {
+        source: '/.well-known/assetlinks.json',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/json',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

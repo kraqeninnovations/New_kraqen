@@ -53,15 +53,51 @@ export default function Nav({ site }: NavProps) {
     setMobileOpen(false);
   }, [pathname]);
 
-  // Close on Escape key
+  // Close on Escape key & Focus Trap
   useEffect(() => {
+    if (!mobileOpen) return;
+
+    // Focus the drawer on open
+    const timer = setTimeout(() => {
+      const firstFocusable = menuRef.current?.querySelector<HTMLElement>(
+        'button, a[href], [tabindex]:not([tabindex="-1"])'
+      );
+      firstFocusable?.focus();
+    }, 50);
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && mobileOpen) {
+      if (e.key === 'Escape') {
         setMobileOpen(false);
+        return;
+      }
+
+      if (e.key === 'Tab' && menuRef.current) {
+        const focusable = menuRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
       }
     };
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [mobileOpen]);
 
   return (

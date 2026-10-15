@@ -15,6 +15,8 @@ interface BrandProps {
   className?: string;
   onClick?: () => void;
   priority?: boolean;
+  style?: React.CSSProperties;
+  height?: number | string;
 }
 
 export default function Brand({
@@ -24,14 +26,18 @@ export default function Brand({
   className = '',
   onClick,
   priority = true,
+  style,
+  height,
 }: BrandProps) {
   const pathname = usePathname();
   const isContactNav = variant === 'nav' && pathname === '/contact';
 
-  let heightStyle: string | number = 'var(--logo-h)';
-  if (variant === 'menu') heightStyle = '28px';
-  else if (variant === 'footer') heightStyle = '40px';
-  else if (variant === 'marquee') heightStyle = '32px';
+  let heightStyle: string | number = height || (style?.height as string | number) || 'var(--logo-h)';
+  if (!height && !style?.height) {
+    if (variant === 'menu') heightStyle = '28px';
+    else if (variant === 'footer') heightStyle = 'var(--footer-logo-h, 40px)';
+    else if (variant === 'marquee') heightStyle = '32px';
+  }
 
   const showWord = variant === 'nav' || variant === 'menu';
 

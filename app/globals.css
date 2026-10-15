@@ -47,6 +47,9 @@
 
   /* Logo and Layout Tokens */
   --logo-h: 28px;
+  --install-logo-h: 72px;
+  --footer-wordmark-size: clamp(48px, 18vw, 220px);
+  --footer-logo-h: 40px;
   --hero-h1-size: clamp(56px, 16vw, 320px);
   --section-gap: clamp(112px, 14vw, 260px);
   --section-gap-mobile: clamp(88px, 24vw, 140px);
@@ -60,6 +63,17 @@
   :root {
     --logo-h: 22px;
     --section-gap: var(--section-gap-mobile);
+    --install-logo-h: 56px;
+    --footer-wordmark-size: clamp(56px, 21vw, 110px);
+    --footer-logo-h: 36px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  :root {
+    --install-logo-h: 72px;
+    --footer-wordmark-size: clamp(110px, 24vw, 200px);
+    --footer-logo-h: 40px;
   }
 }
 
@@ -527,6 +541,8 @@ body {
   .site-nav {
     padding-top: 14px;
     padding-bottom: 14px;
+    padding-left: clamp(16px, 4vw, 24px);
+    padding-right: clamp(16px, 4vw, 24px);
   }
 }
 
@@ -548,9 +564,22 @@ body {
 }
 
 .site-nav-links {
-  display: flex;
+  display: none;
   gap: clamp(16px, 2vw, 32px);
   flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .site-nav-links {
+    display: flex;
+  }
+}
+
+@media (max-width: 767px) {
+  .site-nav-links,
+  .nav-links {
+    display: none !important;
+  }
 }
 
 /* Brand Link & Wordmark in navbar */
@@ -1261,5 +1290,67 @@ a.brand-link,
     display: none !important;
   }
 }
+
+/* ============================================================
+   INSTALL APP BLOCK STYLES & PWA SAFE AREAS
+   ============================================================ */
+.install-pill-btn {
+  border: 1.5px solid #1a1a1a;
+  background-color: transparent;
+  color: #1a1a1a;
+  height: 56px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.install-pill-btn:hover,
+.install-pill-btn:focus-visible {
+  background-color: #1a1a1a !important;
+  color: #FF3300 !important;
+  border-color: #1a1a1a !important;
+  outline: 2px solid #1a1a1a;
+  outline-offset: 2px;
+}
+
+.install-pill-btn svg {
+  color: currentColor;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: modalFadeIn 0.25s ease-out forwards;
+}
+
+@media all and (display-mode: standalone) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .install-pill-btn,
+  .animate-fadeIn {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
 
 

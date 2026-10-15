@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { getSiteContent } from '@/lib/content';
+import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
 
 export const viewport: Viewport = {
   themeColor: '#0f0f0f',
@@ -13,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteContent();
 
   return {
-    metadataBase: new URL(site.brand.url),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || site.brand.url),
     title: {
       default: 'Kraqen Innovations LLP',
       template: 'Kraqen Innovations LLP',
@@ -28,6 +29,11 @@ export async function generateMetadata(): Promise<Metadata> {
       follow: true,
     },
     manifest: '/site.webmanifest',
+    appleWebApp: {
+      capable: true,
+      title: 'Kraqen',
+      statusBarStyle: 'black-translucent',
+    },
     openGraph: {
       type: 'website',
       siteName: site.brand.name,
@@ -95,7 +101,10 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <ServiceWorkerRegister />
+        {children}
+      </body>
     </html>
   );
 }

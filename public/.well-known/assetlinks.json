@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.kraqeninc.app",
+      "sha256_cert_fingerprints": [
+        "14:6D:E9:7D:0F:52:AB:E0:5C:8F:12:4B:73:70:E4:44:74:F9:9E:35:D4:59:6C:10:CD:E6:38:41:B4:CE:02:6C"
+      ]
+    }
+  }
+]
+

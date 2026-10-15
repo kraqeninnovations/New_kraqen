@@ -1,21 +1,27 @@
 {
+  "id": "/",
   "name": "Kraqen Innovations LLP",
   "short_name": "Kraqen",
-  "description": "Kraqen Innovations LLP is a creative, technology and digital innovation studio. We build brands that perform, scale and dominate.",
-  "start_url": "/",
+  "description": "We build brands that perform, scale and dominate. Creativity, technology and digital innovation under one roof.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#0f0f0f",
   "theme_color": "#0f0f0f",
+  "categories": ["business"],
   "icons": [
     {
       "src": "/icons/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/icons/icon-maskable-512.png",

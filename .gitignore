@@ -32,3 +32,11 @@ tsconfig.tsbuildinfo
 *.njsproj
 *.sln
 *.sw?
+
+# Android signing keys & bundles
+*.keystore
+*.jks
+*.aab
+*.pepk
+keystore.properties
+signing.properties

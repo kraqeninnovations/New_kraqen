@@ -117,6 +117,40 @@ export const siteSchema = z.object({
     formInvalidEmail: z.string().min(1, 'Invalid email error message required'),
     formServerError: z.string().min(1, 'Server error message required'),
   }),
+  install: z
+    .object({
+      enabled: z.boolean().default(true),
+      label: z.string().default('GET THE APP'),
+      title: z.string().default('INSTALL KRAQEN'),
+      text: z.string().default('Add Kraqen to your phone for faster access. Works with the latest content, every time.'),
+      appIcon: z.string().default('/brand/kraqen-mark.png'),
+      closeLabel: z.string().default('CLOSE'),
+      installedLabel: z.string().default('ALREADY INSTALLED'),
+      android: z.object({
+        label: z.string().default('ANDROID'),
+        subLabel: z.string().default('DOWNLOAD APK'),
+        apkUrl: z.string().default('/downloads/kraqen.apk'),
+        version: z.string().default('1.0.0'),
+        playStoreUrl: z.string().default(''),
+        helpTitle: z.string().default('INSTALL ON ANDROID'),
+        helpSteps: z.array(z.string()).min(1, 'needs at least 1 step'),
+      }),
+      ios: z.object({
+        label: z.string().default('iOS'),
+        subLabel: z.string().default('INSTALL ON IPHONE'),
+        appStoreUrl: z.string().default(''),
+        helpTitle: z.string().default('INSTALL ON IPHONE OR IPAD'),
+        helpSteps: z.array(z.string()).min(1, 'needs at least 1 step'),
+        inAppBrowserNote: z.string().default('Open this page in Safari to install the app.'),
+        copyLinkLabel: z.string().default('COPY LINK'),
+      }),
+      qr: z.object({
+        enabled: z.boolean().default(true),
+        caption: z.string().default('SCAN TO INSTALL ON YOUR PHONE'),
+        url: z.string().default('https://www.kraqeninc.com/install'),
+      }),
+    })
+    .optional(),
 });
 
 export type SiteContent = z.infer<typeof siteSchema>;

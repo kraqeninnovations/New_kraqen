@@ -26,6 +26,26 @@ const contentHealthStatus: Record<ContentName, ContentHealthItem> = {
   contact: { name: 'contact', status: 'valid', lastChecked: new Date().toISOString() },
 };
 
+export function checkConflictingAppPublicFiles() {
+  const cwd = process.cwd();
+  const pairs = [
+    { app: 'app/icon.png', pub: 'public/icon.png', route: '/icon.png' },
+    { app: 'app/apple-icon.png', pub: 'public/apple-icon.png', route: '/apple-icon.png' },
+    { app: 'app/favicon.ico', pub: 'public/favicon.ico', route: '/favicon.ico' },
+  ];
+
+  for (const pair of pairs) {
+    if (fs.existsSync(path.join(cwd, pair.pub)) && fs.existsSync(path.join(cwd, pair.app))) {
+      console.error(
+        `\x1b[31mCONFLICT: ${pair.pub} and ${pair.app} both serve ${pair.route}. Delete the file in /public.\x1b[0m`
+      );
+    }
+  }
+}
+
+// Run check on startup
+checkConflictingAppPublicFiles();
+
 export function getContentHealth(): ContentHealthItem[] {
   return Object.values(contentHealthStatus);
 }
