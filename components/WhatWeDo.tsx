@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import type { HomeContent } from '@/lib/schemas/home';
 
 interface WhatWeDoProps {
@@ -70,57 +71,42 @@ export default function WhatWeDo({ data }: WhatWeDoProps) {
         {data.items.map((service, i) => (
           <li
             key={service.number}
-            className="service-row flex flex-col md:flex-row md:items-end justify-between py-4 md:py-2 gap-2"
+            className="service-row border-b border-white/15"
             onMouseEnter={() => setHoveredIndex(i)}
           >
-            {/* Title (Tanker, var(--text)) */}
-            <div
-              className="service-title-wrap"
-              style={{
-                transform: hoveredIndex === i ? 'translateX(16px)' : 'translateX(0)',
-                opacity: hoveredIndex !== null && hoveredIndex !== i ? 0.4 : 1,
-              }}
+            <Link
+              href={service.href || '/work'}
+              aria-label={service.description}
+              className="flex flex-col md:flex-row md:items-end justify-between py-6 md:py-8 gap-4 group focus:outline-none focus:ring-1 focus:ring-accent"
             >
-              <span className="service-name block" style={{ color: 'var(--text)' }}>
-                {service.name}
-              </span>
-            </div>
+              {/* Title (Tanker, var(--text)) */}
+              <div
+                className="service-title-wrap transition-all duration-300 flex items-baseline gap-4"
+                style={{
+                  transform: hoveredIndex === i ? 'translateX(16px)' : 'translateX(0)',
+                  opacity: hoveredIndex !== null && hoveredIndex !== i ? 0.4 : 1,
+                }}
+              >
+                <span className="font-mono text-xs text-white/40 tracking-wider">
+                  {service.number}
+                </span>
+                <span className="font-tanker text-[clamp(36px,5.5vw,90px)] uppercase leading-[0.9] text-white tracking-tight break-words">
+                  {service.title}
+                </span>
+              </div>
 
-            {/* Number + description */}
-            <div
-              className="text-left md:text-right w-full md:max-w-[280px]"
-              style={{
-                opacity: hoveredIndex !== null && hoveredIndex !== i ? 0.4 : 1,
-                transition: 'opacity 0.3s ease',
-              }}
-            >
-              <span
-                className="block"
+              {/* Description (mono 12px, sentence case, max-width 320px) */}
+              <div
+                className="text-left md:text-right w-full md:max-w-[320px] transition-opacity duration-300"
                 style={{
-                  fontFamily: "'Space Mono', monospace",
-                  fontSize: '10px',
-                  letterSpacing: '0.04em',
-                  textTransform: 'uppercase',
-                  color: 'var(--text-muted)',
-                  marginBottom: '4px',
+                  opacity: hoveredIndex !== null && hoveredIndex !== i ? 0.4 : 1,
                 }}
               >
-                {service.number}
-              </span>
-              <span
-                className="block"
-                style={{
-                  fontFamily: "'Space Mono', monospace",
-                  fontSize: '11px',
-                  letterSpacing: '0.04em',
-                  textTransform: 'uppercase',
-                  color: 'var(--text)',
-                  lineHeight: 1.5,
-                }}
-              >
-                {service.description}
-              </span>
-            </div>
+                <p className="font-mono text-xs text-white/70 leading-relaxed normal-case">
+                  {service.description}
+                </p>
+              </div>
+            </Link>
           </li>
         ))}
       </ul>

@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import gsap from 'gsap';
 import Brand from '@/components/Brand';
-import Logo from '@/components/Logo';
 import type { SiteContent } from '@/lib/schemas/site';
 
 interface NavProps {
@@ -57,7 +56,6 @@ export default function Nav({ site }: NavProps) {
   useEffect(() => {
     if (!mobileOpen) return;
 
-    // Focus the drawer on open
     const timer = setTimeout(() => {
       const firstFocusable = menuRef.current?.querySelector<HTMLElement>(
         'button, a[href], [tabindex]:not([tabindex="-1"])'
@@ -104,8 +102,7 @@ export default function Nav({ site }: NavProps) {
     <>
       <nav
         ref={navRef}
-        className={`site-nav ${pathname === '/contact' ? 'text-[#1a1a1a] is-contact' : 'text-[var(--text)]'}`}
-        data-page={pathname === '/contact' ? 'contact' : 'default'}
+        className="site-nav text-white"
         aria-label="Main navigation"
       >
         {/* Brand Logo Link with min 44x44 tap target */}
@@ -116,7 +113,7 @@ export default function Nav({ site }: NavProps) {
           className="-ml-2"
         />
 
-        {/* Desktop Navigation Links */}
+        {/* Desktop Navigation Links (hidden on mobile) */}
         <ul className="site-nav-links hidden md:flex list-none">
           {site.navigation.links.map((link) => {
             const isActive = pathname === link.href;
@@ -124,12 +121,10 @@ export default function Nav({ site }: NavProps) {
               <li key={link.label}>
                 <Link
                   href={link.href}
-                  className={`transition-colors ${
+                  className={`transition-colors font-mono text-xs uppercase tracking-wider ${
                     isActive
-                      ? 'text-[#FF3300] !opacity-100 font-bold'
-                      : pathname === '/contact'
-                      ? 'text-[#1a1a1a] hover:opacity-60'
-                      : 'text-[var(--text)] hover:text-[var(--text-hover)]'
+                      ? 'text-accent !opacity-100 font-bold'
+                      : 'text-white/80 hover:text-white'
                   }`}
                 >
                   {link.label}
@@ -143,9 +138,7 @@ export default function Nav({ site }: NavProps) {
         <button
           type="button"
           onClick={() => setMobileOpen(true)}
-          className={`md:hidden flex flex-col justify-center items-center w-11 h-11 p-2 gap-1.5 pointer-events-auto focus:outline-none ${
-            pathname === '/contact' ? 'text-[#1a1a1a]' : 'text-[var(--text)]'
-          }`}
+          className="md:hidden flex flex-col justify-center items-center w-11 h-11 p-2 gap-1.5 pointer-events-auto focus:outline-none text-white"
           aria-expanded={mobileOpen}
           aria-controls="mobile-nav-panel"
           aria-label={site.navigation.mobileMenuLabel}
@@ -164,7 +157,10 @@ export default function Nav({ site }: NavProps) {
           aria-modal="true"
           aria-label="Mobile Navigation"
           className="fixed inset-0 z-[2000] bg-[#0f0f0f] text-white flex flex-col justify-between p-6 sm:p-10"
-          style={{ paddingTop: 'max(24px, env(safe-area-inset-top))', paddingBottom: 'max(24px, env(safe-area-inset-bottom))' }}
+          style={{
+            paddingTop: 'max(24px, env(safe-area-inset-top))',
+            paddingBottom: 'max(24px, env(safe-area-inset-bottom))',
+          }}
         >
           {/* Drawer Header */}
           <div className="flex justify-between items-center pb-6 border-b border-white/15">
@@ -195,7 +191,7 @@ export default function Nav({ site }: NavProps) {
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   className={`font-tanker text-[clamp(44px,13vw,72px)] leading-none uppercase tracking-tight transition-colors min-h-[56px] flex items-center ${
-                    isActive ? 'text-[#FF3300]' : 'text-white hover:text-[#FF3300]'
+                    isActive ? 'text-accent' : 'text-white hover:text-accent'
                   }`}
                 >
                   {link.label}
@@ -228,7 +224,7 @@ export default function Nav({ site }: NavProps) {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[#FF3300] transition-colors py-1"
+                  className="hover:text-accent transition-colors py-1"
                 >
                   {social.label}
                 </a>

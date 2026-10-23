@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import type { HomeContent } from '@/lib/schemas/home';
 
@@ -22,7 +23,6 @@ export default function Hero({ data }: HeroProps) {
 
     const initGSAP = async () => {
       const { gsap } = await import('gsap');
-
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
       if (reducedMotion) {
@@ -59,31 +59,23 @@ export default function Hero({ data }: HeroProps) {
             opacity: 1,
             scale: 1,
             duration: 1.2,
-            stagger: 0.1,
+            stagger: 0.12,
             ease: 'power2.out',
           },
           0.2
         );
 
-        // Bottom bar
-        tl.to(bottomBarRef.current, { opacity: 1, y: 0, duration: 0.8 }, 0.8);
+        // Bottom bar fades in
+        tl.to(
+          bottomBarRef.current,
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+          },
+          0.6
+        );
       }, sectionRef);
-
-      // Mouse parallax only on desktop with pointer fine
-      const hasFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-      if (!hasFinePointer) return;
-
-      const handleMouseMove = (e: MouseEvent) => {
-        const x = (e.clientX / window.innerWidth - 0.5) * 2;
-        const y = (e.clientY / window.innerHeight - 0.5) * 2;
-        gsap.to(img1Ref.current, { x: x * -18, y: y * -10, duration: 1, ease: 'power2.out' });
-        gsap.to(img2Ref.current, { x: x * 12, y: y * 8, duration: 1, ease: 'power2.out' });
-        gsap.to(img3Ref.current, { x: x * -14, y: y * 12, duration: 1, ease: 'power2.out' });
-        gsap.to(img4Ref.current, { x: x * 20, y: y * -6, duration: 1, ease: 'power2.out' });
-      };
-
-      window.addEventListener('mousemove', handleMouseMove);
-      return () => window.removeEventListener('mousemove', handleMouseMove);
     };
 
     initGSAP();
@@ -96,21 +88,20 @@ export default function Hero({ data }: HeroProps) {
   return (
     <section
       ref={sectionRef}
-      id="home"
-      className="relative bg-[#0f0f0f] overflow-hidden flex flex-col justify-between"
-      style={{ minHeight: '100svh' }}
+      className="hero relative min-h-[100svh] flex flex-col justify-between overflow-hidden"
+      style={{ backgroundColor: 'var(--bg-hero)' }}
       aria-label="Hero"
     >
-      {/* ── IMAGE A: top-center, woman w/ snacks ── */}
+      {/* ── IMAGE A: top-center ── */}
       {data.images[0] && (
         <div
           ref={img1Ref}
-          className="absolute pointer-events-none z-10"
+          className="absolute z-10 pointer-events-none"
           style={{
+            top: '4%',
             left: '50%',
             transform: 'translateX(-50%)',
-            top: '-2%',
-            width: 'clamp(80px, 24vw, 240px)',
+            width: 'clamp(90px, 14vw, 240px)',
           }}
           aria-hidden="true"
         >
@@ -125,7 +116,7 @@ export default function Hero({ data }: HeroProps) {
         </div>
       )}
 
-      {/* ── IMAGE B: left, blurred runner ── */}
+      {/* ── IMAGE B: left runner ── */}
       {data.images[1] && (
         <div
           ref={img2Ref}
@@ -148,7 +139,7 @@ export default function Hero({ data }: HeroProps) {
         </div>
       )}
 
-      {/* ── IMAGE C: left-center, ice cube ── */}
+      {/* ── IMAGE C: left-center ice ── */}
       {data.images[2] && (
         <div
           ref={img3Ref}
@@ -171,7 +162,7 @@ export default function Hero({ data }: HeroProps) {
         </div>
       )}
 
-      {/* ── IMAGE D: right, city skyline ── */}
+      {/* ── IMAGE D: right city ── */}
       {data.images[3] && (
         <div
           ref={img4Ref}
@@ -194,12 +185,12 @@ export default function Hero({ data }: HeroProps) {
         </div>
       )}
 
-      {/* ── CENTERED HEADLINE (one line per array item, using var(--hero-h1-size)) ── */}
+      {/* ── CENTERED HEADLINE ── */}
       <div
         className="flex-1 flex items-center justify-center relative z-20"
         style={{
           paddingTop: 'clamp(88px, 12vw, 160px)',
-          paddingBottom: 'clamp(48px, 8vw, 120px)',
+          paddingBottom: 'clamp(32px, 5vw, 64px)',
           paddingLeft: 'var(--px)',
           paddingRight: 'var(--px)',
         }}
@@ -228,35 +219,42 @@ export default function Hero({ data }: HeroProps) {
         </h1>
       </div>
 
-      {/* ── BOTTOM BAR (stacks on mobile: location, paragraph, CTA) ── */}
-      <div ref={bottomBarRef} className="relative z-30 mt-auto section-px">
-        <div className="hairline" style={{ backgroundColor: 'var(--line)' }} />
-        <div className="flex flex-col md:grid md:grid-cols-[1fr_auto_1fr] items-start md:items-center gap-3 md:gap-6 py-5 text-left md:text-center">
-          <span
-            className="font-mono text-[11px] tracking-[0.04em] uppercase"
-            style={{ color: 'var(--text-muted)' }}
-          >
-            {data.location}
-          </span>
+      {/* ── BOTTOM AREA (location on left, centered paragraph, centered button under it) ── */}
+      <div ref={bottomBarRef} className="relative z-30 mt-auto section-px pb-8 md:pb-12">
+        <div className="hairline mb-6 md:mb-8" style={{ backgroundColor: 'var(--line)' }} />
+
+        <div className="relative flex flex-col items-center">
+          {/* Location label small on the left (absolute on desktop, top-left on mobile) */}
+          <div className="w-full md:absolute md:left-0 md:top-2 text-left mb-4 md:mb-0">
+            <span
+              className="font-mono text-[11px] tracking-[0.04em] uppercase"
+              style={{ color: 'var(--text-muted)' }}
+            >
+              {data.location}
+            </span>
+          </div>
+
+          {/* Centered paragraph */}
           <p
-            className="font-mono text-[11px] leading-[1.6] max-w-[380px] normal-case"
-            style={{ letterSpacing: '0.02em', color: 'var(--text)' }}
+            className="font-mono text-[13px] leading-relaxed max-w-[560px] text-center text-white/90 normal-case mb-6"
+            style={{ letterSpacing: '0.01em' }}
           >
             {data.paragraph}
           </p>
-          <a
-            href={data.cta.href}
-            className="font-mono text-[11px] tracking-[0.04em] uppercase transition-colors md:text-right"
-            style={{ color: 'var(--text)' }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.color = '#FF3300';
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.color = 'var(--text)';
-            }}
-          >
-            {data.cta.label}
-          </a>
+
+          {/* Centered CTA button */}
+          <div className="w-full sm:w-auto flex justify-center">
+            <Link
+              href={data.cta.href}
+              className="w-full sm:w-auto inline-flex items-center justify-center rounded-full font-mono text-[13px] uppercase tracking-wider font-bold min-h-[52px] px-9 py-[18px] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black hover:bg-white hover:text-brand-purple"
+              style={{
+                backgroundColor: 'var(--accent)',
+                color: '#FFFFFF',
+              }}
+            >
+              {data.cta.label}
+            </Link>
+          </div>
         </div>
       </div>
     </section>

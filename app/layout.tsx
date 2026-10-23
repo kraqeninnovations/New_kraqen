@@ -16,8 +16,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || site.brand.url),
     title: {
-      default: 'Kraqen Innovations LLP',
-      template: 'Kraqen Innovations LLP',
+      default: site.seo.title,
+      template: '%s',
     },
     description: site.seo.description || site.brand.description,
     keywords: site.seo.keywords,
@@ -37,7 +37,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       type: 'website',
       siteName: site.brand.name,
-      title: site.seo.title || site.brand.name,
+      title: site.seo.title,
       description: site.seo.description || site.brand.description,
       url: site.brand.url,
       images: [
@@ -51,7 +51,7 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: site.seo.title || site.brand.name,
+      title: site.seo.title,
       description: site.seo.description || site.brand.description,
       images: [site.seo.ogImage || '/og-image.png'],
     },
@@ -80,6 +80,9 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="icon" href="/favicon.ico?v=5" sizes="any" />
+        <link rel="icon" href="/icon.png?v=5" type="image/png" sizes="512x512" />
+        <link rel="apple-touch-icon" href="/apple-icon.png?v=5" />
         <link rel="preconnect" href="https://api.fontshare.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

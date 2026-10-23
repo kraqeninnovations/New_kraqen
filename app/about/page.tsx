@@ -1,25 +1,26 @@
 import type { Metadata } from 'next';
 import Nav from '@/components/Nav';
-import CustomCursor from '@/components/CustomCursor';
 import LenisInit from '@/components/LenisInit';
 import PageTransition from '@/components/PageTransition';
+import AboutHero from '@/components/AboutHero';
 import AboutIntro from '@/components/AboutIntro';
 import AboutTeam from '@/components/AboutTeam';
+import AboutBlueprint from '@/components/AboutBlueprint';
+import AboutOnSet from '@/components/AboutOnSet';
+import AboutCTA from '@/components/AboutCTA';
 import AboutWhatWeDo from '@/components/AboutWhatWeDo';
 import AboutStudioSplit from '@/components/AboutStudioSplit';
 import AboutApproach from '@/components/AboutApproach';
-import MarqueeStrip from '@/components/MarqueeStrip';
 import Footer from '@/components/Footer';
-import FloatingReelWidget from '@/components/FloatingReelWidget';
 import { getSiteContent, getAboutContent, getHomeContent } from '@/lib/content';
 
 export async function generateMetadata(): Promise<Metadata> {
   const [site, about] = await Promise.all([getSiteContent(), getAboutContent()]);
   return {
-    title: 'Kraqen Innovations LLP',
+    title: about.seo.title || 'About Kraqen Innovations | Kraqen',
     description: about.seo.description || site.seo.description,
     openGraph: {
-      title: 'Kraqen Innovations LLP',
+      title: about.seo.title || 'About Kraqen Innovations | Kraqen',
       description: about.seo.description || site.seo.description,
       type: 'website',
     },
@@ -34,36 +35,43 @@ export default async function AboutPage() {
   ]);
 
   return (
-    <div className="about-page-wrapper">
+    <div className="about-page-wrapper bg-[#0f0f0f]">
       <LenisInit />
-      <CustomCursor />
       <PageTransition />
       <Nav site={site} />
       <main>
-        {/* 1. About Intro */}
+        {/* 1. Hero */}
+        <AboutHero data={about.hero} />
+
+        {/* 2. Intro: We Engineer Visual Culture */}
         <AboutIntro data={about.intro} />
 
-        {/* 2. Team: Staggered 2-column layout */}
+        {/* 3. Team: The Minds Behind the Lens */}
         <AboutTeam data={about.team} />
 
-        {/* 3. What We Do (Services) */}
-        <AboutWhatWeDo data={about.services} homeServices={home.services} />
+        {/* 4. The Blueprint to Execution */}
+        <AboutBlueprint data={about.blueprint} />
 
-        {/* 4. Studio Photo Split */}
-        <AboutStudioSplit data={about.studioSplit} />
+        {/* 5. On Set & In the Suite */}
+        <AboutOnSet data={about.onSet} />
 
-        {/* 5. Approach + Client Grid */}
-        <AboutApproach data={about.approach} homeClients={home.partners.clients} />
+        {/* 6. Inquiry CTA: Let's Build Something Cult */}
+        <AboutCTA data={about.cta} site={site} />
 
-        {/* 6. Marquee Strip */}
-        <MarqueeStrip data={site.marquee} wordmark={site.brand.giantWordmark} />
+        {/* Legacy Sections (toggled via about.legacy in about.json) */}
+        {about.legacy?.whatWeDo && about.services && (
+          <AboutWhatWeDo data={about.services} homeServices={home.services} />
+        )}
+        {about.legacy?.studioSplit && about.studioSplit && (
+          <AboutStudioSplit data={about.studioSplit} />
+        )}
+        {about.legacy?.approachClients && about.approach && (
+          <AboutApproach data={about.approach} homeClients={home.partners.items} />
+        )}
 
-        {/* 7. Footer / CTA with giant wordmark */}
+        {/* Footer (form card automatically hidden on /about) */}
         <Footer site={site} />
       </main>
-
-      {/* 8. Floating Reel Widget */}
-      <FloatingReelWidget data={site.reelWidget} />
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
-import { getContactContent, getSiteContent } from '@/lib/content';
+import { getSiteContent } from '@/lib/content';
 
-// Basic in-memory rate limiter (5 requests per 10 mins per IP)
+// Rate limiter (5 requests per 10 mins per IP)
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const MAX_REQUESTS = 5;
 const ipRequests = new Map<string, { count: number; resetAt: number }>();
@@ -38,87 +38,66 @@ export async function POST(request: Request) {
       );
     }
 
-    const [contact, site] = await Promise.all([getContactContent(), getSiteContent()]);
+    const site = await getSiteContent();
     const body = await request.json();
 
     // 1. Honeypot check
     if (body._hp && body._hp.length > 0) {
-      return NextResponse.json({ success: true, message: 'Message sent successfully' });
+      return NextResponse.json({ success: true, message: site.forms.success.text });
     }
 
-    // 2. Build dynamic Zod validator based on contact.json field config
-    const schemaShape: Record<string, z.ZodTypeAny> = {
+    // 2. Determine fieldSet (default: inquiry)
+    const fieldSetName = body.fieldSet === 'contact' ? 'contact' : 'inquiry';
+    const fields = site.forms.fieldSets[fieldSetName] || site.forms.fieldSets.inquiry || [];
+
+    // 3. Build dynamic validator
+    const shape: Record<string, z.ZodTypeAny> = {
       _hp: z.string().optional(),
+      fieldSet: z.string().optional(),
+      source: z.string().optional(),
     };
 
-    if (contact.fields.name.enabled) {
-      schemaShape.name = contact.fields.name.required
-        ? z.string().trim().min(1, contact.validation.nameRequired)
-        : z.string().trim().optional();
-    }
+    fields.forEach((f) => {
+      if (f.id === 'email') {
+        shape.email = f.required
+          ? z.string().trim().min(1, site.forms.validation.required).email(site.forms.validation.email)
+          : z.string().trim().email(site.forms.validation.email).optional().or(z.literal(''));
+      } else if (f.id === 'phone') {
+        shape.phone = f.required
+          ? z.string().trim().min(5, site.forms.validation.phone)
+          : z.string().trim().optional().or(z.literal(''));
+      } else if (f.id === 'service') {
+        shape.service = f.required
+          ? z.string().trim().min(1, site.forms.validation.required)
+          : z.string().trim().optional().or(z.literal(''));
+      } else {
+        shape[f.id] = f.required
+          ? z.string().trim().min(1, site.forms.validation.required)
+          : z.string().trim().optional().or(z.literal(''));
+      }
+    });
 
-    if (contact.fields.email.enabled) {
-      schemaShape.email = contact.fields.email.required
-        ? z.string().trim().email(contact.validation.emailInvalid)
-        : z.string().trim().optional();
-    }
-
-    if (contact.fields.phone.enabled) {
-      schemaShape.phone = contact.fields.phone.required
-        ? z.string().trim().min(1, 'Phone is required')
-        : z.string().trim().optional();
-    }
-
-    if (contact.fields.company.enabled) {
-      schemaShape.company = contact.fields.company.required
-        ? z.string().trim().min(1, 'Company is required')
-        : z.string().trim().optional();
-    }
-
-    if (contact.fields.projectTypes.enabled) {
-      schemaShape.projectTypes = contact.fields.projectTypes.required
-        ? z.array(z.string()).min(1, contact.validation.projectTypeRequired)
-        : z.array(z.string()).optional();
-    }
-
-    if (contact.fields.budget.enabled) {
-      schemaShape.budget = contact.fields.budget.required
-        ? z.string().trim().min(1, contact.validation.budgetRequired)
-        : z.string().trim().optional();
-    }
-
-    if (contact.fields.timing.enabled) {
-      schemaShape.timing = contact.fields.timing.required
-        ? z.string().trim().min(1, contact.validation.timingRequired)
-        : z.string().trim().optional();
-    }
-
-    if (contact.fields.message.enabled) {
-      schemaShape.message = contact.fields.message.required
-        ? z.string().trim().min(10, contact.validation.messageMinLength || contact.validation.messageRequired)
-        : z.string().trim().optional();
-    }
-
-    const dynamicSchema = z.object(schemaShape);
-    const result = dynamicSchema.safeParse(body);
+    const schema = z.object(shape);
+    const result = schema.safeParse(body);
 
     if (!result.success) {
       const fieldErrors: Record<string, string> = {};
       result.error.issues.forEach((err) => {
-        if (err.path[0]) {
-          fieldErrors[err.path[0].toString()] = err.message;
+        const fieldName = err.path[0]?.toString();
+        if (fieldName) {
+          fieldErrors[fieldName] = err.message;
         }
       });
       return NextResponse.json(
-        { error: 'Validation failed', fieldErrors },
+        { error: site.forms.error, fieldErrors },
         { status: 400 }
       );
     }
 
-    const { name, email, phone, company, projectTypes, budget, timing, message } = result.data as Record<string, any>;
+    const data = result.data as Record<string, any>;
     const recipient = process.env.CONTACT_TO_EMAIL || site.brand.email;
 
-    // 3. Email dispatch attempt
+    // 4. Send email if Resend is configured, otherwise log
     if (process.env.RESEND_API_KEY) {
       try {
         const resendRes = await fetch('https://api.resend.com/emails', {
@@ -128,21 +107,18 @@ export async function POST(request: Request) {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            from: `${site.brand.name} Enquiries <enquiries@kraqeninc.com>`,
+            from: `${site.brand.name} <enquiries@kraqeninc.com>`,
             to: [recipient],
-            reply_to: email,
-            subject: `New Project Enquiry: ${name || 'Prospective Client'} (${company || 'Individual'})`,
+            reply_to: data.email,
+            subject: `[${data.source?.toUpperCase() || 'WEBSITE'}] New Enquiry from ${data.name || 'Client'} (${data.service || 'General'})`,
             html: `
               <h2>New Project Enquiry</h2>
-              <p><strong>Name:</strong> ${name || 'N/A'}</p>
-              <p><strong>Email:</strong> ${email || 'N/A'}</p>
-              <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
-              <p><strong>Company:</strong> ${company || 'N/A'}</p>
-              <p><strong>Project Types:</strong> ${Array.isArray(projectTypes) ? projectTypes.join(', ') : 'N/A'}</p>
-              <p><strong>Budget:</strong> ${budget || 'N/A'}</p>
-              <p><strong>Timing:</strong> ${timing || 'N/A'}</p>
-              <p><strong>Message:</strong></p>
-              <p style="white-space: pre-wrap;">${message || 'N/A'}</p>
+              <p><strong>Source:</strong> ${data.source || 'website'}</p>
+              <p><strong>Name:</strong> ${data.name || 'N/A'}</p>
+              <p><strong>Email:</strong> ${data.email || 'N/A'}</p>
+              <p><strong>Phone:</strong> ${data.phone || 'N/A'}</p>
+              ${data.brand ? `<p><strong>Brand / Website:</strong> ${data.brand}</p>` : ''}
+              <p><strong>Service Needed:</strong> ${data.service || 'N/A'}</p>
             `,
           }),
         });
@@ -153,25 +129,19 @@ export async function POST(request: Request) {
         console.error('Error dispatching via Resend:', err);
       }
     } else {
-      console.log('--- [CONTACT FORM ENQUIRY RECEIVED] ---');
+      console.log('--- [ENQUIRY RECEIVED] ---');
       console.log({
-        to: recipient,
-        from: email,
-        name,
-        company,
-        phone,
-        projectTypes,
-        budget,
-        timing,
-        message,
+        recipient,
+        ...data,
         timestamp: new Date().toISOString(),
       });
-      console.log('---------------------------------------');
+      console.log('--------------------------');
     }
 
     return NextResponse.json({
       success: true,
-      message: contact.success.message,
+      title: site.forms.success.title,
+      message: site.forms.success.text,
     });
   } catch (err: unknown) {
     console.error('Unexpected error in contact API:', err);

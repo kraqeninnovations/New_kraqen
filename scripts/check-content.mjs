@@ -9,8 +9,6 @@ const rootDir = path.resolve(__dirname, '..');
 const contentDir = path.join(rootDir, 'content');
 const publicDir = path.join(rootDir, 'public');
 
-const files = ['site', 'home', 'about', 'work', 'contact'];
-
 let totalErrors = 0;
 const report = [];
 
@@ -43,13 +41,10 @@ function checkAssetExists(assetPath, contextStr) {
   const fullPath = path.join(publicDir, normalized);
 
   if (!fs.existsSync(fullPath)) {
-    const extra = contextStr.path && contextStr.path.includes('apkUrl')
-      ? ' Build the APK (see docs/ANDROID_APK.md) or set install.enabled to false.'
-      : '';
     report.push({
       file: contextStr.file,
       path: contextStr.path,
-      message: `file "${assetPath}" not found in /public.${extra}`,
+      message: `file "${assetPath}" not found in /public.`,
     });
     totalErrors++;
   }
@@ -71,20 +66,17 @@ function scanForAssets(obj, file, currentPath = '') {
       if (
         key === 'image' ||
         key === 'logo' ||
-        key === 'hoverImage' ||
         key === 'src' ||
-        key === 'videoSrc' ||
-        key === 'previewSrc' ||
-        key === 'posterSrc' ||
+        key === 'poster' ||
         key === 'ogImage' ||
         key === 'navbarLogo' ||
         key === 'mark' ||
         key === 'whiteLogo' ||
-        key === 'darkLogo' ||
-        key === 'appIcon' ||
-        key === 'apkUrl'
+        key === 'darkLogo'
       ) {
-        checkAssetExists(value, { file: `content/${file}.json`, path: keyPath });
+        if (value.trim().length > 0) {
+          checkAssetExists(value, { file: `content/${file}.json`, path: keyPath });
+        }
       }
     } else if (typeof value === 'object' && value !== null) {
       scanForAssets(value, file, keyPath);
@@ -93,6 +85,16 @@ function scanForAssets(obj, file, currentPath = '') {
 }
 
 // Schemas for validation
+const formFieldSchema = z.object({
+  id: z.string().min(1),
+  type: z.enum(['text', 'email', 'tel', 'select', 'textarea']),
+  label: z.string().min(1),
+  placeholder: z.string().optional().default(''),
+  required: z.boolean().default(false),
+  row: z.string().optional(),
+  optionsFrom: z.string().optional(),
+});
+
 const siteSchema = z.object({
   brand: z.object({
     name: z.string().min(1, 'Brand name is required'),
@@ -118,27 +120,11 @@ const siteSchema = z.object({
       navbarLogo: z
         .string()
         .min(1)
-        .regex(/^\/.+\.(png|svg|webp|jpe?g|ico)$/i, 'Must be a path like "/brand/kraqen-logo.png"'),
-      whiteLogo: z
-        .string()
-        .min(1)
-        .regex(/^\/.+\.(png|svg|webp|jpe?g|ico)$/i, 'Must be a path like "/brand/kraqen-logo.png"')
-        .optional(),
-      darkLogo: z
-        .string()
-        .min(1)
-        .regex(/^\/.+\.(png|svg|webp|jpe?g|ico)$/i, 'Must be a path like "/brand/kraqen-logo.png"')
-        .optional(),
-      mark: z
-        .string()
-        .min(1)
-        .regex(/^\/.+\.(png|svg|webp|jpe?g|ico)$/i, 'Must be a path like "/brand/kraqen-logo.png"')
-        .optional(),
-      favicon: z
-        .string()
-        .min(1)
-        .regex(/^\/.+\.(png|svg|webp|jpe?g|ico)$/i, 'Must be a path like "/brand/kraqen-logo.png"')
-        .optional(),
+        .regex(/^\/.+\.(png|svg|webp|jpe?g|ico)$/i, 'Must be a path like "/brand/kraqen-mark.png"'),
+      whiteLogo: z.string().min(1).regex(/^\/.+\.(png|svg|webp|jpe?g|ico)$/i).optional(),
+      darkLogo: z.string().min(1).regex(/^\/.+\.(png|svg|webp|jpe?g|ico)$/i).optional(),
+      mark: z.string().min(1).regex(/^\/.+\.(png|svg|webp|jpe?g|ico)$/i).optional(),
+      favicon: z.string().min(1).regex(/^\/.+\.(png|svg|webp|jpe?g|ico)$/i).optional(),
       alt: z.string().default('Kraqen Innovations LLP'),
     })
     .transform((l) => ({
@@ -168,34 +154,64 @@ const siteSchema = z.object({
       href: z.string().min(1, 'Social link href required'),
     })
   ),
-  marquee: z.object({
-    pill: z.string().min(1, 'Marquee pill text is required'),
-    category: z.string().min(1, 'Marquee category is required'),
-    p1: z.string().min(1, 'Marquee paragraph 1 is required'),
-    p2: z.string().min(1, 'Marquee paragraph 2 is required'),
-  }),
   footer: z.object({
-    cta: z.object({
-      line1: z.string().min(1, 'Footer CTA line 1 required'),
-      line2: z.string().min(1, 'Footer CTA line 2 required'),
-      href: z.string().min(1, 'Footer CTA href required'),
-    }),
-    navColumns: z.array(
-      z.array(
-        z.object({
-          label: z.string().min(1, 'Footer nav label required'),
-          href: z.string().min(1, 'Footer nav href required'),
-        })
-      )
+    ctaLines: z.array(z.string().min(1)).min(1, 'Footer CTA lines required'),
+    ctaHref: z.string().min(1, 'Footer CTA href required'),
+    columnA: z.array(
+      z.object({
+        label: z.string().min(1, 'Footer link label required'),
+        href: z.string().min(1, 'Footer link href required'),
+      })
+    ),
+    columnBUseSocials: z.boolean().default(true),
+    formTitle: z.string().min(1, 'Form title required'),
+    formSubtitle: z.string().min(1, 'Form subtitle required'),
+    hideFormOnPaths: z.array(z.string()).default([]),
+    copyright: z.string().min(1, 'Copyright is required'),
+    legal: z.array(
+      z.object({
+        label: z.string().min(1, 'Legal link label required'),
+        href: z.string().min(1, 'Legal link href required'),
+      })
     ),
   }),
-  reelWidget: z.object({
-    title: z.string().min(1, 'Reel widget title is required'),
-    label: z.string().min(1, 'Reel widget label is required'),
-    videoSrc: z.string().min(1, 'Reel videoSrc is required'),
-    previewSrc: z.string().min(1, 'Reel previewSrc is required'),
-    posterSrc: z.string().min(1, 'Reel posterSrc is required'),
-    enabled: z.boolean().default(true),
+  serviceOptions: z.array(z.string().min(1)).min(1, 'At least one service option required'),
+  forms: z.object({
+    fieldSets: z.record(z.string(), z.array(formFieldSchema)),
+    labels: z.object({
+      required: z.string().default('(REQUIRED)'),
+      optional: z.string().default('(OPTIONAL)'),
+    }),
+    submit: z.object({
+      footer: z.string().default("LET'S TALK"),
+      about: z.string().default('SEND ENQUIRY'),
+      contact: z.string().default("LET'S TALK GROWTH!"),
+      sending: z.string().default('SENDING...'),
+    }),
+    validation: z.object({
+      required: z.string().default('This field is required'),
+      email: z.string().default('Please enter a valid email'),
+      phone: z.string().default('Please enter a valid phone number'),
+    }),
+    success: z.object({
+      title: z.string().default('THANK YOU.'),
+      text: z.string().default('We got your enquiry and will reply within 1 to 2 business days.'),
+    }),
+    error: z.string().default('Something went wrong. Please try again or email us directly.'),
+  }),
+  office: z.object({
+    label: z.string().default('OUR CHENNAI OFFICE'),
+    addressLines: z.array(z.string()).default([]),
+    mapUrl: z.string().default(''),
+    whatsapp: z.object({
+      label: z.string().default('WHATSAPP'),
+      number: z.string().min(1),
+      message: z.string().default(''),
+    }),
+    email: z.object({
+      label: z.string().default('EMAIL'),
+      address: z.string().email(),
+    }),
   }),
   notFound: z.object({
     title: z.string().min(1, '404 title is required'),
@@ -204,46 +220,25 @@ const siteSchema = z.object({
     buttonHref: z.string().min(1, '404 button href is required'),
   }),
   errors: z.object({
-    generic: z.string().min(1),
-    network: z.string().min(1),
-    formRequired: z.string().min(1),
-    formInvalidEmail: z.string().min(1),
-    formServerError: z.string().min(1),
+    generic: z.string().min(1, 'Generic error message required'),
+    network: z.string().min(1, 'Network error message required'),
+    formRequired: z.string().min(1, 'Required error message required'),
+    formInvalidEmail: z.string().min(1, 'Invalid email error message required'),
+    formServerError: z.string().min(1, 'Server error message required'),
   }),
-  install: z
-    .object({
-      enabled: z.boolean().default(true),
-      label: z.string().default('GET THE APP'),
-      title: z.string().default('INSTALL KRAQEN'),
-      text: z.string().default('Add Kraqen to your phone for faster access. Works with the latest content, every time.'),
-      appIcon: z.string().default('/brand/kraqen-mark.png'),
-      closeLabel: z.string().default('CLOSE'),
-      installedLabel: z.string().default('ALREADY INSTALLED'),
-      android: z.object({
-        label: z.string().default('ANDROID'),
-        subLabel: z.string().default('DOWNLOAD APK'),
-        apkUrl: z.string().default('/downloads/kraqen.apk'),
-        version: z.string().default('1.0.0'),
-        playStoreUrl: z.string().default(''),
-        helpTitle: z.string().default('INSTALL ON ANDROID'),
-        helpSteps: z.array(z.string()).min(1, 'needs at least 1 step'),
-      }),
-      ios: z.object({
-        label: z.string().default('iOS'),
-        subLabel: z.string().default('INSTALL ON IPHONE'),
-        appStoreUrl: z.string().default(''),
-        helpTitle: z.string().default('INSTALL ON IPHONE OR IPAD'),
-        helpSteps: z.array(z.string()).min(1, 'needs at least 1 step'),
-        inAppBrowserNote: z.string().default('Open this page in Safari to install the app.'),
-        copyLinkLabel: z.string().default('COPY LINK'),
-      }),
-      qr: z.object({
-        enabled: z.boolean().default(true),
-        caption: z.string().default('SCAN TO INSTALL ON YOUR PHONE'),
-        url: z.string().default('https://www.kraqeninc.com/install'),
-      }),
-    })
-    .optional(),
+});
+
+const homePartnerSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  logo: z.string().min(1),
+});
+
+const homeServiceItemSchema = z.object({
+  number: z.string().min(1),
+  title: z.string().min(1),
+  description: z.string().min(1),
+  href: z.string().min(1).default('/work'),
 });
 
 const homeSchema = z.object({
@@ -263,285 +258,205 @@ const homeSchema = z.object({
       z.object({
         src: z.string().min(1, 'Hero image src is required'),
         alt: z.string().min(1, 'Hero image alt is required'),
-        position: z.enum(['top-center', 'left', 'left-center', 'right']),
+        position: z.string().optional().default('top-center'),
       })
     ).min(1, 'At least one hero image required'),
   }),
   selectedWork: z.object({
-    label: z.string().optional(),
-    labelLeft: z.string().optional(),
-    labelRight: z.string().optional(),
-    headingLines: z.array(z.string().min(1)).min(1),
-    sideText: z.string().optional(),
-    paragraph: z.string().optional(),
-    hoverLabel: z.string().optional(),
-    source: z.enum(['manual', 'instagram-api']).optional(),
-    limit: z.number().optional(),
-    instagram: z
-      .object({
-        handle: z.string().min(1),
-        profileUrl: z.string().url(),
-        openLabel: z.string().optional(),
-        followLabel: z.string().optional(),
-        embedFailedText: z.string().optional(),
-      })
-      .optional(),
-    viewer: z
-      .object({
-        closeLabel: z.string().optional(),
-        prevLabel: z.string().optional(),
-        nextLabel: z.string().optional(),
-        hint: z.string().optional(),
-        reelBadge: z.string().optional(),
-        postBadge: z.string().optional(),
-      })
-      .optional(),
-    projects: z.array(
-      z.object({
-        id: z.string().optional(),
-        number: z.string().optional(),
-        name: z.string().optional(),
-        title: z.string().optional(),
-        services: z.string().optional(),
-        category: z.string().optional(),
-        year: z.string().min(1),
-        mediaType: z.enum(['reel', 'post', 'image']).optional(),
-        instagramUrl: z
-          .string()
-          .regex(
-            /^https:\/\/(www\.)?instagram\.com\/(reel|reels|p|tv)\/[A-Za-z0-9_-]+\/?.*$/,
-            'must look like https://www.instagram.com/reel/XXXX/ or https://www.instagram.com/p/XXXX/'
-          )
-          .optional()
-          .or(z.literal('')),
-        image: z.string().min(1),
-        video: z.string().optional(),
-        alt: z.string().optional(),
-        fit: z.enum(['cover', 'inset', 'full-bleed']).optional(),
-        imageStyle: z.enum(['full-bleed', 'inset', 'cover']).optional(),
-      }).refine(
-        (p) => {
-          if (p.mediaType === 'reel' || p.mediaType === 'post') {
-            const hasUrl = typeof p.instagramUrl === 'string' && p.instagramUrl.length > 0;
-            const hasVid = typeof p.video === 'string' && p.video.length > 0;
-            return hasUrl || hasVid;
-          }
-          return true;
-        },
-        {
-          message: 'if mediaType is reel or post then instagramUrl or video is required',
-          path: ['instagramUrl'],
-        }
-      )
-    ).min(1),
+    label: z.string().default('SELECTED WORK'),
+    headingLines: z.array(z.string().min(1)).min(1, 'Heading lines required'),
+    sideText: z.string().default(''),
+    featuredSlugs: z.array(z.string().min(1)).min(1, 'At least one featured slug required'),
+    labels: z.object({
+      client: z.string().default('CLIENT / INDUSTRY'),
+      deliverable: z.string().default('DELIVERABLE'),
+      result: z.string().default('RESULT / IMPACT'),
+    }),
+    viewLabel: z.string().default('VIEW PROJECT'),
   }),
   services: z.object({
-    labelLeft: z.string().min(1),
-    labelRight: z.string().min(1),
-    items: z.array(
-      z.object({
-        number: z.string().min(1),
-        name: z.string().min(1),
-        description: z.string().min(1),
-      })
-    ).min(1),
+    labelLeft: z.string().default('WHAT WE DO'),
+    labelRight: z.string().default('FULL SERVICE PRODUCTION'),
+    items: z.array(homeServiceItemSchema).min(1, 'At least one service required'),
   }),
   partners: z.object({
-    labelLeft: z.string().min(1),
-    labelRight: z.string().min(1),
-    headingLines: z.array(z.string().min(1)).min(1),
-    fillEmptyCells: z.boolean().default(true),
-    clients: z.array(
-      z.object({
-        id: z.string().min(1),
-        name: z.string().min(1),
-        logo: z.string().min(1, 'Required. Expected a string like "/logos/name.svg".'),
-        hoverImage: z.string().min(1, 'Required. Expected a string like "/images/hover.jpg".'),
-        scale: z.number().optional().default(1),
-      })
-    ).min(1),
+    labelLeft: z.string().default('OUR CLIENTS'),
+    labelRight: z.string().default('SELECTED PARTNERS'),
+    headingLines: z.array(z.string().min(1)).min(1, 'Heading lines required'),
+    runner: z.object({
+      enabled: z.boolean().default(true),
+      direction: z.enum(['horizontal', 'vertical']).default('horizontal'),
+      speedSeconds: z.number().min(5).max(120).default(40),
+      pauseOnHover: z.boolean().default(true),
+    }).default({
+      enabled: true,
+      direction: 'horizontal',
+      speedSeconds: 40,
+      pauseOnHover: true,
+    }),
+    items: z.array(homePartnerSchema).min(1, 'At least one partner item required'),
   }),
+});
+
+const teamMemberSchema = z.object({
+  id: z.string().min(1, 'Team member id is required'),
+  name: z.string().min(1, 'Team member name is required'),
+  role: z.string().min(1, 'Team member role is required'),
+  bio: z.string().min(1, 'Team member bio is required'),
+  image: z.string().min(1, 'Team member image is required'),
+  alt: z.string().min(1, 'Team member alt text is required'),
+  isGreyscaleDefault: z.boolean().default(false),
+});
+
+const blueprintStepSchema = z.object({
+  number: z.string().min(1),
+  title: z.string().min(1),
+  text: z.string().min(1),
+  image: z.string().min(1),
+  alt: z.string().min(1),
+});
+
+const onSetItemSchema = z.object({
+  src: z.string().min(1),
+  alt: z.string().min(1),
+  shape: z.enum(['wide', 'tall', 'square']),
 });
 
 const aboutSchema = z.object({
   seo: z.object({
-    title: z.string().min(1),
-    description: z.string().min(1),
+    title: z.string().min(1, 'SEO title is required'),
+    description: z.string().min(1, 'SEO description is required'),
+  }),
+  hero: z.object({
+    title: z.string().min(1, 'Hero title is required'),
+    subtitle: z.string().min(1, 'Hero subtitle is required'),
   }),
   intro: z.object({
-    title: z.string().min(1),
-    paragraph: z.string().min(1),
+    title: z.string().min(1, 'Intro title is required'),
+    paragraph: z.string().min(1, 'Intro paragraph is required'),
   }),
   team: z.object({
-    heading: z.string().default('THE TEAM'),
-    members: z.array(
-      z.object({
-        id: z.string().min(1),
-        name: z.string().min(1),
-        role: z.string().min(1),
-        bio: z.string().min(1),
-        image: z.string().min(1),
-        alt: z.string().min(1),
-        isGreyscaleDefault: z.boolean().default(false),
-      })
-    ).min(1),
+    title: z.string().default('THE MINDS BEHIND THE LENS'),
+    subtitle: z.string().default('Directed by technical precision, driven by creative strategy'),
+    members: z.array(teamMemberSchema).min(1, 'At least one team member is required'),
   }),
-  services: z.object({
-    labelLeft: z.string().min(1),
-    labelRight: z.string().min(1),
-    useHomeServices: z.boolean().default(true),
-    items: z.array(z.any()).default([]),
+  blueprint: z.object({
+    title: z.string().default('THE BLUEPRINT TO EXECUTION'),
+    subtitle: z.string().default('A production pipeline built for scale, speed, and cinematic quality.'),
+    steps: z.array(blueprintStepSchema).min(1, 'At least one step required'),
   }),
-  studioSplit: z.object({
-    left: z.object({
-      src: z.string().min(1),
-      alt: z.string().min(1),
-      widthRatio: z.string().default('66%'),
-    }),
-    right: z.object({
-      src: z.string().min(1),
-      alt: z.string().min(1),
-      widthRatio: z.string().default('34%'),
-    }),
+  onSet: z.object({
+    title: z.string().default('ON SET & IN THE SUITE'),
+    subtitle: z.string().default('Where raw footage meets visual finishing.'),
+    items: z.array(onSetItemSchema).min(1, 'At least one on-set item required'),
   }),
-  approach: z.object({
-    labelLeft: z.string().min(1),
-    labelRight: z.string().min(1),
-    headlineLines: z.array(z.string().min(1)).min(1),
-    useHomePartners: z.boolean().default(true),
-    fillEmptyCells: z.boolean().default(true),
-    clients: z.array(z.any()).default([]),
+  cta: z.object({
+    title: z.string().default("LET'S BUILD SOMETHING CULT."),
+    subtitle: z.string().default('Ready to dominate your niche? Drop your project details below.'),
+  }),
+  legacy: z.object({
+    whatWeDo: z.boolean().default(false),
+    studioSplit: z.boolean().default(false),
+    approachClients: z.boolean().default(false),
+  }).default({
+    whatWeDo: false,
+    studioSplit: false,
+    approachClients: false,
+  }),
+  services: z.any().optional(),
+  studioSplit: z.any().optional(),
+  approach: z.any().optional(),
+});
+
+const workFilterSchema = z.object({
+  id: z.string().min(1, 'Filter id is required'),
+  label: z.string().min(1, 'Filter label is required'),
+});
+
+const workCategorySchema = z.object({
+  id: z.string().min(1, 'Category id is required'),
+  title: z.string().min(1, 'Category title is required'),
+});
+
+const workItemSchema = z.object({
+  slug: z.string().min(1, 'Slug is required'),
+  title: z.string().min(1, 'Title is required'),
+  category: z.string().min(1, 'Category is required'),
+  mediaType: z.enum(['image', 'video', 'reel']).default('image'),
+  ratio: z.enum(['4:5', '16:9', '9:16']).default('4:5'),
+  src: z.string().min(1, 'Src image is required'),
+  poster: z.string().optional().default(''),
+  video: z.string().optional().default(''),
+  instagramUrl: z.string().optional().default(''),
+  alt: z.string().default(''),
+  year: z.union([z.number(), z.string()]).default(2026),
+  featured: z.boolean().optional().default(false),
+  clientIndustry: z.string().default(''),
+  deliverable: z.string().default(''),
+  result: z.string().default(''),
+  detail: z.object({
+    intro: z.string().default(''),
+    brief: z.string().default(''),
+    process: z.array(z.object({ title: z.string(), text: z.string() })).default([]),
+    gear: z.array(z.string()).default([]),
+    location: z.string().default(''),
+    credits: z.array(z.object({ role: z.string(), name: z.string() })).default([]),
+    gallery: z.array(z.object({ src: z.string(), alt: z.string(), ratio: z.string() })).default([]),
   }),
 });
 
-const workSchema = z
-  .object({
-    seo: z.object({
-      title: z.string().min(1),
-      description: z.string().min(1),
-    }),
-    header: z.object({
-      title: z.string().min(1),
-      countFormat: z.string().default('{count} / {total}'),
-      filters: z.array(
-        z.object({
-          id: z.string().min(1),
-          label: z.string().min(1),
-        })
-      ).min(1),
-    }),
-    projects: z.array(
-      z.object({
-        id: z.string().min(1),
-        title: z.string().min(1),
-        category: z.string().min(1),
-        tags: z.array(z.string().min(1)).min(1),
-        year: z.string().min(1),
-        image: z.string().min(1),
-        isVideo: z.boolean().optional(),
-        videoSrc: z.string().optional(),
-        aspect: z.string().default('aspect-[16/9]'),
-        column: z.enum(['left', 'right']),
-      })
-    ).min(1),
-  })
-  .superRefine((data, ctx) => {
-    const validFilterIds = new Set(data.header.filters.map((f) => f.id));
-    data.projects.forEach((proj, projIndex) => {
-      proj.tags.forEach((tag, tagIndex) => {
-        if (!validFilterIds.has(tag) && tag !== 'all') {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: `"${tag}" is not a valid filter id. Valid ids: ${Array.from(validFilterIds).join(', ')}`,
-            path: ['projects', projIndex, 'tags', tagIndex],
-          });
-        }
-      });
-    });
-
-    const ids = new Set();
-    data.projects.forEach((proj, projIndex) => {
-      if (ids.has(proj.id)) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: `Duplicate project id "${proj.id}" found. Slugs must be unique.`,
-          path: ['projects', projIndex, 'id'],
-        });
-      }
-      ids.add(proj.id);
-    });
-  });
+const workSchema = z.object({
+  seo: z.object({
+    title: z.string().min(1, 'SEO title is required'),
+    description: z.string().min(1, 'SEO description is required'),
+  }),
+  header: z.object({
+    title: z.string().min(1, 'Header title is required'),
+    subtitle: z.string().min(1, 'Header subtitle is required'),
+  }),
+  filters: z.object({
+    enabled: z.boolean().default(false),
+    items: z.array(workFilterSchema).default([]),
+  }).default({ enabled: false, items: [] }),
+  layout: z.object({
+    maxWidth: z.number().default(1400),
+    gap: z.number().default(12),
+    pattern: z.array(z.array(z.string())),
+  }),
+  categories: z.array(workCategorySchema).min(1, 'At least one category required'),
+  items: z.array(workItemSchema).min(1, 'At least one work item required'),
+});
 
 const contactSchema = z.object({
   seo: z.object({
-    title: z.string().min(1),
-    description: z.string().min(1),
+    title: z.string().min(1, 'SEO title is required'),
+    description: z.string().min(1, 'SEO description is required'),
   }),
-  hero: z.object({
-    label: z.string().min(1),
-    headlineLines: z.array(z.string().min(1)).min(1),
-    paragraph: z.string().min(1),
+  header: z.object({
+    label: z.string().default('CONTACT'),
+    titleLines: z.array(z.string().min(1)).min(1, 'Title lines required'),
+    paragraph: z.string().min(1, 'Header paragraph is required'),
   }),
-  fields: z.object({
-    name: z.object({ enabled: z.boolean(), required: z.boolean(), label: z.string(), placeholder: z.string() }),
-    email: z.object({ enabled: z.boolean(), required: z.boolean(), label: z.string(), placeholder: z.string() }),
-    phone: z.object({ enabled: z.boolean(), required: z.boolean(), label: z.string(), placeholder: z.string() }).optional(),
-    company: z.object({ enabled: z.boolean(), required: z.boolean(), label: z.string(), placeholder: z.string() }),
-    projectTypes: z.object({
-      enabled: z.boolean(),
-      required: z.boolean(),
-      label: z.string(),
-      options: z.array(z.object({ id: z.string(), label: z.string() })),
-    }),
-    budget: z.object({
-      enabled: z.boolean(),
-      required: z.boolean(),
-      label: z.string(),
-      placeholder: z.string(),
-      options: z.array(z.object({ value: z.string(), label: z.string() })),
-    }),
-    timing: z.object({
-      enabled: z.boolean(),
-      required: z.boolean(),
-      label: z.string(),
-      placeholder: z.string(),
-      options: z.array(z.object({ value: z.string(), label: z.string() })),
-    }),
-    message: z.object({
-      enabled: z.boolean(),
-      required: z.boolean(),
-      label: z.string(),
-      helper: z.string().optional(),
-      placeholder: z.string(),
-    }),
+  formCard: z.object({
+    title: z.string().default('SEND A MESSAGE'),
+    fieldSet: z.string().default('contact'),
+    submit: z.string().default("LET'S TALK GROWTH!"),
   }),
-  validation: z.object({
-    nameRequired: z.string().min(1),
-    emailRequired: z.string().min(1),
-    emailInvalid: z.string().min(1),
-    projectTypeRequired: z.string().min(1),
-    budgetRequired: z.string().min(1),
-    timingRequired: z.string().min(1),
-    messageRequired: z.string().min(1),
-    messageMinLength: z.string().min(1),
-  }),
-  submit: z.object({
-    label: z.string().min(1),
-    sending: z.string().min(1),
-  }),
-  privacyNote: z.string().default(''),
-  success: z.object({
-    heading: z.string().min(1),
-    message: z.string().min(1),
-    resetButton: z.string().min(1),
-  }),
-  error: z.object({
-    text: z.string().min(1),
-    showEmail: z.boolean().default(true),
+  booking: z.object({
+    enabled: z.boolean().default(true),
+    title: z.string().default('BOOK A CALL'),
+    text: z.string().default('Pick a time that suits you.'),
+    calendlyUrl: z.string().default(''),
+    height: z.object({
+      desktop: z.number().default(700),
+      mobile: z.number().default(760),
+    }).default({ desktop: 700, mobile: 760 }),
+    fallbackText: z.string().default('The calendar could not be loaded.'),
+    openLabel: z.string().default('OPEN CALENDAR'),
   }),
 });
 
-const schemaMap = {
+const schemas = {
   site: siteSchema,
   home: homeSchema,
   about: aboutSchema,
@@ -549,95 +464,129 @@ const schemaMap = {
   contact: contactSchema,
 };
 
-async function validateFile(name) {
+console.log('\n🔍 Validating content files in /content...\n');
+
+const loadedContent = {};
+
+for (const name of ['site', 'home', 'about', 'work', 'contact']) {
   const filePath = path.join(contentDir, `${name}.json`);
   if (!fs.existsSync(filePath)) {
     report.push({
       file: `content/${name}.json`,
-      path: 'root',
-      message: `File does not exist: content/${name}.json`,
+      path: '',
+      message: 'file not found.',
     });
     totalErrors++;
-    return;
-  }
-
-  let raw = '';
-  try {
-    raw = fs.readFileSync(filePath, 'utf-8');
-  } catch (err) {
-    report.push({
-      file: `content/${name}.json`,
-      path: 'root',
-      message: `Could not read file: ${err.message}`,
-    });
-    totalErrors++;
-    return;
+    continue;
   }
 
   let parsed;
   try {
+    const raw = fs.readFileSync(filePath, 'utf-8');
     parsed = JSON.parse(raw);
+    loadedContent[name] = parsed;
   } catch (err) {
-    const match = err.message.match(/position (\d+)/i);
-    let lineInfo = '';
-    if (match) {
-      const pos = parseInt(match[1], 10);
-      const lines = raw.slice(0, pos).split('\n');
-      lineInfo = ` at line ${lines.length}, column ${lines[lines.length - 1].length + 1}`;
-    }
     report.push({
       file: `content/${name}.json`,
-      path: 'syntax',
-      message: `JSON SYNTAX ERROR in content/${name}.json${lineInfo}: ${err.message}. Check for a missing comma or quote.`,
+      path: '',
+      message: `Syntax error: ${err.message}`,
     });
     totalErrors++;
-    return;
+    continue;
   }
 
-  // Schema check
-  const schema = schemaMap[name];
-  if (schema) {
-    const result = schema.safeParse(parsed);
-    if (!result.success) {
-      result.error.issues.forEach((issue) => {
-        const pathStr = issue.path.length > 0 ? issue.path.join('.') : 'root';
-        report.push({
-          file: `content/${name}.json`,
-          path: pathStr,
-          message: issue.message,
-        });
-        totalErrors++;
+  // Scan assets
+  scanForAssets(parsed, name);
+
+  // Validate with Zod schema
+  const schema = schemas[name];
+  const result = schema.safeParse(parsed);
+  if (!result.success) {
+    result.error.issues.forEach((issue) => {
+      report.push({
+        file: `content/${name}.json`,
+        path: issue.path.join('.'),
+        message: issue.message,
       });
+      totalErrors++;
+    });
+  }
+}
+
+// Extra cross-validation checks
+if (loadedContent.work && loadedContent.home) {
+  const workSlugs = new Set((loadedContent.work.items || []).map((item) => item.slug));
+  const featured = loadedContent.home.selectedWork?.featuredSlugs || [];
+  featured.forEach((slug, idx) => {
+    if (!workSlugs.has(slug)) {
+      report.push({
+        file: 'content/home.json',
+        path: `selectedWork.featuredSlugs[${idx}]`,
+        message: `featured slug "${slug}" does not exist in content/work.json items.`,
+      });
+      totalErrors++;
+    }
+  });
+
+  const categoryIds = new Set((loadedContent.work.categories || []).map((c) => c.id));
+  const seenSlugs = new Set();
+  (loadedContent.work.items || []).forEach((item, idx) => {
+    if (seenSlugs.has(item.slug)) {
+      report.push({
+        file: 'content/work.json',
+        path: `items[${idx}].slug`,
+        message: `Duplicate item slug "${item.slug}" found. Slugs must be unique.`,
+      });
+      totalErrors++;
+    }
+    seenSlugs.add(item.slug);
+
+    if (!categoryIds.has(item.category)) {
+      report.push({
+        file: 'content/work.json',
+        path: `items[${idx}].category`,
+        message: `Category "${item.category}" in item "${item.slug}" does not match any category in categories.`,
+      });
+      totalErrors++;
+    }
+
+    if (!['4:5', '16:9', '9:16'].includes(item.ratio)) {
+      report.push({
+        file: 'content/work.json',
+        path: `items[${idx}].ratio`,
+        message: `Ratio "${item.ratio}" is invalid. Must be one of 4:5, 16:9, 9:16.`,
+      });
+      totalErrors++;
+    }
+  });
+}
+
+if (loadedContent.contact) {
+  const calUrl = loadedContent.contact.booking?.calendlyUrl;
+  if (calUrl && calUrl.trim().length > 0) {
+    if (!calUrl.startsWith('https://')) {
+      report.push({
+        file: 'content/contact.json',
+        path: 'booking.calendlyUrl',
+        message: 'calendlyUrl must be a valid https URL if specified.',
+      });
+      totalErrors++;
     }
   }
-
-  // Check asset paths
-  scanForAssets(parsed, name);
 }
 
-async function run() {
-  console.log('\n🔍 Validating content files in /content...\n');
-
-  for (const name of files) {
-    await validateFile(name);
+if (totalErrors > 0) {
+  console.error(`\x1b[31m❌ Content check failed with ${totalErrors} error(s):\x1b[0m\n`);
+  report.forEach((err) => {
+    console.error(`  \x1b[31mCONTENT ERROR in ${err.file}${err.path ? ` at ${err.path}` : ''}: "${err.message}"\x1b[0m`);
+  });
+  console.error('\nPlease fix the above errors in /content and re-run "npm run content:check".\n');
+  process.exit(1);
+} else {
+  console.log('\x1b[32m✅ All 5 content files validated successfully with 0 errors.\x1b[0m');
+  for (const name of ['site', 'home', 'about', 'work', 'contact']) {
+    console.log(`   - content/${name}.json: OK`);
   }
-
-  if (totalErrors > 0) {
-    console.error('❌ Content check failed with ' + totalErrors + ' error(s):\n');
-    report.forEach((err) => {
-      console.error(`  CONTENT ERROR in ${err.file} at ${err.path}: "${err.message}"`);
-    });
-    console.error('\nPlease fix the above errors in /content and re-run "npm run content:check".\n');
-    process.exit(1);
-  }
-
-  console.log('✅ All 5 content files validated successfully with 0 errors.');
-  console.log('   - content/site.json: OK');
-  console.log('   - content/home.json: OK');
-  console.log('   - content/about.json: OK');
-  console.log('   - content/work.json: OK');
-  console.log('   - content/contact.json: OK\n');
+  console.log('');
+  process.exit(0);
 }
-
-run();
-

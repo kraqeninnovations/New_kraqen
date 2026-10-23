@@ -1,125 +1,305 @@
 {
   "seo": {
-    "title": "Work — Kraqen Innovations LLP",
-    "description": "A selection of films, photographs, campaigns, and brand worlds created by Kraqen Innovations LLP."
+    "title": "Our Portfolio | Kraqen",
+    "description": "Creative & Video Production Campaigns"
   },
   "header": {
-    "title": "WORK",
-    "countFormat": "{count} / {total}",
-    "filters": [
+    "title": "OUR PORTFOLIO",
+    "subtitle": "Creative & Video Production Campaigns"
+  },
+  "filters": {
+    "enabled": false,
+    "items": [
       { "id": "all", "label": "ALL WORK" },
-      { "id": "photography", "label": "PHOTOGRAPHY" },
-      { "id": "videography", "label": "VIDEOGRAPHY" },
-      { "id": "creative-direction", "label": "CREATIVE DIRECTION" },
-      { "id": "post-production", "label": "POST-PRODUCTION" },
-      { "id": "social-content", "label": "SOCIAL CONTENT" },
-      { "id": "film-production", "label": "FILM PRODUCTION" },
-      { "id": "campaign", "label": "CAMPAIGN" }
+      { "id": "video", "label": "VIDEO PRODUCTION" },
+      { "id": "editorial", "label": "EDITORIAL & MOTION" },
+      { "id": "social", "label": "SOCIAL CREATIVES" },
+      { "id": "direction", "label": "CREATIVE DIRECTION" }
     ]
   },
-  "projects": [
+  "layout": {
+    "maxWidth": 1400,
+    "gap": 12,
+    "pattern": [
+      ["4:5", "4:5", "4:5", "4:5"],
+      ["16:9", "16:9", "9:16"],
+      ["9:16", "16:9", "9:16", "4:5"]
+    ]
+  },
+  "categories": [
+    { "id": "motorsport", "title": "MOTORSPORT" },
+    { "id": "personal-branding", "title": "PERSONAL BRANDING" }
+  ],
+  "items": [
     {
-      "id": "rugby-bricks",
+      "slug": "rugby-bricks",
       "title": "RUGBY BRICKS",
-      "category": "PHOTOGRAPHY + VIDEOGRAPHY",
-      "tags": ["photography", "videography", "campaign"],
-      "year": "2026",
-      "image": "/images/hero-runner.jpg",
-      "aspect": "aspect-[16/9]",
-      "column": "left"
+      "category": "motorsport",
+      "mediaType": "image",
+      "ratio": "4:5",
+      "src": "/images/hero-runner.jpg",
+      "poster": "",
+      "video": "",
+      "instagramUrl": "",
+      "alt": "Rugby Bricks campaign poster",
+      "year": 2026,
+      "featured": true,
+      "clientIndustry": "Sports / Fitness",
+      "deliverable": "Campaign Poster & Reel",
+      "result": "+180k Views & 2.8x Engagement",
+      "detail": {
+        "intro": "A high-energy campaign for Rugby Bricks featuring dynamic on-field action and bold visual storytelling.",
+        "brief": "The client needed a campaign that captured the intensity and spirit of rugby while showcasing their performance gear.",
+        "process": [
+          { "title": "Strategy", "text": "Developed a campaign narrative around raw athletic energy and team identity." },
+          { "title": "Production", "text": "On-location shoot with dynamic framing and high-speed movement captures." },
+          { "title": "Visual Finishing", "text": "Precision colour grading with high-contrast treatment to amplify the intensity." }
+        ],
+        "gear": ["Sony FX30"],
+        "location": "Chennai",
+        "credits": [{ "role": "Direction", "name": "" }],
+        "gallery": [{ "src": "/images/hero-runner.jpg", "alt": "Rugby Bricks action shot", "ratio": "16:9" }]
+      }
     },
     {
-      "id": "smart-sweets-campaign",
+      "slug": "smart-sweets-campaign",
       "title": "SMART SWEETS",
-      "category": "CAMPAIGN + SOCIAL CONTENT",
-      "tags": ["campaign", "social-content", "photography"],
-      "year": "2026",
-      "image": "/images/hero-snacks.jpg",
-      "aspect": "aspect-[16/9]",
-      "column": "left"
+      "category": "personal-branding",
+      "mediaType": "image",
+      "ratio": "4:5",
+      "src": "/images/hero-snacks.jpg",
+      "poster": "",
+      "video": "",
+      "instagramUrl": "",
+      "alt": "Smart Sweets campaign imagery",
+      "year": 2026,
+      "featured": true,
+      "clientIndustry": "FMCG / Food & Beverage",
+      "deliverable": "Commercial Film & Instagram Campaign",
+      "result": "+250k Views & 3.2x Engagement",
+      "detail": {
+        "intro": "A vibrant social media campaign for Smart Sweets that turned their colourful product range into scroll-stopping content.",
+        "brief": "Position Smart Sweets as a fun, premium treat brand with a strong social media presence.",
+        "process": [
+          { "title": "Strategy", "text": "Built a visual identity around vibrant colour palettes and playful product staging." },
+          { "title": "Production", "text": "Studio shoot with custom lighting setups to highlight the product's vivid packaging." },
+          { "title": "Visual Finishing", "text": "Bright, saturated colour grade with platform-optimised crops for Instagram." }
+        ],
+        "gear": ["Sony FX30"],
+        "location": "Chennai Studio",
+        "credits": [{ "role": "Direction", "name": "" }],
+        "gallery": [{ "src": "/images/hero-snacks.jpg", "alt": "Smart Sweets product display", "ratio": "16:9" }]
+      }
     },
     {
-      "id": "mug-co",
+      "slug": "mug-co",
       "title": "MUG CO.",
-      "category": "COMMERCIAL PHOTOGRAPHY",
-      "tags": ["photography", "creative-direction"],
-      "year": "2026",
-      "image": "/images/hover-mug.jpg",
-      "aspect": "aspect-[3/4]",
-      "column": "left"
+      "category": "personal-branding",
+      "mediaType": "image",
+      "ratio": "4:5",
+      "src": "/images/hover-mug.jpg",
+      "poster": "",
+      "video": "",
+      "instagramUrl": "",
+      "alt": "Mug Co. commercial photography",
+      "year": 2026,
+      "featured": true,
+      "clientIndustry": "Lifestyle / Homeware",
+      "deliverable": "Commercial Photography",
+      "result": "+120k Impressions",
+      "detail": {
+        "intro": "Clean, minimal product photography for Mug Co. that elevated their artisan mug range.",
+        "brief": "Create elevated product imagery that positions Mug Co. as a premium lifestyle brand.",
+        "process": [
+          { "title": "Strategy", "text": "Developed a minimalist visual language matching the brand's handcrafted aesthetic." },
+          { "title": "Production", "text": "Tabletop studio setup with controlled lighting and textured backgrounds." },
+          { "title": "Visual Finishing", "text": "Soft, warm colour grading with clean retouching for e-commerce use." }
+        ],
+        "gear": ["Sony FX30"],
+        "location": "Chennai Studio",
+        "credits": [{ "role": "Photography", "name": "" }],
+        "gallery": [{ "src": "/images/hover-mug.jpg", "alt": "Mug Co. product flat lay", "ratio": "4:5" }]
+      }
     },
     {
-      "id": "snackish-food",
+      "slug": "snackish-food",
       "title": "SNACKISH",
-      "category": "PHOTOGRAPHY + FILM",
-      "tags": ["photography", "film-production", "campaign"],
-      "year": "2026",
-      "image": "/images/project-snackish.jpg",
-      "aspect": "aspect-[16/9]",
-      "column": "left"
+      "category": "personal-branding",
+      "mediaType": "image",
+      "ratio": "16:9",
+      "src": "/images/hero-snacks.jpg",
+      "poster": "",
+      "video": "",
+      "instagramUrl": "",
+      "alt": "Snackish food photography campaign",
+      "year": 2026,
+      "featured": true,
+      "clientIndustry": "FMCG / Snack Food",
+      "deliverable": "Photography & Film Campaign",
+      "result": "+200k Reach & 2.5x Engagement",
+      "detail": {
+        "intro": "A full-scale food photography and film campaign for Snackish that made their products impossible to ignore.",
+        "brief": "Build brand awareness for Snackish across digital platforms with high-quality visual content.",
+        "process": [
+          { "title": "Strategy", "text": "Created a mood board around snack culture and impulse purchase moments." },
+          { "title": "Production", "text": "On-location and studio shoots combining lifestyle and product-centric angles." },
+          { "title": "Visual Finishing", "text": "Bold colour treatment with motion graphics for the video assets." }
+        ],
+        "gear": ["Sony FX30"],
+        "location": "Chennai",
+        "credits": [{ "role": "Direction", "name": "" }],
+        "gallery": [{ "src": "/images/hero-snacks.jpg", "alt": "Snackish product showcase", "ratio": "16:9" }]
+      }
     },
     {
-      "id": "staffbase-cinema",
+      "slug": "staffbase-cinema",
       "title": "STAFFBASE",
-      "category": "BRAND FILM + EDITORIAL",
-      "tags": ["film-production", "creative-direction", "videography"],
-      "year": "2026",
-      "image": "/images/hover-staffbase.jpg",
-      "aspect": "aspect-[16/9]",
-      "column": "left"
+      "category": "motorsport",
+      "mediaType": "image",
+      "ratio": "16:9",
+      "src": "/images/hover-staffbase.jpg",
+      "poster": "",
+      "video": "",
+      "instagramUrl": "",
+      "alt": "Staffbase brand film production",
+      "year": 2026,
+      "featured": true,
+      "clientIndustry": "Technology / SaaS",
+      "deliverable": "Brand Film & Editorial",
+      "result": "+300k Views & Corporate Adoption",
+      "detail": {
+        "intro": "A cinematic brand film for Staffbase that communicated their vision for the future of employee communication.",
+        "brief": "Produce a high-end brand film positioning Staffbase as a leader in internal communications technology.",
+        "process": [
+          { "title": "Strategy", "text": "Scripted a narrative around human connection and workplace transformation." },
+          { "title": "Production", "text": "Corporate location shoot with cinematic lighting and interview setups." },
+          { "title": "Visual Finishing", "text": "Premium colour grade with motion graphics and branded title cards." }
+        ],
+        "gear": ["Sony FX30"],
+        "location": "Chennai",
+        "credits": [{ "role": "Direction", "name": "" }],
+        "gallery": [{ "src": "/images/hover-staffbase.jpg", "alt": "Staffbase brand film still", "ratio": "16:9" }]
+      }
     },
     {
-      "id": "kodama-ice",
+      "slug": "kodama-ice",
       "title": "KODAMA ICE CO.",
-      "category": "PRODUCT PHOTOGRAPHY",
-      "tags": ["photography", "creative-direction"],
-      "year": "2026",
-      "image": "/images/hero-ice.jpg",
-      "aspect": "aspect-[3/5]",
-      "column": "right"
+      "category": "personal-branding",
+      "mediaType": "image",
+      "ratio": "9:16",
+      "src": "/images/hero-ice.jpg",
+      "poster": "",
+      "video": "",
+      "instagramUrl": "",
+      "alt": "Kodama Ice Co. product photography",
+      "year": 2026,
+      "featured": false,
+      "clientIndustry": "Food & Beverage",
+      "deliverable": "Product Photography & Reel",
+      "result": "+90k Views & 4.1x Engagement",
+      "detail": {
+        "intro": "Striking product photography for Kodama Ice Co. that captured the ethereal quality of their premium ice products.",
+        "brief": "Create visual content that positions Kodama Ice Co. as a luxury product in the hospitality space.",
+        "process": [
+          { "title": "Strategy", "text": "Built a visual concept around purity, clarity and artisanal craft." },
+          { "title": "Production", "text": "Macro product photography with custom lighting to highlight crystal clarity." },
+          { "title": "Visual Finishing", "text": "Cool-toned colour grade with precise retouching for premium appeal." }
+        ],
+        "gear": ["Sony FX30"],
+        "location": "Chennai Studio",
+        "credits": [{ "role": "Photography", "name": "" }],
+        "gallery": [{ "src": "/images/hero-ice.jpg", "alt": "Kodama ice product close-up", "ratio": "9:16" }]
+      }
     },
     {
-      "id": "kraqen-showreel",
-      "title": "KRAQEN SHOWREEL",
-      "category": "FILM PRODUCTION",
-      "tags": ["film-production", "videography", "post-production"],
-      "year": "2026",
-      "image": "/images/hero-city.jpg",
-      "isVideo": true,
-      "videoSrc": "/about/showreel-preview.mp4",
-      "aspect": "aspect-[16/9]",
-      "column": "right"
-    },
-    {
-      "id": "snackish-packaging",
-      "title": "SNACKISH VARIETY",
-      "category": "PACKAGING + CAMPAIGN",
-      "tags": ["campaign", "photography", "creative-direction"],
-      "year": "2026",
-      "image": "/images/snack-bags-yellow.jpg",
-      "aspect": "aspect-[16/9]",
-      "column": "right"
-    },
-    {
-      "id": "cafe-kitsune",
+      "slug": "cafe-kitsune",
       "title": "CAFÉ KITSUNÉ PARIS",
-      "category": "BRAND FILM + EDITORIAL",
-      "tags": ["film-production", "photography", "videography"],
-      "year": "2026",
-      "image": "/images/hover-kitsune.jpg",
-      "aspect": "aspect-[3/4]",
-      "column": "right"
+      "category": "personal-branding",
+      "mediaType": "image",
+      "ratio": "4:5",
+      "src": "/images/hover-kitsune.jpg",
+      "poster": "",
+      "video": "",
+      "instagramUrl": "",
+      "alt": "Café Kitsuné Paris editorial photography",
+      "year": 2026,
+      "featured": false,
+      "clientIndustry": "Fashion / F&B",
+      "deliverable": "Brand Film & Editorial",
+      "result": "+160k Impressions",
+      "detail": {
+        "intro": "An editorial film and photography project for Café Kitsuné Paris that translated their Parisian chic aesthetic into cinematic visuals.",
+        "brief": "Capture the essence of Café Kitsuné's unique blend of music, fashion and coffee culture.",
+        "process": [
+          { "title": "Strategy", "text": "Researched the brand's Parisian heritage and created a moodboard around refined minimalism." },
+          { "title": "Production", "text": "Ambient location shoot blending café interiors with lifestyle moments." },
+          { "title": "Visual Finishing", "text": "Soft, film-emulation grade with editorial retouching." }
+        ],
+        "gear": ["Sony FX30"],
+        "location": "Chennai",
+        "credits": [{ "role": "Direction", "name": "" }],
+        "gallery": [{ "src": "/images/hover-kitsune.jpg", "alt": "Café Kitsuné editorial still", "ratio": "4:5" }]
+      }
     },
     {
-      "id": "sweet-greens",
+      "slug": "kraqen-showreel",
+      "title": "KRAQEN SHOWREEL",
+      "category": "motorsport",
+      "mediaType": "video",
+      "ratio": "16:9",
+      "src": "/images/hero-city.jpg",
+      "poster": "/images/hero-city.jpg",
+      "video": "/about/showreel-preview.mp4",
+      "instagramUrl": "",
+      "alt": "Kraqen Innovations 2026 showreel",
+      "year": 2026,
+      "featured": false,
+      "clientIndustry": "Production / Agency",
+      "deliverable": "Showreel Film Production",
+      "result": "Studio Flagship Piece",
+      "detail": {
+        "intro": "The Kraqen 2026 showreel — a cinematic showcase of our best work across motorsport, branding, and social content.",
+        "brief": "Create a flagship showreel that demonstrates the full breadth of Kraqen's capabilities.",
+        "process": [
+          { "title": "Strategy", "text": "Curated the best moments from across our portfolio and scripted a narrative arc." },
+          { "title": "Production", "text": "Shot additional linking footage and compiled existing project highlights." },
+          { "title": "Visual Finishing", "text": "Unified colour grade across all footage with dynamic motion graphics transitions." }
+        ],
+        "gear": ["Sony FX30"],
+        "location": "Chennai & Various",
+        "credits": [{ "role": "Direction", "name": "" }],
+        "gallery": [{ "src": "/images/hero-city.jpg", "alt": "Showreel still frame", "ratio": "16:9" }]
+      }
+    },
+    {
+      "slug": "sweet-greens",
       "title": "SWEET GREENS",
-      "category": "SOCIAL CONTENT + CAMPAIGN",
-      "tags": ["social-content", "campaign", "photography"],
-      "year": "2026",
-      "image": "/images/hover-smart-sweets.jpg",
-      "aspect": "aspect-[16/9]",
-      "column": "right"
+      "category": "personal-branding",
+      "mediaType": "image",
+      "ratio": "9:16",
+      "src": "/images/hover-smart-sweets.jpg",
+      "poster": "",
+      "video": "",
+      "instagramUrl": "",
+      "alt": "Sweet Greens social content campaign",
+      "year": 2026,
+      "featured": false,
+      "clientIndustry": "Health / Wellness",
+      "deliverable": "Social Content & Campaign",
+      "result": "+140k Reach & 3.5x Engagement",
+      "detail": {
+        "intro": "A fresh social content campaign for Sweet Greens that brought their health-first message to life through vibrant visual storytelling.",
+        "brief": "Build a social media presence that communicates the brand's health and wellness ethos.",
+        "process": [
+          { "title": "Strategy", "text": "Developed a content calendar and visual identity system for social platforms." },
+          { "title": "Production", "text": "Lifestyle photography and video combining product and people." },
+          { "title": "Visual Finishing", "text": "Fresh, clean edit style optimised for vertical and square formats." }
+        ],
+        "gear": ["Sony FX30"],
+        "location": "Chennai",
+        "credits": [{ "role": "Direction", "name": "" }],
+        "gallery": [{ "src": "/images/hover-smart-sweets.jpg", "alt": "Sweet Greens product lifestyle", "ratio": "9:16" }]
+      }
     }
   ]
 }
-

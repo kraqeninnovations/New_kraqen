@@ -1,15 +1,14 @@
 'use client';
 
 import ClientLogoGrid from './ClientLogoGrid';
-import type { AboutContent } from '@/lib/schemas/about';
-import type { HomeClient } from '@/lib/schemas/home';
 
 interface AboutApproachProps {
-  data: AboutContent['approach'];
-  homeClients: HomeClient[];
+  data?: any;
+  homeClients?: any[];
 }
 
-export default function AboutApproach({ data, homeClients }: AboutApproachProps) {
+export default function AboutApproach({ data, homeClients = [] }: AboutApproachProps) {
+  if (!data) return null;
   const clients = data.useHomePartners || !data.clients || data.clients.length === 0 ? homeClients : data.clients;
 
   return (
@@ -20,8 +19,7 @@ export default function AboutApproach({ data, homeClients }: AboutApproachProps)
       clients={clients}
       fillEmptyCells={data.fillEmptyCells}
       sectionId="approach"
-      sectionAriaLabel="Approach and Selected Partners"
-      className="pt-[40px] pb-[160px]"
+      sectionAriaLabel="Our Approach and Partners"
     />
   );
 }

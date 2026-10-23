@@ -1,283 +1,64 @@
 {
   "seo": {
-    "title": "Kraqen Innovations LLP — Creative & Production Studio",
-    "description": "We translate brand stories into cinematic work people feel, remember, and recognize as yours."
+    "title": "Next-Gen Creative & Social Agency Chennai | Kraqen",
+    "description": "Chennai's next-gen creative agency engineering visual culture through cinema-grade video production, dynamic motion design, social creatives, and strategic brand direction."
   },
   "hero": {
-    "headlineLines": [
-      "WE GIVE",
-      "YOU A POINT",
-      "OF VIEW"
-    ],
-    "location": "CHENNAI — INDIA",
-    "paragraph": "You're building a brand with something to say. We translate that story into cinematic work people feel, remember, and recognize as yours.",
-    "cta": {
-      "label": "VIEW OUR WORK",
-      "href": "#work"
-    },
+    "headlineLines": ["CRAFTING VISUALS", "THAT DEMAND", "ATTENTION"],
+    "location": "CHENNAI - IN",
+    "paragraph": "Chennai's next-gen creative agency engineering visual culture through cinema-grade video production, dynamic motion design, social creatives, and strategic brand direction.",
+    "cta": { "label": "VIEW OUR WORK", "href": "/work" },
     "images": [
-      {
-        "src": "/images/hero-snacks.jpg",
-        "alt": "Smiling woman holding colorful snack packs",
-        "position": "top-center"
-      },
-      {
-        "src": "/images/hero-runner.jpg",
-        "alt": "Person running on grass field, motion blur",
-        "position": "left"
-      },
-      {
-        "src": "/images/hero-ice.jpg",
-        "alt": "Blue ice cube on deep blue background",
-        "position": "left-center"
-      },
-      {
-        "src": "/images/hero-city.jpg",
-        "alt": "City skyline at golden hour sunset",
-        "position": "right"
-      }
+      { "src": "/images/hero-snacks.jpg", "alt": "Smiling woman holding colorful snack packs", "position": "top-center" },
+      { "src": "/images/hero-runner.jpg", "alt": "Person running on grass field, motion blur", "position": "left" },
+      { "src": "/images/hero-ice.jpg", "alt": "Blue ice cube on deep blue background", "position": "left-center" },
+      { "src": "/images/hero-city.jpg", "alt": "City skyline at golden hour sunset", "position": "right" }
     ]
   },
   "selectedWork": {
     "label": "SELECTED WORK",
-    "labelLeft": "PORTFOLIO",
-    "labelRight": "SELECTED WORK",
-    "headingLines": [
-      "SELECTED",
-      "WORK"
-    ],
-    "sideText": "A selection of brand identities, campaigns, websites and digital products.",
-    "paragraph": "A selection of brand identities, campaigns, websites and digital products.",
-    "hoverLabel": "VIEW",
-    "source": "manual",
-    "limit": 12,
-    "instagram": {
-      "handle": "kraqen.innovations",
-      "profileUrl": "https://www.instagram.com/kraqen.innovations/",
-      "openLabel": "OPEN ON INSTAGRAM",
-      "followLabel": "FOLLOW @KRAQEN.INNOVATIONS",
-      "embedFailedText": "This post could not be loaded here. Open it on Instagram."
+    "headingLines": ["SELECTED", "WORK"],
+    "sideText": "A selection of campaigns we created and the results they delivered.",
+    "featuredSlugs": ["rugby-bricks", "smart-sweets-campaign", "mug-co", "snackish-food", "staffbase-cinema", "kodama-ice"],
+    "labels": {
+      "client": "CLIENT / INDUSTRY",
+      "deliverable": "DELIVERABLE",
+      "result": "RESULT / IMPACT"
     },
-    "viewer": {
-      "closeLabel": "CLOSE",
-      "prevLabel": "PREVIOUS",
-      "nextLabel": "NEXT",
-      "hint": "SWIPE UP OR DOWN FOR MORE",
-      "reelBadge": "REEL",
-      "postBadge": "POST"
-    },
-    "projects": [
-      {
-        "id": "01",
-        "number": "01",
-        "title": "RUGBY BRICKS",
-        "name": "RUGBY BRICKS",
-        "category": "REEL",
-        "services": "REEL PRODUCTION",
-        "year": "2026",
-        "mediaType": "reel",
-        "instagramUrl": "https://www.instagram.com/reel/DC_Kraqen01/",
-        "image": "/images/work/reel-01.webp",
-        "video": "",
-        "alt": "Rugby Bricks Reel cover",
-        "fit": "cover",
-        "imageStyle": "full-bleed"
-      },
-      {
-        "id": "02",
-        "number": "02",
-        "title": "SNACKISH CAMPAIGN",
-        "name": "SNACKISH CAMPAIGN",
-        "category": "POST",
-        "services": "CAMPAIGN POSTER",
-        "year": "2026",
-        "mediaType": "post",
-        "instagramUrl": "https://www.instagram.com/p/DC_Kraqen02/",
-        "image": "/images/work/post-02.webp",
-        "video": "",
-        "alt": "Snackish Campaign Poster",
-        "fit": "inset",
-        "imageStyle": "inset"
-      },
-      {
-        "id": "03",
-        "number": "03",
-        "title": "KODAMA ICE CO.",
-        "name": "KODAMA ICE CO.",
-        "category": "REEL",
-        "services": "PRODUCT REEL",
-        "year": "2026",
-        "mediaType": "reel",
-        "instagramUrl": "https://www.instagram.com/reel/DC_Kraqen03/",
-        "image": "/images/work/reel-03.webp",
-        "video": "",
-        "alt": "Kodama Ice Co. Reel",
-        "fit": "cover",
-        "imageStyle": "full-bleed"
-      },
-      {
-        "id": "04",
-        "number": "04",
-        "title": "CAFÉ KITSUNÉ",
-        "name": "CAFÉ KITSUNÉ",
-        "category": "POST",
-        "services": "EDITORIAL POST",
-        "year": "2026",
-        "mediaType": "post",
-        "instagramUrl": "https://www.instagram.com/p/DC_Kraqen04/",
-        "image": "/images/work/post-04.webp",
-        "video": "",
-        "alt": "Café Kitsuné Editorial",
-        "fit": "cover",
-        "imageStyle": "full-bleed"
-      },
-      {
-        "id": "05",
-        "number": "05",
-        "title": "SMART SWEETS",
-        "name": "SMART SWEETS",
-        "category": "REEL",
-        "services": "BRAND FILM REEL",
-        "year": "2026",
-        "mediaType": "reel",
-        "instagramUrl": "https://www.instagram.com/reel/DC_Kraqen05/",
-        "image": "/images/work/reel-05.webp",
-        "video": "",
-        "alt": "Smart Sweets Reel",
-        "fit": "cover",
-        "imageStyle": "full-bleed"
-      },
-      {
-        "id": "06",
-        "number": "06",
-        "title": "STAFFBASE VISION",
-        "name": "STAFFBASE VISION",
-        "category": "POST",
-        "services": "CAMPAIGN POST",
-        "year": "2026",
-        "mediaType": "post",
-        "instagramUrl": "https://www.instagram.com/p/DC_Kraqen06/",
-        "image": "/images/work/post-06.webp",
-        "video": "",
-        "alt": "Staffbase Vision Poster",
-        "fit": "cover",
-        "imageStyle": "full-bleed"
-      }
-    ]
+    "viewLabel": "VIEW PROJECT"
   },
   "services": {
     "labelLeft": "WHAT WE DO",
     "labelRight": "FULL SERVICE PRODUCTION",
     "items": [
-      {
-        "number": "01",
-        "name": "VIDEOGRAPHY",
-        "description": "END-TO-END VIDEO PRODUCTION SHAPED AROUND THE STORY."
-      },
-      {
-        "number": "02",
-        "name": "PHOTOGRAPHY",
-        "description": "CAMPAIGN, PRODUCT, AND EDITORIAL IMAGERY WITH CINEMATIC INTENT."
-      },
-      {
-        "number": "03",
-        "name": "SOCIAL CONTENT",
-        "description": "PLATFORM-NATIVE STORIES TOLD BESPOKE FOR YOUR BRAND."
-      },
-      {
-        "number": "04",
-        "name": "CREATIVE DIRECTION",
-        "description": "CONCEPT AND VISUAL DIRECTION THAT CONNECTS EVERY FRAME."
-      }
+      { "number": "01", "title": "VIDEO PRODUCTION", "description": "High-impact commercial video production and cinematic brand films. See how we bring stories to life.", "href": "/work" },
+      { "number": "02", "title": "EDITORIAL & MOTION DESIGNS", "description": "Dynamic visual finishing and motion graphics that elevate your content. Explore our post-production suite.", "href": "/work" },
+      { "number": "03", "title": "SOCIAL CREATIVES", "description": "Scroll-stopping vertical content and social campaigns engineered for the feed. Dive into our social work.", "href": "/work" },
+      { "number": "04", "title": "CREATIVE DIRECTION & STRATEGY", "description": "The strategic blueprint and visual identity behind standout modern brands. Discover our approach.", "href": "/work" }
     ]
   },
   "partners": {
-    "labelLeft": "FRIENDS WE'VE WORKED WITH",
+    "labelLeft": "OUR CLIENTS",
     "labelRight": "SELECTED PARTNERS",
-    "headingLines": [
-      "GOOD COMPANY.",
-      "GREAT STORIES."
-    ],
-    "fillEmptyCells": true,
-    "clients": [
-      {
-        "id": "snackish",
-        "name": "snackish",
-        "logo": "/logos/snackish.svg",
-        "hoverImage": "/images/hover-snackish.jpg",
-        "scale": 1
-      },
-      {
-        "id": "smart-sweets",
-        "name": "Smart Sweets",
-        "logo": "/logos/smart-sweets.svg",
-        "hoverImage": "/images/hover-smart-sweets.jpg",
-        "scale": 1
-      },
-      {
-        "id": "kitsune",
-        "name": "Café Kitsuné Paris",
-        "logo": "/logos/kitsune.svg",
-        "hoverImage": "/images/hover-kitsune.jpg",
-        "scale": 1
-      },
-      {
-        "id": "rugbybricks",
-        "name": "Rugbybricks",
-        "logo": "/logos/rugbybricks.svg",
-        "hoverImage": "/images/hover-rugbybricks.jpg",
-        "scale": 1
-      },
-      {
-        "id": "staffbase",
-        "name": "Staffbase",
-        "logo": "/logos/staffbase.svg",
-        "hoverImage": "/images/hover-staffbase.jpg",
-        "scale": 1
-      },
-      {
-        "id": "tevah",
-        "name": "Tevah",
-        "logo": "/logos/tevah.svg",
-        "hoverImage": "/images/hover-tevah.jpg",
-        "scale": 1
-      },
-      {
-        "id": "mugco",
-        "name": "Mug Co.",
-        "logo": "/logos/mug.svg",
-        "hoverImage": "/images/hover-mug.jpg",
-        "scale": 1
-      },
-      {
-        "id": "slo",
-        "name": "slo.",
-        "logo": "/logos/slo.svg",
-        "hoverImage": "/images/hover-slo.jpg",
-        "scale": 1
-      },
-      {
-        "id": "kodama",
-        "name": "Kodama Ice Co.",
-        "logo": "/logos/kodama.svg",
-        "hoverImage": "/images/hero-ice.jpg",
-        "scale": 1
-      },
-      {
-        "id": "contenthub",
-        "name": "contenthub.diy",
-        "logo": "/logos/contenthub.svg",
-        "hoverImage": "/images/hero-city.jpg",
-        "scale": 1
-      },
-      {
-        "id": "shineon",
-        "name": "Shine On Stories",
-        "logo": "/logos/shineon.svg",
-        "hoverImage": "/images/hero-snacks.jpg",
-        "scale": 1
-      }
+    "headingLines": ["TRUSTED", "BY THE BOLD"],
+    "runner": {
+      "enabled": true,
+      "direction": "horizontal",
+      "speedSeconds": 40,
+      "pauseOnHover": true
+    },
+    "items": [
+      { "id": "snackish", "name": "snackish", "logo": "/logos/snackish.svg" },
+      { "id": "smart-sweets", "name": "Smart Sweets", "logo": "/logos/smart-sweets.svg" },
+      { "id": "kitsune", "name": "Café Kitsuné Paris", "logo": "/logos/kitsune.svg" },
+      { "id": "rugbybricks", "name": "Rugbybricks", "logo": "/logos/rugbybricks.svg" },
+      { "id": "staffbase", "name": "Staffbase", "logo": "/logos/staffbase.svg" },
+      { "id": "tevah", "name": "Tevah", "logo": "/logos/tevah.svg" },
+      { "id": "mugco", "name": "Mug Co.", "logo": "/logos/mug.svg" },
+      { "id": "slo", "name": "slo.", "logo": "/logos/slo.svg" },
+      { "id": "kodama", "name": "Kodama Ice Co.", "logo": "/logos/kodama.svg" },
+      { "id": "contenthub", "name": "contenthub.diy", "logo": "/logos/contenthub.svg" },
+      { "id": "shineon", "name": "Shine On Stories", "logo": "/logos/shineon.svg" }
     ]
   }
 }
-

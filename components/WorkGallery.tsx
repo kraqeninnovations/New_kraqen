@@ -1,206 +1,200 @@
 'use client';
 
-import { useState, useRef, useEffect, useMemo } from 'react';
+import React from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
-import type { WorkContent, WorkProject } from '@/lib/schemas/work';
-import { interpolate } from '@/lib/content-utils';
+import type { WorkContent, WorkItem } from '@/lib/schemas/work';
 
 interface WorkGalleryProps {
   data: WorkContent;
 }
 
-export default function WorkGallery({ data }: WorkGalleryProps) {
-  const [activeFilterId, setActiveFilterId] = useState('all');
-  const sectionRef = useRef<HTMLElement>(null);
-  const titleInnerRef = useRef<HTMLSpanElement>(null);
+const RATIO_MAP: Record<string, number> = {
+  '4:5': 0.8,
+  '16:9': 16 / 9,
+  '9:16': 9 / 16,
+};
 
-  // Filter projects by active filter id
-  const filteredProjects = useMemo(() => {
-    if (activeFilterId === 'all') return data.projects;
-    return data.projects.filter((p) => p.tags.includes(activeFilterId));
-  }, [activeFilterId, data.projects]);
+const RATIO_ASPECT_CSS: Record<string, string> = {
+  '4:5': '4 / 5',
+  '16:9': '16 / 9',
+  '9:16': '9 / 16',
+};
 
-  const leftColumnProjects = useMemo(
-    () => filteredProjects.filter((_, idx) => idx % 2 === 0),
-    [filteredProjects]
-  );
+// Organize category items into bands according to layout.pattern
+function buildBands(items: WorkItem[], pattern: string[][]): WorkItem[][] {
+  const bands: WorkItem[][] = [];
 
-  const rightColumnProjects = useMemo(
-    () => filteredProjects.filter((_, idx) => idx % 2 === 1),
-    [filteredProjects]
-  );
+  // Create queues by ratio
+  const pool: Record<string, WorkItem[]> = {
+    '4:5': items.filter((it) => it.ratio === '4:5'),
+    '16:9': items.filter((it) => it.ratio === '16:9'),
+    '9:16': items.filter((it) => it.ratio === '9:16'),
+  };
 
-  // GSAP scroll reveals
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let patternIdx = 0;
+  let remainingCount = items.length;
 
-    let ctx: { revert: () => void } | null = null;
+  while (remainingCount > 0) {
+    const targetRatios = pattern[patternIdx % pattern.length];
+    const currentBand: WorkItem[] = [];
 
-    const initAnim = async () => {
-      const { gsap } = await import('gsap');
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-      gsap.registerPlugin(ScrollTrigger);
+    for (const r of targetRatios) {
+      if (pool[r] && pool[r].length > 0) {
+        const item = pool[r].shift()!;
+        currentBand.push(item);
+        remainingCount--;
+      }
+    }
 
-      if (!sectionRef.current) return;
-
-      ctx = gsap.context(() => {
-        // Title slide up
-        if (titleInnerRef.current) {
-          gsap.set(titleInnerRef.current, { yPercent: 100 });
-          gsap.to(titleInnerRef.current, {
-            yPercent: 0,
-            duration: 1.1,
-            ease: 'power3.out',
-          });
+    if (currentBand.length > 0) {
+      bands.push(currentBand);
+    } else {
+      // If none of the target ratios were available, flush whatever is left in any pool
+      const leftoverBand: WorkItem[] = [];
+      for (const key of ['4:5', '16:9', '9:16']) {
+        while (pool[key].length > 0 && leftoverBand.length < 3) {
+          leftoverBand.push(pool[key].shift()!);
+          remainingCount--;
         }
+      }
+      if (leftoverBand.length > 0) {
+        bands.push(leftoverBand);
+      } else {
+        break;
+      }
+    }
 
-        // Cards fade-up reveal
-        const cards = sectionRef.current?.querySelectorAll('.work-gallery-card');
-        if (cards && cards.length > 0) {
-          cards.forEach((card) => {
-            gsap.fromTo(
-              card,
-              { opacity: 0, y: 30 },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                ease: 'power2.out',
-                scrollTrigger: {
-                  trigger: card,
-                  start: 'top 88%',
-                },
-              }
-            );
-          });
-        }
-      }, sectionRef);
-    };
+    patternIdx++;
+  }
 
-    initAnim();
-
-    return () => {
-      ctx?.revert();
-    };
-  }, [filteredProjects]);
-
-  const countString = interpolate(data.header.countFormat || '{count} / {total}', {
-    count: filteredProjects.length,
-    total: data.projects.length,
-  });
-
-  return (
-    <section
-      ref={sectionRef}
-      className="bg-[#0f0f0f] text-[var(--text)] section-px pt-[clamp(80px,10vw,140px)] pb-[clamp(100px,12vw,180px)] min-h-screen"
-      aria-label="Portfolio Work Gallery"
-    >
-      {/* ========================================================
-          HEADER: WORK Title (Left) + Filter Tags (Right)
-          ======================================================== */}
-      <div className="flex flex-col md:flex-row justify-between items-start gap-8 border-b border-[var(--line)] pb-12">
-        {/* Left: Giant Tanker "WORK" */}
-        <div className="overflow-hidden">
-          <h1 className="font-tanker text-[clamp(72px,12vw,170px)] uppercase tracking-[-0.01em] leading-none text-[var(--text)]">
-            <span ref={titleInnerRef} className="block reveal-line-inner">
-              {data.header.title}
-            </span>
-          </h1>
-        </div>
-
-        {/* Right: Category Count + Filter Tags */}
-        <div className="w-full md:w-[48%] flex flex-col items-start md:items-end text-left md:text-right">
-          <span className="font-mono text-[10px] tracking-[0.06em] uppercase text-[#FF3300] font-bold mb-3">
-            [{countString}]
-          </span>
-
-          {/* Tags list */}
-          <div className="flex flex-wrap md:justify-end gap-x-3 gap-y-1 font-tanker text-[clamp(19px,5vw,26px)] md:text-[17px] tracking-[0.02em] uppercase leading-tight">
-            {data.header.filters.map((filter, i) => {
-              const isActive = activeFilterId === filter.id;
-              return (
-                <button
-                  key={filter.id}
-                  type="button"
-                  onClick={() => setActiveFilterId(filter.id)}
-                  className={`transition-colors cursor-pointer text-left min-h-[44px] py-1 flex items-center ${
-                    isActive
-                      ? 'text-[#FF3300]'
-                      : 'text-[var(--text)] hover:text-[var(--text-hover)]'
-                  }`}
-                  aria-pressed={isActive}
-                >
-                  {filter.label}
-                  {i < data.header.filters.length - 1 ? ',' : ''}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
-      {/* ========================================================
-          2-COLUMN STAGGERED MASONRY GALLERY (1 col on mobile)
-          ======================================================== */}
-      <div className="mt-[clamp(48px,6vw,96px)] grid grid-cols-1 md:grid-cols-2 gap-x-[clamp(24px,4vw,64px)] gap-y-[clamp(56px,14vw,96px)] items-start">
-        {/* LEFT COLUMN */}
-        <div className="flex flex-col gap-[clamp(56px,14vw,96px)]">
-          {leftColumnProjects.map((project) => (
-            <WorkItemCard key={project.id} project={project} />
-          ))}
-        </div>
-
-        {/* RIGHT COLUMN */}
-        <div className="flex flex-col gap-[clamp(56px,14vw,96px)]">
-          {rightColumnProjects.map((project) => (
-            <WorkItemCard key={project.id} project={project} />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  return bands;
 }
 
-function WorkItemCard({ project }: { project: WorkProject }) {
-  return (
-    <article
-      className="work-gallery-card group flex flex-col cursor-pointer"
-      data-cursor
-    >
-      <div
-        className={`relative w-full ${project.aspect || 'aspect-[16/9]'} overflow-hidden bg-[#1a1a1a] border border-[var(--line)]`}
-      >
-        {project.isVideo && project.videoSrc ? (
-          <video
-            src={project.videoSrc}
-            poster={project.image}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="none"
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-          />
-        ) : (
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            sizes="(max-width: 768px) 100vw, 48vw"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-          />
-        )}
-      </div>
+export default function WorkGallery({ data }: WorkGalleryProps) {
+  const { header, categories, items, layout } = data;
 
-      {/* Caption row */}
-      <div className="mt-4 flex justify-between items-baseline border-t border-[var(--line)] pt-3">
-        <h2 className="font-tanker text-[20px] tracking-tight uppercase text-[var(--text)] group-hover:text-[#FF3300] transition-colors">
-          {project.title}
-        </h2>
-        <span className="font-mono text-[10px] tracking-[0.04em] uppercase text-[var(--text-muted)]">
-          {project.category}
-        </span>
+  return (
+    <div className="bg-[#0f0f0f] text-white pt-28 md:pt-36 pb-24 section-px">
+      <div className="max-w-[1400px] mx-auto">
+        {/* Header */}
+        <div className="pb-12 md:pb-16 border-b border-white/15">
+          <h1 className="font-tanker text-white uppercase text-[clamp(48px,9vw,140px)] leading-[0.88] tracking-tight mb-4">
+            {header.title}
+          </h1>
+          <p className="font-mono text-sm md:text-base text-white/60 tracking-wider">
+            {header.subtitle}
+          </p>
+        </div>
+
+        {/* Categories */}
+        <div className="space-y-[clamp(64px,10vw,140px)] mt-12 md:mt-20">
+          {categories.map((category) => {
+            const catItems = items.filter((it) => it.category === category.id);
+            if (catItems.length === 0) return null;
+
+            const bands = buildBands(catItems, layout.pattern);
+
+            return (
+              <section key={category.id} aria-labelledby={`cat-${category.id}`}>
+                {/* Category Header */}
+                <div className="flex items-baseline justify-between pb-4 mb-6 md:mb-8 border-b border-white/15">
+                  <h2
+                    id={`cat-${category.id}`}
+                    className="font-tanker text-white uppercase text-[clamp(36px,6vw,96px)] leading-none tracking-wide"
+                  >
+                    {category.title}
+                  </h2>
+                  <span className="font-mono text-xs md:text-sm text-white/50 tracking-wider">
+                    {catItems.length} {catItems.length === 1 ? 'PROJECT' : 'PROJECTS'}
+                  </span>
+                </div>
+
+                {/* Desktop: Justified Bands */}
+                <div className="hidden md:flex flex-col gap-3">
+                  {bands.map((band, bandIdx) => {
+                    const gridTemplate = band
+                      .map((item) => `${RATIO_MAP[item.ratio] || 1}fr`)
+                      .join(' ');
+
+                    return (
+                      <div
+                        key={bandIdx}
+                        className="grid gap-3 w-full"
+                        style={{ gridTemplateColumns: gridTemplate }}
+                      >
+                        {band.map((item) => (
+                          <Link
+                            key={item.slug}
+                            href={`/work/${item.slug}`}
+                            className="group relative rounded-xl overflow-hidden bg-[#151515] block focus:outline-none focus:ring-2 focus:ring-accent"
+                            style={{
+                              aspectRatio: RATIO_ASPECT_CSS[item.ratio] || '16 / 9',
+                            }}
+                          >
+                            <Image
+                              src={item.poster || item.src}
+                              alt={item.alt || item.title}
+                              fill
+                              sizes="(max-width: 1400px) 50vw, 400px"
+                              className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                            />
+
+                            {/* Caption Overlay on Hover */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
+                              <span className="font-mono text-[10px] uppercase tracking-wider text-accent mb-1 font-bold">
+                                {item.clientIndustry || item.category}
+                              </span>
+                              <h3 className="font-tanker text-2xl uppercase text-white tracking-wide mb-2">
+                                {item.title}
+                              </h3>
+                              <span className="font-mono text-xs text-white/90 uppercase tracking-wider flex items-center gap-1 font-bold">
+                                VIEW PROJECT <span className="transform group-hover:translate-x-1 transition-transform">→</span>
+                              </span>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Mobile: 2-Column Grid */}
+                <div className="grid md:hidden grid-cols-2 gap-2">
+                  {catItems.map((item) => {
+                    const isWide = item.ratio === '16:9';
+                    return (
+                      <Link
+                        key={item.slug}
+                        href={`/work/${item.slug}`}
+                        className={`group relative rounded-lg overflow-hidden bg-[#151515] block focus:outline-none focus:ring-2 focus:ring-accent ${
+                          isWide ? 'col-span-2' : 'col-span-1'
+                        }`}
+                        style={{
+                          aspectRatio: RATIO_ASPECT_CSS[item.ratio] || '16 / 9',
+                        }}
+                      >
+                        <Image
+                          src={item.poster || item.src}
+                          alt={item.alt || item.title}
+                          fill
+                          sizes="90vw"
+                          className="object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent p-3 flex flex-col justify-end">
+                          <h3 className="font-tanker text-sm text-white uppercase tracking-wide">
+                            {item.title}
+                          </h3>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </section>
+            );
+          })}
+        </div>
       </div>
-    </article>
+    </div>
   );
 }

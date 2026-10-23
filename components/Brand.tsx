@@ -3,7 +3,6 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 
 export type BrandVariant = 'nav' | 'menu' | 'footer' | 'marquee' | 'default';
 
@@ -29,9 +28,6 @@ export default function Brand({
   style,
   height,
 }: BrandProps) {
-  const pathname = usePathname();
-  const isContactNav = variant === 'nav' && pathname === '/contact';
-
   let heightStyle: string | number = height || (style?.height as string | number) || 'var(--logo-h)';
   if (!height && !style?.height) {
     if (variant === 'menu') heightStyle = '28px';
@@ -64,16 +60,14 @@ export default function Brand({
     );
   }
 
-  const textColor = isContactNav ? '#1a1a1a' : '#FFFFFF';
-
   return (
     <Link
       href="/"
       aria-label="Kraqen Innovations LLP - Home"
       onClick={onClick}
-      className={`brand-link pointer-events-auto ${isContactNav ? 'text-[#1a1a1a]' : 'text-white'} ${className}`}
+      className={`brand-link pointer-events-auto text-white flex items-center gap-2.5 md:gap-3 ${className}`}
       style={{
-        color: textColor,
+        color: '#FFFFFF',
         textDecoration: 'none',
       }}
     >
@@ -89,10 +83,10 @@ export default function Brand({
         className="object-contain flex-shrink-0"
       />
       <span
-        className={`brand-word ${isContactNav ? 'text-[#1a1a1a]' : 'text-white'}`}
+        className="brand-word text-white font-tanker uppercase"
         style={{
-          color: textColor,
-          WebkitTextFillColor: textColor,
+          color: '#FFFFFF',
+          WebkitTextFillColor: '#FFFFFF',
           opacity: 1,
           textShadow: 'none',
           filter: 'none',

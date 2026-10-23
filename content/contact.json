@@ -1,112 +1,25 @@
 {
   "seo": {
-    "title": "Contact — Kraqen Innovations LLP",
-    "description": "Start a project with Kraqen Innovations LLP. Let's give your story a point of view."
+    "title": "Contact | Kraqen",
+    "description": "Have a brand to build, a campaign to launch or a story to tell? Contact Kraqen Innovations, Chennai's next-gen creative agency."
   },
-  "hero": {
-    "label": "START A PROJECT",
-    "headlineLines": [
-      "BRING",
-      "US INTO",
-      "THE",
-      "PICTURE"
-    ],
-    "paragraph": "Have a story to tell, a feeling to capture, or a moment worth holding onto? Let's give it a point of view."
+  "header": {
+    "label": "CONTACT",
+    "titleLines": ["LET'S BUILD", "SOMETHING", "GREAT"],
+    "paragraph": "Have a brand to build, a campaign to launch or a story to tell? Send us a message or book a call."
   },
-  "fields": {
-    "name": {
-      "enabled": true,
-      "required": true,
-      "label": "NAME",
-      "placeholder": "Jane Doe"
-    },
-    "email": {
-      "enabled": true,
-      "required": true,
-      "label": "EMAIL",
-      "placeholder": "jane@example.com"
-    },
-    "phone": {
-      "enabled": false,
-      "required": false,
-      "label": "PHONE",
-      "placeholder": "+1 (555) 000-0000"
-    },
-    "company": {
-      "enabled": true,
-      "required": false,
-      "label": "COMPANY",
-      "placeholder": "Acme Studio"
-    },
-    "projectTypes": {
-      "enabled": true,
-      "required": true,
-      "label": "PROJECT TYPE (CHOOSE ALL THAT APPLY)",
-      "options": [
-        { "id": "video", "label": "Video Production" },
-        { "id": "photo", "label": "Photography" },
-        { "id": "social", "label": "Social Media" },
-        { "id": "creative", "label": "Creative Direction" }
-      ]
-    },
-    "budget": {
-      "enabled": true,
-      "required": true,
-      "label": "APPROXIMATE BUDGET",
-      "placeholder": "Choose a range",
-      "options": [
-        { "value": "under-5k", "label": "Under $5,000" },
-        { "value": "5k-10k", "label": "$5,000 - $10,000" },
-        { "value": "10k-25k", "label": "$10,000 - $25,000" },
-        { "value": "25k-50k", "label": "$25,000 - $50,000" },
-        { "value": "50k-plus", "label": "$50,000+" },
-        { "value": "undecided", "label": "Not sure yet" }
-      ]
-    },
-    "timing": {
-      "enabled": true,
-      "required": true,
-      "label": "TIMING",
-      "placeholder": "Choose timing",
-      "options": [
-        { "value": "asap", "label": "ASAP" },
-        { "value": "1-month", "label": "Within 1 month" },
-        { "value": "1-3-months", "label": "1 - 3 months" },
-        { "value": "3-plus-months", "label": "3+ months" },
-        { "value": "flexible", "label": "Flexible" }
-      ]
-    },
-    "message": {
-      "enabled": true,
-      "required": true,
-      "label": "TELL US ABOUT THE PROJECT",
-      "helper": "What are you making, who is it for, and what should the work accomplish?",
-      "placeholder": "Tell us about your brand, campaign goals, key deliverables, and desired vision..."
-    }
+  "formCard": {
+    "title": "SEND A MESSAGE",
+    "fieldSet": "contact",
+    "submit": "LET'S TALK GROWTH!"
   },
-  "validation": {
-    "nameRequired": "Please enter your name.",
-    "emailRequired": "Please enter your email.",
-    "emailInvalid": "Please enter a valid email address.",
-    "projectTypeRequired": "Please select at least one project type.",
-    "budgetRequired": "Please select a budget range.",
-    "timingRequired": "Please select a timeframe.",
-    "messageRequired": "Please describe your project.",
-    "messageMinLength": "Please provide a few more details about your project."
-  },
-  "submit": {
-    "label": "SEND ENQUIRY",
-    "sending": "SENDING..."
-  },
-  "privacyNote": "By sending, you agree to our Privacy Policy.",
-  "success": {
-    "heading": "THANK YOU.",
-    "message": "We got your enquiry and will reply within 1 to 2 business days.",
-    "resetButton": "SEND ANOTHER"
-  },
-  "error": {
-    "text": "Something went wrong. Please try again or email us directly at",
-    "showEmail": true
+  "booking": {
+    "enabled": true,
+    "title": "BOOK A CALL",
+    "text": "Pick a time that suits you.",
+    "calendlyUrl": "",
+    "height": { "desktop": 700, "mobile": 760 },
+    "fallbackText": "The calendar could not be loaded.",
+    "openLabel": "OPEN CALENDAR"
   }
 }
-

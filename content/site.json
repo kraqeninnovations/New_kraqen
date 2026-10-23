@@ -6,24 +6,17 @@
     "url": "https://www.kraqeninc.com",
     "email": "support@kraqeninc.com",
     "phone": "+91 8939651621",
-    "tagline": "We Build Brands That Perform, Scale & Dominate",
-    "description": "Kraqen Innovations LLP is a creative, technology and digital innovation studio. We build brands that perform, scale and dominate.",
+    "tagline": "Chennai's next-gen creative agency engineering visual culture",
+    "description": "Chennai's next-gen creative agency engineering visual culture through cinema-grade video production, motion design, social creatives and brand direction.",
     "giantWordmark": "kraqen",
     "copyright": "© 2026 KRAQEN INNOVATIONS LLP. ALL RIGHTS RESERVED.",
     "instagramHandle": "kraqen.innovations"
   },
   "seo": {
-    "title": "Kraqen Innovations LLP — Creative, Technology & Production Studio",
-    "description": "We build brands that perform, scale and dominate. Creativity, technology and digital innovation under one roof.",
+    "title": "Next-Gen Creative & Social Agency Chennai | Kraqen",
+    "description": "Chennai's next-gen creative agency engineering visual culture through cinema-grade video production, motion design, social creatives and brand direction.",
     "ogImage": "/og-image.png",
-    "keywords": [
-      "production studio",
-      "creative technology",
-      "digital innovation",
-      "branding",
-      "video production",
-      "commercial photography"
-    ]
+    "keywords": ["creative agency chennai","video production chennai","motion design","social creatives","brand direction","commercial video"]
   },
   "logos": {
     "navbarLogo": "/brand/kraqen-mark.png",
@@ -35,94 +28,91 @@
   },
   "navigation": {
     "links": [
-      {
-        "label": "WORK",
-        "href": "/work"
-      },
-      {
-        "label": "ABOUT",
-        "href": "/about"
-      },
-      {
-        "label": "CONTACT",
-        "href": "/contact"
-      }
+      { "label": "WORK", "href": "/work" },
+      { "label": "ABOUT", "href": "/about" },
+      { "label": "CONTACT", "href": "/contact" }
     ],
-    "cta": {
-      "label": "START A PROJECT",
-      "href": "/contact"
-    },
+    "cta": { "label": "START A PROJECT", "href": "/contact" },
     "mobileMenuLabel": "MENU",
     "mobileCloseLabel": "CLOSE"
   },
   "socials": [
-    {
-      "label": "INSTAGRAM",
-      "href": "https://www.instagram.com/kraqen.innovations/"
-    },
-    {
-      "label": "LINKEDIN",
-      "href": "https://linkedin.com/company/kraqeninc"
-    },
-    {
-      "label": "TWITTER / X",
-      "href": "https://x.com/kraqeninc"
-    },
-    {
-      "label": "YOUTUBE",
-      "href": "https://youtube.com/@kraqeninc"
-    }
+    { "label": "INSTAGRAM", "href": "https://www.instagram.com/kraqen.innovations/" },
+    { "label": "LINKEDIN", "href": "https://linkedin.com/company/kraqeninc" },
+    { "label": "TWITTER / X", "href": "https://x.com/kraqeninc" },
+    { "label": "YOUTUBE", "href": "https://youtube.com/@kraqeninc" }
   ],
-  "marquee": {
-    "pill": "KRAQEN INNOVATIONS",
-    "category": "CREATIVE + TECH + MARKETING",
-    "p1": "WE BUILD BRANDS THAT PERFORM, SCALE AND DOMINATE. CREATIVITY, TECHNOLOGY AND DIGITAL INNOVATION UNDER ONE ROOF.",
-    "p2": "FROM BRANDING AND VIDEO TO MARKETING, WEBSITES AND SOFTWARE. CREATIVITY THAT PERFORMS."
-  },
   "footer": {
-    "cta": {
-      "line1": "LET'S WORK",
-      "line2": "TOGETHER",
-      "href": "/contact"
-    },
-    "navColumns": [
-      [
-        {
-          "label": "WORK",
-          "href": "/work"
-        },
-        {
-          "label": "ABOUT",
-          "href": "/about"
-        },
-        {
-          "label": "CONTACT",
-          "href": "/contact"
-        }
-      ],
-      [
-        {
-          "label": "INSTAGRAM",
-          "href": "https://instagram.com/kraqeninc"
-        },
-        {
-          "label": "LINKEDIN",
-          "href": "https://linkedin.com/company/kraqeninc"
-        },
-        {
-          "label": "TWITTER / X",
-          "href": "https://x.com/kraqeninc"
-        }
-      ]
+    "ctaLines": ["LET'S WORK", "TOGETHER"],
+    "ctaHref": "/contact",
+    "columnA": [
+      { "label": "WORK", "href": "/work" },
+      { "label": "ABOUT", "href": "/about" },
+      { "label": "CONTACT", "href": "/contact" }
+    ],
+    "columnBUseSocials": true,
+    "formTitle": "START A PROJECT",
+    "formSubtitle": "Tell us about your brand. We reply within 1 to 2 business days.",
+    "hideFormOnPaths": ["/about", "/contact"],
+    "copyright": "© 2026 KRAQEN INNOVATIONS LLP. ALL RIGHTS RESERVED.",
+    "legal": [
+      { "label": "PRIVACY POLICY", "href": "/privacy" },
+      { "label": "TERMS AND CONDITIONS", "href": "/terms" }
     ]
   },
-  "reelWidget": {
-    "title": "KRAQEN INNOVATIONS — 2026 REEL",
-    "label": "VIEW REEL",
-    "videoSrc": "/about/showreel.mp4",
-    "previewSrc": "/about/showreel-preview.mp4",
-    "posterSrc": "/about/showreel-poster.jpg",
-    "enabled": true
+  "serviceOptions": [
+    "Video Production",
+    "Editorial & Motion Designs",
+    "Social Creatives",
+    "Creative Direction & Strategy"
+  ],
+  "forms": {
+    "fieldSets": {
+      "inquiry": [
+        { "id": "name", "type": "text", "label": "NAME", "placeholder": "Your name", "required": true },
+        { "id": "email", "type": "email", "label": "EMAIL", "placeholder": "you@email.com", "required": true, "row": "contact" },
+        { "id": "phone", "type": "tel", "label": "CONTACT NUMBER", "placeholder": "+91", "required": true, "row": "contact" },
+        { "id": "brand", "type": "text", "label": "BRAND / WEBSITE", "placeholder": "Brand name or website link", "required": false },
+        { "id": "service", "type": "select", "label": "SERVICE NEEDED", "placeholder": "Choose a service", "optionsFrom": "serviceOptions", "required": true }
+      ],
+      "contact": [
+        { "id": "name", "type": "text", "label": "NAME", "placeholder": "Your name", "required": true },
+        { "id": "email", "type": "email", "label": "EMAIL", "placeholder": "you@email.com", "required": true, "row": "contact" },
+        { "id": "phone", "type": "tel", "label": "CONTACT NUMBER", "placeholder": "+91", "required": true, "row": "contact" },
+        { "id": "service", "type": "select", "label": "SERVICE NEEDED", "placeholder": "Choose a service", "optionsFrom": "serviceOptions", "required": true }
+      ]
+    },
+    "labels": { "required": "(REQUIRED)", "optional": "(OPTIONAL)" },
+    "submit": {
+      "footer": "LET'S TALK",
+      "about": "SEND ENQUIRY",
+      "contact": "LET'S TALK GROWTH!",
+      "sending": "SENDING..."
+    },
+    "validation": {
+      "required": "This field is required",
+      "email": "Please enter a valid email",
+      "phone": "Please enter a valid phone number"
+    },
+    "success": {
+      "title": "THANK YOU.",
+      "text": "We got your enquiry and will reply within 1 to 2 business days."
+    },
+    "error": "Something went wrong. Please try again or email us directly."
+  },
+  "office": {
+    "label": "OUR CHENNAI OFFICE",
+    "addressLines": ["", "", "", ""],
+    "mapUrl": "",
+    "whatsapp": {
+      "label": "WHATSAPP",
+      "number": "918939651621",
+      "message": "Hi Kraqen, I'd like to discuss a project."
+    },
+    "email": {
+      "label": "EMAIL",
+      "address": "support@kraqeninc.com"
+    }
   },
   "notFound": {
     "title": "PAGE NOT FOUND",
@@ -136,47 +126,5 @@
     "formRequired": "This field is required.",
     "formInvalidEmail": "Please provide a valid email address.",
     "formServerError": "Failed to send message. Please email us directly."
-  },
-  "install": {
-    "enabled": true,
-    "label": "GET THE APP",
-    "title": "INSTALL KRAQEN",
-    "text": "Add Kraqen to your phone for faster access. Works with the latest content, every time.",
-    "appIcon": "/brand/kraqen-mark.png",
-    "closeLabel": "CLOSE",
-    "installedLabel": "ALREADY INSTALLED",
-    "android": {
-      "label": "ANDROID",
-      "subLabel": "DOWNLOAD APK",
-      "apkUrl": "/downloads/kraqen.apk",
-      "version": "1.0.0",
-      "playStoreUrl": "",
-      "helpTitle": "INSTALL ON ANDROID",
-      "helpSteps": [
-        "Tap the download button. Your phone may ask to allow installs from this browser.",
-        "Open the downloaded file Kraqen.apk.",
-        "Tap Install, then Open.",
-        "Tip: in Chrome you can also use the menu and choose Install app."
-      ]
-    },
-    "ios": {
-      "label": "iOS",
-      "subLabel": "INSTALL ON IPHONE",
-      "appStoreUrl": "",
-      "helpTitle": "INSTALL ON IPHONE OR IPAD",
-      "helpSteps": [
-        "Open this website in Safari.",
-        "Tap the Share button.",
-        "Choose Add to Home Screen.",
-        "Tap Add."
-      ],
-      "inAppBrowserNote": "Open this page in Safari to install the app.",
-      "copyLinkLabel": "COPY LINK"
-    },
-    "qr": {
-      "enabled": true,
-      "caption": "SCAN TO INSTALL ON YOUR PHONE",
-      "url": "https://www.kraqeninc.com/install"
-    }
   }
 }

@@ -1,4 +1,19 @@
-import type { HomeProject } from '@/lib/schemas/home';
+export interface InstagramProject {
+  id: string;
+  number: string;
+  name: string;
+  title: string;
+  services: string;
+  category: string;
+  year: string;
+  mediaType: 'reel' | 'post' | 'image';
+  instagramUrl: string;
+  image: string;
+  video: string;
+  alt: string;
+  fit: 'cover' | 'inset';
+  imageStyle: 'cover' | 'inset';
+}
 
 interface InstagramMediaItem {
   id: string;
@@ -21,9 +36,9 @@ interface InstagramApiResponse {
 }
 
 export async function fetchInstagramProjects(
-  fallbackProjects: HomeProject[],
+  fallbackProjects: InstagramProject[] = [],
   limit: number = 12
-): Promise<HomeProject[]> {
+): Promise<InstagramProject[]> {
   const userId = process.env.INSTAGRAM_USER_ID;
   const accessToken = process.env.INSTAGRAM_ACCESS_TOKEN;
 
@@ -40,7 +55,7 @@ export async function fetchInstagramProjects(
 
     if (!res.ok) {
       console.warn(
-        'INSTAGRAM ERROR: token expired or missing permission instagram_basic. Showing manual items from content/home.json.'
+        'INSTAGRAM ERROR: token expired or missing permission instagram_basic. Showing manual items.'
       );
       return fallbackProjects;
     }
@@ -48,7 +63,7 @@ export async function fetchInstagramProjects(
     const json = (await res.json()) as InstagramApiResponse;
     if (!json.data || !Array.isArray(json.data) || json.data.length === 0) {
       console.warn(
-        'INSTAGRAM ERROR: empty or invalid response. Showing manual items from content/home.json.'
+        'INSTAGRAM ERROR: empty or invalid response. Showing manual items.'
       );
       return fallbackProjects;
     }
@@ -57,40 +72,30 @@ export async function fetchInstagramProjects(
       const isReel = item.media_product_type === 'REELS' || item.media_type === 'VIDEO';
       const mediaType: 'reel' | 'post' = isReel ? 'reel' : 'post';
       const numStr = String(index + 1).padStart(2, '0');
-
-      let title = `REEL ${numStr}`;
-      if (item.caption) {
-        const firstLine = item.caption.split('\n')[0].trim();
-        if (firstLine.length > 0) {
-          title = firstLine.slice(0, 40).toUpperCase();
-        }
-      }
-
-      const imageUrl = item.thumbnail_url || item.media_url || fallbackProjects[index % fallbackProjects.length]?.image || '/images/work/reel-01.webp';
+      const firstLine = item.caption ? item.caption.split('\n')[0].slice(0, 32).toUpperCase() : `REEL ${numStr}`;
 
       return {
         id: item.id,
         number: numStr,
-        title,
-        name: title,
-        category: isReel ? 'REEL' : 'POST',
-        services: isReel ? 'INSTAGRAM REEL' : 'INSTAGRAM POST',
+        name: firstLine,
+        title: firstLine,
+        services: isReel ? 'REEL' : 'POST',
+        category: 'SOCIAL CREATIVES',
         year: item.timestamp ? new Date(item.timestamp).getFullYear().toString() : '2026',
         mediaType,
         instagramUrl: item.permalink,
-        image: imageUrl,
-        video: '',
-        alt: title,
+        image: item.thumbnail_url || item.media_url || '/images/hero-runner.jpg',
+        video: item.media_url || '',
+        alt: item.caption ? item.caption.slice(0, 100) : `Kraqen Instagram post ${numStr}`,
         fit: 'cover' as const,
-        imageStyle: 'full-bleed' as const,
+        imageStyle: 'cover' as const,
       };
     });
-  } catch (error) {
+  } catch (err: unknown) {
     console.warn(
-      'INSTAGRAM ERROR: token expired or missing permission instagram_basic. Showing manual items from content/home.json.',
-      error
+      'INSTAGRAM ERROR: network error while fetching Instagram feed. Falling back.',
+      err
     );
     return fallbackProjects;
   }
 }
-

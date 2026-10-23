@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import Brand from '@/components/Brand';
-import Logo from '@/components/Logo';
-import InstallAppBlock from '@/components/InstallAppBlock';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import InquiryForm from '@/components/InquiryForm';
 import type { SiteContent } from '@/lib/schemas/site';
 
 interface FooterProps {
@@ -12,11 +12,12 @@ interface FooterProps {
 }
 
 export default function Footer({ site }: FooterProps) {
-  const wordmarkRef = useRef<HTMLSpanElement>(null);
-  const arrowRef = useRef<HTMLSpanElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
+  const pathname = usePathname();
+  const wordmarkRef = useRef<HTMLDivElement>(null);
 
-  // Scale wordmark to exactly fill viewport width on desktop (>= 1024px)
+  const hideForm = site.footer.hideFormOnPaths.some((p) => pathname?.startsWith(p));
+
+  // Scale wordmark on desktop to fill width smoothly
   useEffect(() => {
     let rAFId: number;
     const fitWordmark = () => {
@@ -24,23 +25,20 @@ export default function Footer({ site }: FooterProps) {
       if (!el) return;
       if (window.innerWidth < 1024) {
         el.style.fontSize = '';
-        el.style.display = '';
         return;
       }
       el.style.fontSize = '300px';
-      el.style.display = 'block';
       cancelAnimationFrame(rAFId);
       rAFId = requestAnimationFrame(() => {
         const containerW = document.documentElement.clientWidth;
         const naturalW = el.scrollWidth;
         if (naturalW === 0) return;
-        const ratio = containerW / naturalW;
-        el.style.fontSize = `${300 * ratio}px`;
+        const ratio = (containerW * 0.96) / naturalW;
+        el.style.fontSize = `${Math.min(300 * ratio, 280)}px`;
       });
     };
 
     fitWordmark();
-
     window.addEventListener('resize', fitWordmark);
     return () => {
       cancelAnimationFrame(rAFId);
@@ -48,267 +46,136 @@ export default function Footer({ site }: FooterProps) {
     };
   }, []);
 
-  // Scroll reveal for CTA lines
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    let ctx: { revert: () => void } | null = null;
-
-    const init = async () => {
-      const { gsap } = await import('gsap');
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-      gsap.registerPlugin(ScrollTrigger);
-
-      if (!sectionRef.current) return;
-
-      ctx = gsap.context(() => {
-        const inners = sectionRef.current?.querySelectorAll('.reveal-line-inner');
-        if (inners && inners.length > 0) {
-          gsap.set(inners, { yPercent: 100 });
-          gsap.to(inners, {
-            yPercent: 0,
-            duration: 1,
-            stagger: 0.06,
-            ease: 'power3.out',
-            scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' },
-          });
-        }
-      }, sectionRef);
-    };
-
-    init();
-
-    return () => {
-      ctx?.revert();
-    };
-  }, []);
-
-  const handleCtaEnter = async () => {
-    const { gsap } = await import('gsap');
-    gsap.to(arrowRef.current, { x: 6, y: -6, duration: 0.3, ease: 'power2.out' });
-  };
-
-  const handleCtaLeave = async () => {
-    const { gsap } = await import('gsap');
-    gsap.to(arrowRef.current, { x: 0, y: 0, duration: 0.3, ease: 'power2.out' });
-  };
-
   return (
     <footer
-      ref={sectionRef}
-      id="contact"
-      className="footer-section"
-      style={{ paddingBottom: 0 }}
-      aria-label="Footer"
+      className="relative text-white overflow-hidden"
+      style={{ backgroundColor: 'var(--brand-purple)' }}
     >
-      <div className="section-px">
-        {/* MOBILE LAYOUT (< 768px):
-            1. Top row: logo mark (36px) left.
-            2. "LET'S WORK TOGETHER" (Tanker, clamp(40px, 12vw, 64px), 2 lines) + arrow icon.
-            3. Footer links in two left-aligned columns (mono 12px caps, row gap 14px).
-            4. Install block, margin-top clamp(48px, 12vw, 72px).
-        */}
-        <div className="flex flex-col md:hidden">
-          {/* 1. Top row: logo mark (36px) left */}
-          <div className="flex items-center">
-            <Brand
-              variant="default"
-              height={36}
-              src={site.logos.navbarLogo}
-              alt={site.logos.alt}
-              className="!p-0"
-            />
-          </div>
-
-          {/* 2. "LET'S WORK TOGETHER" */}
-          <div className="mt-8">
-            <Link
-              href={site.footer.cta.href}
-              className="footer-cta block"
-              aria-label={`${site.footer.cta.line1} ${site.footer.cta.line2}`}
-              style={{ color: 'var(--on-accent)', textDecoration: 'none' }}
-            >
-              <span className="reveal-line block">
-                <span className="reveal-line-inner block font-tanker text-[clamp(40px,12vw,64px)] leading-[0.9] uppercase tracking-tight">
-                  {site.footer.cta.line1}
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 pt-16 md:pt-24 pb-12">
+        <div className={`grid grid-cols-1 ${hideForm ? 'lg:grid-cols-1' : 'lg:grid-cols-12'} gap-12 lg:gap-16 items-start`}>
+          {/* Left Column: Brand, Headline, Navigation */}
+          <div className={`${hideForm ? 'lg:col-span-12 max-w-3xl' : 'lg:col-span-6 xl:col-span-6'} flex flex-col justify-between`}>
+            <div>
+              {/* Logo */}
+              <Link href="/" className="inline-flex items-center gap-3 mb-10 group" aria-label="Kraqen Home">
+                <Image
+                  src={site.logos.navbarLogo}
+                  alt={site.logos.alt}
+                  width={32}
+                  height={32}
+                  className="w-8 h-8 object-contain brightness-0 invert"
+                />
+                <span className="font-tanker text-2xl tracking-wider text-white uppercase">
+                  {site.brand.shortName}
                 </span>
-              </span>
-              <span className="reveal-line block">
-                <span className="reveal-line-inner block font-tanker text-[clamp(40px,12vw,64px)] leading-[0.9] uppercase tracking-tight">
-                  {site.footer.cta.line2}{' '}
-                  <span className="inline-block" aria-hidden="true">
-                    ↗
-                  </span>
-                </span>
-              </span>
-            </Link>
-          </div>
+              </Link>
 
-          {/* 3. Footer links in two left-aligned columns (mono 12px caps, row gap 14px) */}
-          <nav
-            className="grid grid-cols-2 gap-8 w-full mt-8"
-            aria-label="Footer navigation mobile"
-          >
-            {site.footer.navColumns.map((col, colIdx) => (
-              <div key={colIdx} className="flex flex-col gap-[14px]">
-                {col.map((link) => (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    className="font-mono text-[12px] uppercase tracking-wider text-[#1a1a1a] hover:opacity-60 transition-opacity min-h-[32px] flex items-center"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-            ))}
-          </nav>
-
-          {/* 4. Install block, margin-top clamp(48px, 12vw, 72px) */}
-          <InstallAppBlock
-            site={site}
-            className="mt-[clamp(48px,12vw,72px)] mb-0"
-          />
-        </div>
-
-        {/* DESKTOP / TABLET LAYOUT (>= 768px): Existing look preserved untouched */}
-        <div className="hidden md:block">
-          {/* Top row: Kraqen logo mark + nav columns */}
-          <div className="flex flex-row justify-between items-start gap-8">
-            <Brand
-              variant="footer"
-              src={site.logos.navbarLogo}
-              alt={site.logos.alt}
-              className="!p-0"
-            />
-            <nav
-              className="flex gap-8 sm:gap-12 w-auto"
-              aria-label="Footer navigation desktop"
-            >
-              {site.footer.navColumns.map((col, colIdx) => (
-                <div key={colIdx} className="footer-nav-col flex flex-col gap-2">
-                  {col.map((link) => (
-                    <Link
-                      key={link.label}
-                      href={link.href}
-                      className="hover:opacity-60 transition-opacity min-h-[32px] flex items-center"
-                    >
-                      {link.label}
-                    </Link>
+              {/* Big CTA Headline */}
+              <Link
+                href={site.footer.ctaHref}
+                className="group block mb-12 sm:mb-16 focus:outline-none"
+              >
+                <div className="font-tanker text-white uppercase leading-[0.88] tracking-tight text-[clamp(44px,7vw,96px)] transition-transform duration-300 group-hover:translate-x-2">
+                  {site.footer.ctaLines.map((line, i) => (
+                    <div key={i}>{line}</div>
                   ))}
+                  <div className="flex items-center gap-4 mt-2">
+                    <span className="text-white/60 font-mono text-sm tracking-normal capitalize font-normal group-hover:text-white transition-colors">
+                      Start a project
+                    </span>
+                    <span className="inline-block transform group-hover:translate-x-3 transition-transform text-2xl">
+                      →
+                    </span>
+                  </div>
                 </div>
-              ))}
-            </nav>
-          </div>
+              </Link>
+            </div>
 
-          {/* CTA headline */}
-          <div className="mt-[clamp(40px,6vw,80px)]">
-            <Link
-              href={site.footer.cta.href}
-              className="footer-cta block"
-              onMouseEnter={handleCtaEnter}
-              onMouseLeave={handleCtaLeave}
-              onClick={(e) => {
-                if (typeof window !== 'undefined' && window.location.pathname === '/contact') {
-                  e.preventDefault();
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-              }}
-              aria-label={`${site.footer.cta.line1} ${site.footer.cta.line2}`}
-              style={{ color: 'var(--on-accent)', textDecoration: 'none' }}
-            >
-              <span className="reveal-line block">
-                <span className="reveal-line-inner block">{site.footer.cta.line1}</span>
-              </span>
-              <span className="reveal-line block">
-                <span className="reveal-line-inner block">
-                  {site.footer.cta.line2}{' '}
-                  <span ref={arrowRef} className="inline-block" aria-hidden="true">
-                    ↗
-                  </span>
+            {/* Links Columns */}
+            <div className="grid grid-cols-2 gap-8 pt-6 border-t border-white/20">
+              <div>
+                <span className="block font-mono text-[11px] uppercase tracking-wider text-white/50 mb-4">
+                  NAVIGATION
                 </span>
-              </span>
-            </Link>
+                <ul className="flex flex-col gap-2.5">
+                  {site.footer.columnA.map((item, i) => (
+                    <li key={i}>
+                      <Link
+                        href={item.href}
+                        className="font-mono text-xs uppercase tracking-wider text-white hover:text-white/70 transition-colors"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <span className="block font-mono text-[11px] uppercase tracking-wider text-white/50 mb-4">
+                  CONNECT
+                </span>
+                <ul className="flex flex-col gap-2.5">
+                  {site.socials.map((social, i) => (
+                    <li key={i}>
+                      <a
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-mono text-xs uppercase tracking-wider text-white hover:text-white/70 transition-colors"
+                      >
+                        {social.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
 
-          {/* Install the app block */}
-          <InstallAppBlock site={site} className="my-[clamp(48px,6vw,96px)]" />
+          {/* Right Column: Form Card (Hidden on /about and /contact) */}
+          {!hideForm && (
+            <div className="lg:col-span-6 xl:col-span-6 w-full">
+              <div className="bg-[#0f0f0f] border border-white/12 rounded-2xl p-6 sm:p-8 md:p-10 text-white shadow-2xl">
+                <h3 className="font-tanker text-white uppercase text-[clamp(28px,3vw,44px)] leading-none tracking-wide mb-2">
+                  {site.footer.formTitle}
+                </h3>
+                <p className="font-mono text-xs text-white/60 mb-6 leading-relaxed">
+                  {site.footer.formSubtitle}
+                </p>
+                <InquiryForm site={site} fieldSet="inquiry" placement="footer" />
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* WORDMARK BELOW 1024px: Left aligned with page padding, small & proper */}
-        <div className="lg:hidden mt-[clamp(48px,14vw,80px)] pb-[calc(24px+env(safe-area-inset-bottom))] select-none">
-          <span
-            style={{
-              fontFamily: "'Tanker', sans-serif",
-              fontWeight: 400,
-              textTransform: 'lowercase',
-              color: 'var(--on-accent)',
-              display: 'block',
-              lineHeight: 0.85,
-              letterSpacing: '-0.01em',
-              whiteSpace: 'nowrap',
-              overflow: 'visible',
-              fontSize: 'var(--footer-wordmark-size)',
-            }}
-          >
-            {site.brand.giantWordmark}
-          </span>
-          <div className="mt-5 font-mono text-[10.5px] uppercase tracking-wider text-[#1a1a1a]/70 text-left">
-            {site.brand.copyright}
-          </div>
-        </div>
-      </div>
-
-      {/* DESKTOP GIANT FULL-BLEED WORDMARK & BOTTOM BAR (>= 1024px) */}
-      <div className="hidden lg:block">
-        <div
-          className="overflow-hidden block leading-none mt-[clamp(40px,8vw,120px)] select-none"
-          aria-hidden="true"
-        >
-          <span
+        {/* Center Giant Wordmark */}
+        <div className="pt-16 pb-8 text-center select-none overflow-hidden">
+          <div
             ref={wordmarkRef}
+            className="font-tanker text-white uppercase tracking-tighter leading-[0.82] inline-block text-center whitespace-nowrap"
             style={{
-              fontFamily: "'Tanker', sans-serif",
-              fontWeight: 400,
-              textTransform: 'lowercase',
-              color: 'var(--on-accent)',
-              display: 'block',
-              lineHeight: 0.82,
-              whiteSpace: 'nowrap',
-              fontSize: 'clamp(48px, 18vw, 220px)',
+              fontSize: 'clamp(56px, 21vw, 220px)',
             }}
           >
             {site.brand.giantWordmark}
-          </span>
+          </div>
         </div>
 
-        {/* Desktop Copyright Bar */}
-        <div
-          className="flex justify-between items-center gap-2 py-4 border-t border-[#1a1a1a]/15"
-          style={{ paddingLeft: 'var(--px)', paddingRight: 'var(--px)' }}
-        >
-          <span
-            style={{
-              fontFamily: "'Space Mono', monospace",
-              fontSize: '10.5px',
-              letterSpacing: '0.04em',
-              color: 'rgba(26,26,26,0.6)',
-              textTransform: 'uppercase',
-            }}
-          >
-            {site.brand.copyright}
-          </span>
-          <span
-            style={{
-              fontFamily: "'Space Mono', monospace",
-              fontSize: '10px',
-              letterSpacing: '0.04em',
-              color: 'rgba(26,26,26,0.4)',
-              textTransform: 'uppercase',
-            }}
-          >
-            {site.brand.tagline}
-          </span>
+        {/* Copyright and Legal Row */}
+        <div className="pt-6 border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-white/70 text-center">
+          <div>{site.footer.copyright}</div>
+          <div className="flex items-center gap-6">
+            {site.footer.legal.map((item, i) => (
+              <Link
+                key={i}
+                href={item.href}
+                className="hover:text-white transition-colors uppercase tracking-wider"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </footer>

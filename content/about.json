@@ -1,20 +1,25 @@
 {
   "seo": {
-    "title": "About — Kraqen Innovations LLP",
-    "description": "Kraqen Innovations translates brand moments into visceral perspectives, flexing between the quietude of the ethereal and the grit of the expressive."
+    "title": "About Kraqen Innovations | Kraqen",
+    "description": "Chennai's Next-Gen Creative Production Agency engineering visual culture through cinema-grade video production and motion design."
+  },
+  "hero": {
+    "title": "ABOUT KRAQEN INNOVATIONS",
+    "subtitle": "Chennai's Next-Gen Creative Production Agency"
   },
   "intro": {
-    "title": "ABOUT",
-    "paragraph": "Kraqen Innovations translates brand moments into visceral perspectives, flexing between the quietude of the ethereal and the grit of the expressive. We are a close-knit production team drawn to ideas with texture, movement and feeling, shaping each frame with cinematic intent from first conversation through final delivery."
+    "title": "WE ENGINEER VISUAL CULTURE.",
+    "paragraph": "We bridge the gap between high-end cinematography and scroll-stopping social engagement. Whether we are shooting a high-octane motorsport campaign or launching a cult-status brand, we don't just capture content, we build narratives engineered to dominate the feed."
   },
   "team": {
-    "heading": "THE TEAM",
+    "title": "THE MINDS BEHIND THE LENS",
+    "subtitle": "Directed by technical precision, driven by creative strategy",
     "members": [
       {
         "id": "victor-yuen",
         "name": "VICTOR YUEN",
         "role": "FOUNDER / CREATIVE DIRECTOR",
-        "bio": "Victor has worked in the creative industry for more than a decade, collaborating with clients at every scale. With a background in design, he puts storytelling and strong visual direction at the forefront of every project. From large in-house creative teams to small businesses, he finds the most compelling way through each production.",
+        "bio": "Victor has worked in the creative industry for more than a decade, collaborating with clients at every scale. With a background in design, he puts storytelling and strong visual direction at the forefront of every project.",
         "image": "/about/victor-yuen.jpg",
         "alt": "Victor Yuen, Founder and Creative Director at Kraqen Innovations",
         "isGreyscaleDefault": true
@@ -23,12 +28,60 @@
         "id": "max-tagesen",
         "name": "MAX TAGESEN",
         "role": "EDITOR / CAMERA OPERATOR / ASSISTANT",
-        "bio": "Max is a multidisciplinary creator with an undying passion for sport. He tells real, meaningful stories through photography and video, looking for the emotion and movement that make each frame unique. No project is too small or too large. If there is a story worth telling, he is all in.",
+        "bio": "Max is a multidisciplinary creator with an undying passion for sport. He tells real, meaningful stories through photography and video, looking for the emotion and movement that make each frame unique.",
         "image": "/about/max-tagesen.jpg",
         "alt": "Max Tagesen, Editor and Camera Operator at Kraqen Innovations",
         "isGreyscaleDefault": false
       }
     ]
+  },
+  "blueprint": {
+    "title": "THE BLUEPRINT TO EXECUTION",
+    "subtitle": "A production pipeline built for scale, speed, and cinematic quality.",
+    "steps": [
+      {
+        "number": "01",
+        "title": "STRATEGY",
+        "text": "Crafting narrative decks, visual identities, and campaign hooks.",
+        "image": "/images/hero-city.jpg",
+        "alt": "Strategy deck and mood board"
+      },
+      {
+        "number": "02",
+        "title": "PRODUCTION",
+        "text": "Heavy-duty lighting, dynamic framing, and on-location cinematic execution.",
+        "image": "/images/hero-runner.jpg",
+        "alt": "On-location shoot with lighting rig"
+      },
+      {
+        "number": "03",
+        "title": "VISUAL FINISHING",
+        "text": "Precision colour grading, motion graphics, and platform-specific editorial cuts.",
+        "image": "/images/hero-ice.jpg",
+        "alt": "Editing timeline on a monitor"
+      }
+    ]
+  },
+  "onSet": {
+    "title": "ON SET & IN THE SUITE",
+    "subtitle": "Where raw footage meets visual finishing.",
+    "items": [
+      { "src": "/images/hero-runner.jpg", "alt": "Sony FX30 rigged up on set", "shape": "wide" },
+      { "src": "/images/hero-ice.jpg", "alt": "Crew filming on location", "shape": "tall" },
+      { "src": "/images/hover-mug.jpg", "alt": "Editing monitors glowing in the suite", "shape": "square" },
+      { "src": "/images/hover-kitsune.jpg", "alt": "Camera operator at the track", "shape": "tall" },
+      { "src": "/images/hero-city.jpg", "alt": "Colour grading session", "shape": "wide" },
+      { "src": "/images/hover-staffbase.jpg", "alt": "Action shot of the crew on location", "shape": "square" }
+    ]
+  },
+  "cta": {
+    "title": "LET'S BUILD SOMETHING CULT.",
+    "subtitle": "Ready to dominate your niche? Drop your project details below."
+  },
+  "legacy": {
+    "whatWeDo": false,
+    "studioSplit": false,
+    "approachClients": false
   },
   "services": {
     "labelLeft": "WHAT WE DO",
@@ -37,27 +90,15 @@
     "items": []
   },
   "studioSplit": {
-    "left": {
-      "src": "/about/studio-left.jpg",
-      "alt": "Kraqen Innovations team working at long white desk with large monitors and hanging paper globe lamp in airy studio",
-      "widthRatio": "66%"
-    },
-    "right": {
-      "src": "/about/studio-right.jpg",
-      "alt": "Studio interior shelf with potted plants, rugby ball, designer yellow lamp, books and gear",
-      "widthRatio": "34%"
-    }
+    "left": { "src": "/about/studio-left.jpg", "alt": "Kraqen Innovations team working at studio", "widthRatio": "66%" },
+    "right": { "src": "/about/studio-right.jpg", "alt": "Studio interior", "widthRatio": "34%" }
   },
   "approach": {
     "labelLeft": "APPROACH",
     "labelRight": "SELECTED PARTNERS",
-    "headlineLines": [
-      "A POINT OF VIEW, CARRIED",
-      "THROUGH EVERY FRAME."
-    ],
+    "headlineLines": ["A POINT OF VIEW, CARRIED", "THROUGH EVERY FRAME."],
     "useHomePartners": true,
     "fillEmptyCells": true,
     "clients": []
   }
 }
-
