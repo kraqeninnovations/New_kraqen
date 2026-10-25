@@ -199,3 +199,66 @@ export async function revertVersion(
   }
 }
 
+/* ============================================================
+   BOOKINGS STORAGE
+   ============================================================ */
+const BOOKINGS_DIR = path.join(process.cwd(), '.bookings');
+
+export interface BookingRecord {
+  id: string;
+  date: string;
+  time: string;
+  timezone: string;
+  name: string;
+  email: string;
+  phone: string;
+  phoneCountry?: string;
+  notes?: string;
+  createdAt: string;
+}
+
+export async function getBookingsForDate(dateStr: string): Promise<BookingRecord[]> {
+  try {
+    ensureDir(BOOKINGS_DIR);
+    const filePath = path.join(BOOKINGS_DIR, `${dateStr}.json`);
+    if (!fs.existsSync(filePath)) return [];
+    const raw = await fs.promises.readFile(filePath, 'utf-8');
+    return JSON.parse(raw) as BookingRecord[];
+  } catch (err) {
+    console.warn('Could not read bookings for date:', dateStr, err);
+    return [];
+  }
+}
+
+export async function saveBookingRecord(
+  booking: Omit<BookingRecord, 'id' | 'createdAt'>
+): Promise<{ success: boolean; error?: string; booking?: BookingRecord }> {
+  try {
+    ensureDir(BOOKINGS_DIR);
+    const filePath = path.join(BOOKINGS_DIR, `${booking.date}.json`);
+    let existing: BookingRecord[] = [];
+    if (fs.existsSync(filePath)) {
+      const raw = await fs.promises.readFile(filePath, 'utf-8');
+      existing = JSON.parse(raw);
+    }
+
+    const slotTaken = existing.some((b) => b.time === booking.time);
+    if (slotTaken) {
+      return { success: false, error: 'Slot already booked' };
+    }
+
+    const newRecord: BookingRecord = {
+      ...booking,
+      id: `bk_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+      createdAt: new Date().toISOString(),
+    };
+
+    existing.push(newRecord);
+    await fs.promises.writeFile(filePath, JSON.stringify(existing, null, 2), 'utf-8');
+    return { success: true, booking: newRecord };
+  } catch (err) {
+    console.error('Failed to save booking:', err);
+    return { success: false, error: 'Failed to write booking' };
+  }
+}
+

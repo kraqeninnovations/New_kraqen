@@ -11,7 +11,6 @@ const rootDir = path.resolve(__dirname, '..');
 const sourceIconPath = path.join(rootDir, 'assets', 'brand', 'kraqen-icon-source.png');
 const appIconPath = path.join(rootDir, 'app', 'icon.png');
 const appIcoPath = path.join(rootDir, 'app', 'favicon.ico');
-const appAppleIconPath = path.join(rootDir, 'app', 'apple-icon.png');
 const brandMarkPath = path.join(rootDir, 'public', 'brand', 'kraqen-mark.png');
 const iconsDir = path.join(rootDir, 'public', 'icons');
 const publicAppleTouchIconPath = path.join(rootDir, 'public', 'apple-touch-icon.png');
@@ -98,9 +97,8 @@ async function syncIcons() {
     .png()
     .toBuffer();
 
-  fs.writeFileSync(appAppleIconPath, appleIcon);
   fs.writeFileSync(publicAppleTouchIconPath, appleIcon);
-  console.log('Generated app/apple-icon.png and public/apple-touch-icon.png (180x180, solid #0f0f0f)');
+  console.log('Generated public/apple-touch-icon.png (180x180, solid #0f0f0f)');
 
   // 5. Generate PWA icons in public/icons
   const rounded192 = await createRoundedImage(sourceIconPath, 192, 0.22);

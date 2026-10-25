@@ -1,25 +1,41 @@
 {
   "seo": {
-    "title": "Contact | Kraqen",
-    "description": "Have a brand to build, a campaign to launch or a story to tell? Contact Kraqen Innovations, Chennai's next-gen creative agency."
+    "title": "Contact Kraqen Innovations | Book a Call, Creative Agency in Chennai",
+    "description": "Start your project with Kraqen Innovations. Book a 30 minute call or send a message. Creative agency in West Tambaram, Chennai, Tamil Nadu.",
+    "keywords": {
+      "primary": [
+        "creative agency in Chennai",
+        "video production company in Chennai",
+        "social media creative agency Chennai",
+        "brand film production Chennai",
+        "motorsport videography India"
+      ],
+      "secondary": [
+        "commercial video production Chennai",
+        "motion graphics studio Chennai",
+        "Instagram reels production",
+        "brand identity and creative direction",
+        "cinematic brand films",
+        "social media content creators Chennai",
+        "West Tambaram Chennai"
+      ]
+    }
   },
   "header": {
     "label": "CONTACT",
-    "titleLines": ["LET'S BUILD", "SOMETHING", "GREAT"],
+    "titleLines": [
+      "LET'S BUILD",
+      "SOMETHING",
+      "GREAT"
+    ],
     "paragraph": "Have a brand to build, a campaign to launch or a story to tell? Send us a message or book a call."
   },
   "formCard": {
     "title": "SEND A MESSAGE",
     "fieldSet": "contact",
-    "submit": "LET'S TALK GROWTH!"
-  },
-  "booking": {
-    "enabled": true,
-    "title": "BOOK A CALL",
-    "text": "Pick a time that suits you.",
-    "calendlyUrl": "",
-    "height": { "desktop": 700, "mobile": 760 },
-    "fallbackText": "The calendar could not be loaded.",
-    "openLabel": "OPEN CALENDAR"
+    "submit": "LET'S TALK GROWTH!",
+    "followLabel": "FOLLOW US",
+    "followText": "Prefer to talk on social? Say hi and we will reply fast.",
+    "showSocials": true
   }
 }

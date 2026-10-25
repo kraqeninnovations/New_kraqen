@@ -1,25 +1,82 @@
 {
   "seo": {
     "title": "Next-Gen Creative & Social Agency Chennai | Kraqen",
-    "description": "Chennai's next-gen creative agency engineering visual culture through cinema-grade video production, dynamic motion design, social creatives, and strategic brand direction."
+    "description": "Chennai's next-gen creative agency: cinema-grade video production, motion design, social creatives and brand direction. Start a project with Kraqen Innovations.",
+    "keywords": {
+      "primary": [
+        "creative agency in Chennai",
+        "video production company in Chennai",
+        "social media creative agency Chennai",
+        "brand film production Chennai",
+        "motorsport videography India"
+      ],
+      "secondary": [
+        "commercial video production Chennai",
+        "motion graphics studio Chennai",
+        "Instagram reels production",
+        "brand identity and creative direction",
+        "cinematic brand films",
+        "social media content creators Chennai",
+        "West Tambaram Chennai"
+      ]
+    }
   },
   "hero": {
-    "headlineLines": ["CRAFTING VISUALS", "THAT DEMAND", "ATTENTION"],
+    "headlineLines": [
+      "CRAFTING VISUALS",
+      "THAT DEMAND",
+      "ATTENTION"
+    ],
     "location": "CHENNAI - IN",
     "paragraph": "Chennai's next-gen creative agency engineering visual culture through cinema-grade video production, dynamic motion design, social creatives, and strategic brand direction.",
-    "cta": { "label": "VIEW OUR WORK", "href": "/work" },
+    "cta": {
+      "label": "VIEW OUR WORK",
+      "href": "/work"
+    },
+    "video": {
+      "src": "/media/hero.mp4",
+      "srcMobile": "/media/hero-mobile.mp4",
+      "poster": "/media/hero-poster.webp",
+      "overlay": 0.35
+    },
     "images": [
-      { "src": "/images/hero-snacks.jpg", "alt": "Smiling woman holding colorful snack packs", "position": "top-center" },
-      { "src": "/images/hero-runner.jpg", "alt": "Person running on grass field, motion blur", "position": "left" },
-      { "src": "/images/hero-ice.jpg", "alt": "Blue ice cube on deep blue background", "position": "left-center" },
-      { "src": "/images/hero-city.jpg", "alt": "City skyline at golden hour sunset", "position": "right" }
+      {
+        "position": "top",
+        "src": "/images/home/hero-1.webp",
+        "alt": "Kraqen cinema camera rig on set"
+      },
+      {
+        "position": "left",
+        "src": "/images/home/hero-2.webp",
+        "alt": "High-octane motorsport production"
+      },
+      {
+        "position": "right",
+        "src": "/images/home/hero-4.webp",
+        "alt": "Post-production and colour grading suite"
+      },
+      {
+        "position": "bottom",
+        "src": "/images/home/hero-3.webp",
+        "alt": "Commercial lighting and set design"
+      }
     ]
   },
   "selectedWork": {
     "label": "SELECTED WORK",
-    "headingLines": ["SELECTED", "WORK"],
+    "headingLines": [
+      "SELECTED",
+      "WORK"
+    ],
     "sideText": "A selection of campaigns we created and the results they delivered.",
-    "featuredSlugs": ["rugby-bricks", "smart-sweets-campaign", "mug-co", "snackish-food", "staffbase-cinema", "kodama-ice"],
+    "featuredSlugs": [
+      "gusto-racing-championship",
+      "kraqen-commercial-reel",
+      "motogear-performance-film",
+      "yamini-makeup-masterclass",
+      "gusto-trackday-special",
+      "kraqen-motion-reel"
+    ],
     "labels": {
       "client": "CLIENT / INDUSTRY",
       "deliverable": "DELIVERABLE",
@@ -28,37 +85,183 @@
     "viewLabel": "VIEW PROJECT"
   },
   "services": {
-    "labelLeft": "WHAT WE DO",
-    "labelRight": "FULL SERVICE PRODUCTION",
+    "label": "WHAT WE DO",
+    "title": "FULL SERVICE PRODUCTION",
+    "intro": "From the first idea to the final cut, one Chennai team handles strategy, production and visual finishing.",
     "items": [
-      { "number": "01", "title": "VIDEO PRODUCTION", "description": "High-impact commercial video production and cinematic brand films. See how we bring stories to life.", "href": "/work" },
-      { "number": "02", "title": "EDITORIAL & MOTION DESIGNS", "description": "Dynamic visual finishing and motion graphics that elevate your content. Explore our post-production suite.", "href": "/work" },
-      { "number": "03", "title": "SOCIAL CREATIVES", "description": "Scroll-stopping vertical content and social campaigns engineered for the feed. Dive into our social work.", "href": "/work" },
-      { "number": "04", "title": "CREATIVE DIRECTION & STRATEGY", "description": "The strategic blueprint and visual identity behind standout modern brands. Discover our approach.", "href": "/work" }
+      {
+        "number": "01",
+        "title": "VIDEO PRODUCTION",
+        "folderLabel": "Video",
+        "color": "#5B3CDB",
+        "folderItems": [
+          {
+            "title": "Brand Films",
+            "description": "High-concept cinema-grade films articulating core brand identity."
+          },
+          {
+            "title": "Commercials",
+            "description": "High-impact commercial spots engineered for multi-channel reach."
+          },
+          {
+            "title": "Motorsport Reels",
+            "description": "High-octane trackside and automotive action productions."
+          }
+        ],
+        "description": "High-impact commercial video production and cinematic brand films. See how we bring stories to life.",
+        "image": "/images/services/video-production.webp",
+        "alt": "Cinema camera rig on a commercial video shoot in Chennai",
+        "href": "/work"
+      },
+      {
+        "number": "02",
+        "title": "EDITORIAL & MOTION DESIGNS",
+        "folderLabel": "Motion",
+        "color": "#3D5AFE",
+        "folderItems": [
+          {
+            "title": "Colour Grading",
+            "description": "Precision Davinci Resolve cinematic color workflows."
+          },
+          {
+            "title": "Motion Graphics",
+            "description": "Dynamic typography, kinetic 2D/3D brand graphics."
+          },
+          {
+            "title": "Editorial Cuts",
+            "description": "Fast-paced rhythmic narrative cuts matching brand tempo."
+          }
+        ],
+        "description": "Dynamic visual finishing and motion graphics that elevate your content. Explore our post-production suite.",
+        "image": "/images/services/motion-design.webp",
+        "alt": "Video editing timeline and motion graphics",
+        "href": "/work"
+      },
+      {
+        "number": "03",
+        "title": "SOCIAL CREATIVES",
+        "folderLabel": "Social",
+        "color": "#14B8A6",
+        "folderItems": [
+          {
+            "title": "Reels",
+            "description": "High-retention vertical short-form video creative."
+          },
+          {
+            "title": "Carousels",
+            "description": "Data-driven editorial story sequences for Instagram & LinkedIn."
+          },
+          {
+            "title": "Campaign Posters",
+            "description": "Bold visual key art for digital and print activations."
+          }
+        ],
+        "description": "Scroll-stopping vertical content and social campaigns engineered for the feed. Dive into our social work.",
+        "image": "/images/services/social-creatives.webp",
+        "alt": "Instagram reels and social media creatives on phones",
+        "href": "/work"
+      },
+      {
+        "number": "04",
+        "title": "CREATIVE DIRECTION & STRATEGY",
+        "folderLabel": "Strategy",
+        "color": "#8B5CF6",
+        "folderItems": [
+          {
+            "title": "Narrative Decks",
+            "description": "Brand narrative and pitch decks clarifying creative vision."
+          },
+          {
+            "title": "Visual Identity",
+            "description": "Cohesive brand design languages, typography and systems."
+          },
+          {
+            "title": "Campaign Hooks",
+            "description": "Strategic creative angles engineered for maximum attention."
+          }
+        ],
+        "description": "The strategic blueprint and visual identity behind standout modern brands. Discover our approach.",
+        "image": "/images/services/creative-direction.webp",
+        "alt": "Brand strategy deck and visual identity moodboard",
+        "href": "/work"
+      }
     ]
   },
   "partners": {
     "labelLeft": "OUR CLIENTS",
     "labelRight": "SELECTED PARTNERS",
-    "headingLines": ["TRUSTED", "BY THE BOLD"],
-    "runner": {
-      "enabled": true,
-      "direction": "horizontal",
-      "speedSeconds": 40,
-      "pauseOnHover": true
-    },
+    "headingLines": [
+      "TRUSTED",
+      "BY THE BOLD"
+    ],
+    "tileMode": "keep",
     "items": [
-      { "id": "snackish", "name": "snackish", "logo": "/logos/snackish.svg" },
-      { "id": "smart-sweets", "name": "Smart Sweets", "logo": "/logos/smart-sweets.svg" },
-      { "id": "kitsune", "name": "Café Kitsuné Paris", "logo": "/logos/kitsune.svg" },
-      { "id": "rugbybricks", "name": "Rugbybricks", "logo": "/logos/rugbybricks.svg" },
-      { "id": "staffbase", "name": "Staffbase", "logo": "/logos/staffbase.svg" },
-      { "id": "tevah", "name": "Tevah", "logo": "/logos/tevah.svg" },
-      { "id": "mugco", "name": "Mug Co.", "logo": "/logos/mug.svg" },
-      { "id": "slo", "name": "slo.", "logo": "/logos/slo.svg" },
-      { "id": "kodama", "name": "Kodama Ice Co.", "logo": "/logos/kodama.svg" },
-      { "id": "contenthub", "name": "contenthub.diy", "logo": "/logos/contenthub.svg" },
-      { "id": "shineon", "name": "Shine On Stories", "logo": "/logos/shineon.svg" }
+      {
+        "name": "snackish",
+        "logo": "/images/clients/snackish.svg",
+        "tile": "/images/clients/tiles/snackish.webp",
+        "url": ""
+      },
+      {
+        "name": "Smart Sweets",
+        "logo": "/images/clients/smart-sweets.svg",
+        "tile": "/images/clients/tiles/smart-sweets.webp",
+        "url": ""
+      },
+      {
+        "name": "Café Kitsuné Paris",
+        "logo": "/images/clients/kitsune.svg",
+        "tile": "/images/clients/tiles/caf-kitsun-paris.webp",
+        "url": ""
+      },
+      {
+        "name": "Rugbybricks",
+        "logo": "/images/clients/rugbybricks.svg",
+        "tile": "/images/clients/tiles/rugbybricks.webp",
+        "url": ""
+      },
+      {
+        "name": "Staffbase",
+        "logo": "/images/clients/staffbase.svg",
+        "tile": "/images/clients/tiles/staffbase.webp",
+        "url": ""
+      },
+      {
+        "name": "Tevah",
+        "logo": "/images/clients/tevah.svg",
+        "tile": "/images/clients/tiles/tevah.webp",
+        "url": ""
+      },
+      {
+        "name": "Mug Co.",
+        "logo": "/images/clients/mug.svg",
+        "tile": "/images/clients/tiles/mug-co.webp",
+        "url": ""
+      },
+      {
+        "name": "slo.",
+        "logo": "/images/clients/slo.svg",
+        "tile": "/images/clients/tiles/slo.webp",
+        "url": ""
+      },
+      {
+        "name": "Kodama Ice Co.",
+        "logo": "/images/clients/kodama.svg",
+        "tile": "/images/clients/tiles/kodama-ice-co.webp",
+        "url": ""
+      },
+      {
+        "name": "contenthub.diy",
+        "logo": "/images/clients/contenthub.svg",
+        "tile": "/images/clients/tiles/contenthubdiy.webp",
+        "url": ""
+      },
+      {
+        "name": "Shine On Stories",
+        "logo": "/images/clients/shineon.svg",
+        "tile": "/images/clients/tiles/shine-on-stories.webp",
+        "url": ""
+      }
     ]
   }
 }

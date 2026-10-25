@@ -3,8 +3,6 @@
 import { useEffect, useRef } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 
-import Logo from '@/components/Logo';
-
 export default function PageTransition() {
   const curtainRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -33,7 +31,7 @@ export default function PageTransition() {
     revealPage();
   }, [pathname]);
 
-  // Intercept navigation links between home and about for smooth orange wipe
+  // Intercept navigation links between distinct app pages for smooth wipe
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
@@ -44,7 +42,6 @@ export default function PageTransition() {
       const href = target.getAttribute('href');
       if (!href) return;
 
-      // Only transition between distinct app pages: '/', '/work', '/about', '/contact'
       const targetPath = href.split('#')[0] || '/';
       const isInternalNav =
         (targetPath === '/' ||
@@ -85,8 +82,6 @@ export default function PageTransition() {
       ref={curtainRef}
       className="page-transition-curtain flex items-center justify-center pointer-events-none"
       aria-hidden="true"
-    >
-      <Logo variant="dark" className="h-12 md:h-16 w-auto opacity-80 object-contain" />
-    </div>
+    />
   );
 }

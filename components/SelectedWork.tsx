@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Button from '@/components/ui/Button';
 import type { HomeContent } from '@/lib/schemas/home';
 import type { WorkItem } from '@/lib/schemas/work';
 
@@ -45,7 +46,7 @@ export default function SelectedWork({ data, workItems }: SelectedWorkProps) {
         setProgress(p);
 
         const cardWidth = track.firstElementChild?.clientWidth || 360;
-        const index = Math.round(currentScroll / (cardWidth + 12));
+        const index = Math.round(currentScroll / (cardWidth + 16));
         setActiveVisibleIndex(Math.max(0, Math.min(index, itemsToRender.length - 1)));
       });
     };
@@ -60,13 +61,13 @@ export default function SelectedWork({ data, workItems }: SelectedWorkProps) {
   const scrollPrev = () => {
     if (!trackRef.current) return;
     const cardWidth = trackRef.current.firstElementChild?.clientWidth || 360;
-    trackRef.current.scrollBy({ left: -(cardWidth + 12), behavior: 'smooth' });
+    trackRef.current.scrollBy({ left: -(cardWidth + 16), behavior: 'smooth' });
   };
 
   const scrollNext = () => {
     if (!trackRef.current) return;
     const cardWidth = trackRef.current.firstElementChild?.clientWidth || 360;
-    trackRef.current.scrollBy({ left: cardWidth + 12, behavior: 'smooth' });
+    trackRef.current.scrollBy({ left: cardWidth + 16, behavior: 'smooth' });
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -79,7 +80,7 @@ export default function SelectedWork({ data, workItems }: SelectedWorkProps) {
     }
   };
 
-  // Mouse drag handling (pointerType === mouse)
+  // Mouse drag handling (mouse only)
   const handleMouseDown = (e: React.MouseEvent) => {
     if (e.button !== 0 || !trackRef.current) return;
     isDragging.current = true;
@@ -109,15 +110,18 @@ export default function SelectedWork({ data, workItems }: SelectedWorkProps) {
     }
   };
 
+  const isAtStart = progress <= 0.01;
+  const isAtEnd = progress >= 0.99;
+
   return (
     <section
       ref={sectionRef}
-      className="relative py-[clamp(64px,10vw,160px)] overflow-hidden"
+      className="relative pt-[var(--space-section)] pb-0 overflow-hidden"
       style={{ backgroundColor: 'var(--bg-section)' }}
       aria-label="Selected Work"
     >
-      <div className="section-px mb-8 md:mb-12">
-        {/* Label Row */}
+      {/* Section Header */}
+      <div className="px-[var(--page-x)] mb-6 md:mb-8">
         <div className="flex items-center justify-between pb-4 border-b border-white/15">
           <span className="font-mono text-[11px] uppercase tracking-wider text-white/50">
             {data.label}
@@ -127,50 +131,21 @@ export default function SelectedWork({ data, workItems }: SelectedWorkProps) {
           </span>
         </div>
 
-        {/* Section Heading & Controls */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pt-6">
-          <div>
-            <h2 className="font-tanker text-white uppercase text-[clamp(48px,8vw,120px)] leading-[0.88] tracking-tight">
-              {data.headingLines.map((line, i) => (
-                <div key={i}>{line}</div>
-              ))}
-            </h2>
-            {data.sideText && (
-              <p className="font-mono text-xs text-white/60 max-w-md mt-4 leading-relaxed">
-                {data.sideText}
-              </p>
-            )}
-          </div>
-
-          {/* Controls: Prev / Next Buttons & Progress Bar */}
-          <div className="flex items-center gap-4 self-start md:self-end">
-            <div className="w-24 md:w-32 h-[2px] bg-white/20 relative rounded-full overflow-hidden">
-              <div
-                className="h-full bg-white transition-all duration-150 rounded-full"
-                style={{ width: `${Math.max(15, progress * 100)}%` }}
-              />
-            </div>
-            <button
-              type="button"
-              onClick={scrollPrev}
-              aria-label="Previous work"
-              className="w-11 h-11 rounded-full border border-white/20 text-white flex items-center justify-center hover:bg-white hover:text-black transition-colors focus:outline-none focus:ring-2 focus:ring-accent"
-            >
-              ←
-            </button>
-            <button
-              type="button"
-              onClick={scrollNext}
-              aria-label="Next work"
-              className="w-11 h-11 rounded-full border border-white/20 text-white flex items-center justify-center hover:bg-white hover:text-black transition-colors focus:outline-none focus:ring-2 focus:ring-accent"
-            >
-              →
-            </button>
-          </div>
+        <div className="pt-6">
+          <h2 className="font-tanker text-white uppercase text-[clamp(48px,8vw,120px)] leading-[0.88] tracking-tight">
+            {data.headingLines.map((line, i) => (
+              <div key={i}>{line}</div>
+            ))}
+          </h2>
+          {data.sideText && (
+            <p className="font-mono text-xs text-white/60 max-w-md mt-4 leading-relaxed">
+              {data.sideText}
+            </p>
+          )}
         </div>
       </div>
 
-      {/* Carousel Track: Native Horizontal Scroll */}
+      {/* Track: Native Horizontal Scroll with next card peek */}
       <div
         ref={trackRef}
         data-lenis-prevent
@@ -182,9 +157,9 @@ export default function SelectedWork({ data, workItems }: SelectedWorkProps) {
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
-        className="work-carousel-track flex gap-3 md:gap-4 overflow-x-auto overflow-y-hidden select-none px-[var(--px)] focus:outline-none focus:ring-1 focus:ring-accent cursor-grab active:cursor-grabbing"
+        className="work-carousel-track flex gap-4 md:gap-5 overflow-x-auto overflow-y-hidden select-none px-[var(--page-x)] focus:outline-none focus:ring-1 focus:ring-[#3D5AFE] cursor-grab active:cursor-grabbing"
         style={{
-          scrollSnapType: 'x proximity',
+          scrollSnapType: 'x mandatory',
           overscrollBehaviorX: 'contain',
           touchAction: 'pan-x pan-y',
           WebkitOverflowScrolling: 'touch',
@@ -196,9 +171,8 @@ export default function SelectedWork({ data, workItems }: SelectedWorkProps) {
             key={project.slug || idx}
             href={`/work/${project.slug}`}
             onClick={handleCardClick}
-            className="group flex-none relative rounded-xl overflow-hidden focus:outline-none focus:ring-2 focus:ring-accent transition-transform duration-300"
+            className="group flex-none relative rounded-xl overflow-hidden focus:outline-none focus:ring-2 focus:ring-[#3D5AFE] transition-transform duration-300 w-[78vw] sm:w-[50vw] md:w-[34vw] min-w-[280px] max-w-[640px]"
             style={{
-              flex: '0 0 clamp(280px, 34vw, 640px)',
               scrollSnapAlign: 'start',
             }}
           >
@@ -208,7 +182,8 @@ export default function SelectedWork({ data, workItems }: SelectedWorkProps) {
                 src={project.poster || project.src}
                 alt={project.alt || project.title}
                 fill
-                sizes="(max-width: 640px) 80vw, (max-width: 1024px) 45vw, 34vw"
+                sizes="(max-width: 640px) 78vw, (max-width: 1024px) 50vw, 34vw"
+                priority={idx === 0}
                 className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
               />
 
@@ -219,7 +194,7 @@ export default function SelectedWork({ data, workItems }: SelectedWorkProps) {
                 </span>
               </div>
 
-              {/* Desktop Hover Info Panel (Slide up over bottom of card) */}
+              {/* Desktop Hover Info Panel */}
               <div className="hidden md:flex flex-col justify-end absolute inset-0 p-6 bg-gradient-to-t from-[#0f0f0f]/95 via-[#0f0f0f]/75 to-transparent opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-300 ease-out z-20">
                 <h3 className="font-tanker text-2xl uppercase text-white tracking-wide mb-3">
                   {project.title}
@@ -245,7 +220,7 @@ export default function SelectedWork({ data, workItems }: SelectedWorkProps) {
                     <span className="text-[10px] text-white/50 uppercase tracking-wider">
                       {data.labels.result}
                     </span>
-                    <span className="text-xs text-accent font-medium">
+                    <span className="text-xs text-[#B7A8FF] font-medium">
                       {project.result || '+250k Views & Engagement'}
                     </span>
                   </div>
@@ -264,7 +239,7 @@ export default function SelectedWork({ data, workItems }: SelectedWorkProps) {
                 <h3 className="font-tanker text-lg text-white uppercase tracking-wide">
                   {project.title}
                 </h3>
-                <span className="text-[10px] text-accent uppercase font-bold">
+                <span className="text-[10px] text-[#3D5AFE] uppercase font-bold">
                   {data.viewLabel} →
                 </span>
               </div>
@@ -275,11 +250,47 @@ export default function SelectedWork({ data, workItems }: SelectedWorkProps) {
                 {data.labels.deliverable}: <span className="text-white">{project.deliverable || 'Production'}</span>
               </div>
               <div className="text-white/60 text-[10px] uppercase">
-                {data.labels.result}: <span className="text-accent">{project.result || 'High Impact'}</span>
+                {data.labels.result}: <span className="text-[#B7A8FF]">{project.result || 'High Impact'}</span>
               </div>
             </div>
           </Link>
         ))}
+      </div>
+
+      {/* Controls Row: Sits BELOW images, under the track */}
+      <div className="px-[var(--page-x)] pt-6 md:pt-8 flex items-center justify-between gap-4">
+        {/* Left: Round Arrow Buttons */}
+        <div className="flex items-center gap-3">
+          <Button
+            variant="round"
+            onClick={scrollPrev}
+            disabled={isAtStart}
+            aria-label="Previous project"
+          >
+            ←
+          </Button>
+          <Button
+            variant="round"
+            onClick={scrollNext}
+            disabled={isAtEnd}
+            aria-label="Next project"
+          >
+            →
+          </Button>
+        </div>
+
+        {/* Middle: Thin Progress Line */}
+        <div className="flex-1 max-w-xs md:max-w-md h-[2px] bg-white/15 relative rounded-full overflow-hidden mx-2">
+          <div
+            className="h-full bg-white transition-all duration-150 rounded-full"
+            style={{ width: `${Math.max(15, progress * 100)}%` }}
+          />
+        </div>
+
+        {/* Right: Counter */}
+        <div className="font-mono text-xs text-white/60 tracking-widest whitespace-nowrap">
+          {String(activeVisibleIndex + 1).padStart(2, '0')} / {String(itemsToRender.length).padStart(2, '0')}
+        </div>
       </div>
     </section>
   );

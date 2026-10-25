@@ -21,7 +21,7 @@ interface BrandProps {
 export default function Brand({
   variant = 'nav',
   src = '/brand/kraqen-mark.png',
-  name = 'Kraqen',
+  name = 'KRAQEN INNOVATIONS',
   className = '',
   onClick,
   priority = true,
@@ -31,7 +31,7 @@ export default function Brand({
   let heightStyle: string | number = height || (style?.height as string | number) || 'var(--logo-h)';
   if (!height && !style?.height) {
     if (variant === 'menu') heightStyle = '28px';
-    else if (variant === 'footer') heightStyle = 'var(--footer-logo-h, 40px)';
+    else if (variant === 'footer') heightStyle = 'var(--footer-logo-h, 44px)';
     else if (variant === 'marquee') heightStyle = '32px';
   }
 
@@ -43,7 +43,7 @@ export default function Brand({
         href="/"
         aria-label="Kraqen Innovations LLP - Home"
         onClick={onClick}
-        className={`inline-flex items-center justify-center p-2 min-h-[44px] min-w-[44px] pointer-events-auto transition-opacity hover:opacity-85 ${className}`}
+        className={`inline-flex items-center justify-center p-1 min-h-[44px] min-w-[44px] pointer-events-auto transition-opacity hover:opacity-85 ${className}`}
       >
         <Image
           src={src}
@@ -51,7 +51,7 @@ export default function Brand({
           aria-hidden="true"
           width={0}
           height={0}
-          sizes="40px"
+          sizes="44px"
           priority={priority}
           style={{ height: heightStyle, width: 'auto' }}
           className="object-contain flex-shrink-0"
@@ -83,7 +83,7 @@ export default function Brand({
         className="object-contain flex-shrink-0"
       />
       <span
-        className="brand-word text-white font-tanker uppercase"
+        className="brand-word text-white font-tanker uppercase text-[16px] md:text-[22px] tracking-[0.04em] whitespace-nowrap"
         style={{
           color: '#FFFFFF',
           WebkitTextFillColor: '#FFFFFF',

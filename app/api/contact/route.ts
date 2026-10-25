@@ -55,6 +55,9 @@ export async function POST(request: Request) {
       _hp: z.string().optional(),
       fieldSet: z.string().optional(),
       source: z.string().optional(),
+      phoneCountry: z.string().optional(),
+      dialCode: z.string().optional(),
+      phoneE164: z.string().optional(),
     };
 
     fields.forEach((f) => {
@@ -116,7 +119,7 @@ export async function POST(request: Request) {
               <p><strong>Source:</strong> ${data.source || 'website'}</p>
               <p><strong>Name:</strong> ${data.name || 'N/A'}</p>
               <p><strong>Email:</strong> ${data.email || 'N/A'}</p>
-              <p><strong>Phone:</strong> ${data.phone || 'N/A'}</p>
+              <p><strong>Phone:</strong> ${data.phone || 'N/A'} (Country: ${data.phoneCountry || 'IN'}, Code: ${data.dialCode || '+91'}, E.164: ${data.phoneE164 || 'N/A'})</p>
               ${data.brand ? `<p><strong>Brand / Website:</strong> ${data.brand}</p>` : ''}
               <p><strong>Service Needed:</strong> ${data.service || 'N/A'}</p>
             `,

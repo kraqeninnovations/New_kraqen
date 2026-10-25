@@ -2,6 +2,9 @@
 
 import React, { useState } from 'react';
 import type { SiteContent } from '@/lib/schemas/site';
+import PhoneInput from './PhoneInput';
+import Button from './Button';
+import { isValidPhoneNumber } from 'libphonenumber-js';
 
 interface InquiryFormProps {
   site: SiteContent;
@@ -25,6 +28,9 @@ export default function InquiryForm({
     name: '',
     email: '',
     phone: '',
+    phoneCountry: 'IN',
+    dialCode: '+91',
+    phoneE164: '',
     brand: '',
     service: '',
     _hp: '',
@@ -55,6 +61,23 @@ export default function InquiryForm({
     }
   };
 
+  const handlePhoneChange = (data: { country: string; dialCode: string; nationalNumber: string; e164: string; isValid: boolean }) => {
+    setFormData((prev) => ({
+      ...prev,
+      phone: data.nationalNumber,
+      phoneCountry: data.country,
+      dialCode: data.dialCode,
+      phoneE164: data.e164,
+    }));
+    if (errors.phone) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next.phone;
+        return next;
+      });
+    }
+  };
+
   const validate = () => {
     const newErrors: Record<string, string> = {};
 
@@ -67,7 +90,12 @@ export default function InquiryForm({
           newErrors.email = site.forms.validation.email;
         }
       } else if (field.id === 'phone' && val) {
-        if (val.replace(/\D/g, '').length < 6) {
+        const fullPhone = formData.phoneE164 || `${formData.dialCode || '+91'}${val.replace(/\D/g, '')}`;
+        try {
+          if (!isValidPhoneNumber(fullPhone)) {
+            newErrors.phone = site.forms.validation.phone;
+          }
+        } catch {
           newErrors.phone = site.forms.validation.phone;
         }
       }
@@ -110,6 +138,9 @@ export default function InquiryForm({
         name: '',
         email: '',
         phone: '',
+        phoneCountry: 'IN',
+        dialCode: '+91',
+        phoneE164: '',
         brand: '',
         service: '',
         _hp: '',
@@ -133,7 +164,7 @@ export default function InquiryForm({
         <button
           type="button"
           onClick={() => setIsSuccess(false)}
-          className="font-mono text-xs uppercase tracking-wider px-6 py-3 rounded-full border border-white/20 text-white hover:bg-white hover:text-black transition-colors"
+          className="btn"
         >
           SEND ANOTHER MESSAGE
         </button>
@@ -141,7 +172,6 @@ export default function InquiryForm({
     );
   }
 
-  // Group fields so that fields with row="contact" (e.g. email and phone) sit in one row
   const rowContactFields = fields.filter((f) => f.row === 'contact');
   const otherFieldsBeforeRow = fields.filter((f) => !f.row && f.id === 'name');
   const otherFieldsAfterRow = fields.filter((f) => !f.row && f.id !== 'name');
@@ -175,8 +205,8 @@ export default function InquiryForm({
             value={formData[field.id] || ''}
             onChange={handleChange}
             placeholder={field.placeholder}
-            className={`w-full min-h-[52px] px-4 rounded-lg bg-black/30 border font-mono text-sm text-white placeholder-white/30 focus:outline-none focus:border-white focus:ring-1 focus:ring-accent transition-colors ${
-              errors[field.id] ? 'border-red-400' : 'border-white/25 hover:border-white/40'
+            className={`w-full min-h-[52px] px-4 rounded-lg bg-[#151515] border font-mono text-sm text-white placeholder-white/30 focus:outline-none focus:border-white transition-colors ${
+              errors[field.id] ? 'border-red-400' : 'border-white/20 hover:border-white/40'
             }`}
           />
           {errors[field.id] && (
@@ -196,17 +226,31 @@ export default function InquiryForm({
                   {field.required ? site.forms.labels.required : site.forms.labels.optional}
                 </span>
               </label>
-              <input
-                id={`form-${placement}-${field.id}`}
-                type={field.type}
-                name={field.id}
-                value={formData[field.id] || ''}
-                onChange={handleChange}
-                placeholder={field.placeholder}
-                className={`w-full min-h-[52px] px-4 rounded-lg bg-black/30 border font-mono text-sm text-white placeholder-white/30 focus:outline-none focus:border-white focus:ring-1 focus:ring-accent transition-colors ${
-                  errors[field.id] ? 'border-red-400' : 'border-white/25 hover:border-white/40'
-                }`}
-              />
+
+              {field.id === 'phone' || field.type === 'tel' ? (
+                <PhoneInput
+                  id={`form-${placement}-${field.id}`}
+                  name={field.id}
+                  placeholder={field.placeholder || '89396 51621'}
+                  required={field.required}
+                  value={formData.phone}
+                  onChange={handlePhoneChange}
+                  className={`rounded-lg ${errors[field.id] ? '!border-red-400' : ''}`}
+                />
+              ) : (
+                <input
+                  id={`form-${placement}-${field.id}`}
+                  type={field.type}
+                  name={field.id}
+                  value={formData[field.id] || ''}
+                  onChange={handleChange}
+                  placeholder={field.placeholder}
+                  className={`w-full min-h-[52px] px-4 rounded-lg bg-[#151515] border font-mono text-sm text-white placeholder-white/30 focus:outline-none focus:border-white transition-colors ${
+                    errors[field.id] ? 'border-red-400' : 'border-white/20 hover:border-white/40'
+                  }`}
+                />
+              )}
+
               {errors[field.id] && (
                 <span className="font-mono text-[11px] text-red-400">{errors[field.id]}</span>
               )}
@@ -230,8 +274,8 @@ export default function InquiryForm({
               name={field.id}
               value={formData[field.id] || ''}
               onChange={handleChange}
-              className={`w-full min-h-[52px] px-4 rounded-lg bg-[#141414] border font-mono text-sm text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-accent transition-colors ${
-                errors[field.id] ? 'border-red-400' : 'border-white/25 hover:border-white/40'
+              className={`w-full min-h-[52px] px-4 rounded-lg bg-[#151515] border font-mono text-sm text-white focus:outline-none focus:border-white transition-colors cursor-pointer ${
+                errors[field.id] ? 'border-red-400' : 'border-white/20 hover:border-white/40'
               }`}
             >
               <option value="" disabled className="bg-[#1a1a1a] text-white/50">
@@ -251,8 +295,8 @@ export default function InquiryForm({
               value={formData[field.id] || ''}
               onChange={handleChange}
               placeholder={field.placeholder}
-              className={`w-full min-h-[52px] px-4 rounded-lg bg-black/30 border font-mono text-sm text-white placeholder-white/30 focus:outline-none focus:border-white focus:ring-1 focus:ring-accent transition-colors ${
-                errors[field.id] ? 'border-red-400' : 'border-white/25 hover:border-white/40'
+              className={`w-full min-h-[52px] px-4 rounded-lg bg-[#151515] border font-mono text-sm text-white placeholder-white/30 focus:outline-none focus:border-white transition-colors ${
+                errors[field.id] ? 'border-red-400' : 'border-white/20 hover:border-white/40'
               }`}
             />
           )}
@@ -268,18 +312,14 @@ export default function InquiryForm({
         </div>
       )}
 
-      {/* Submit button */}
-      <button
+      {/* Global styled submit button */}
+      <Button
         type="submit"
         disabled={isSubmitting}
-        className={`w-full min-h-[56px] mt-2 rounded-xl font-mono text-xs md:text-sm font-bold uppercase tracking-wider transition-all duration-300 flex items-center justify-center ${
-          submitButtonClassName ||
-          'bg-white text-brand-purple hover:bg-transparent hover:text-white border border-white'
-        } ${isSubmitting ? 'opacity-60 cursor-not-allowed' : ''}`}
+        className={`w-full !h-[52px] mt-2 ${submitButtonClassName}`}
       >
         {isSubmitting ? site.forms.submit.sending : submitLabel}
-      </button>
+      </Button>
     </form>
   );
 }
-

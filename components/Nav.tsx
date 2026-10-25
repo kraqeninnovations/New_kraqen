@@ -15,7 +15,18 @@ export default function Nav({ site }: NavProps) {
   const navRef = useRef<HTMLElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+
+  // Scroll listener for backdrop blur & background
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Entrance animation for desktop nav
   useEffect(() => {
@@ -23,7 +34,7 @@ export default function Nav({ site }: NavProps) {
     gsap.fromTo(
       navRef.current,
       { opacity: 0, y: -12 },
-      { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: 'power3.out' }
+      { opacity: 1, y: 0, duration: 0.8, delay: 0.2, ease: 'power3.out' }
     );
   }, []);
 
@@ -35,7 +46,7 @@ export default function Nav({ site }: NavProps) {
         gsap.fromTo(
           menuRef.current,
           { opacity: 0, y: -20 },
-          { opacity: 1, y: 0, duration: 0.4, ease: 'power3.out' }
+          { opacity: 1, y: 0, duration: 0.35, ease: 'power3.out' }
         );
       }
     } else {
@@ -100,53 +111,58 @@ export default function Nav({ site }: NavProps) {
 
   return (
     <>
-      <nav
+      <header
         ref={navRef}
-        className="site-nav text-white"
-        aria-label="Main navigation"
+        className={`fixed top-0 left-0 right-0 z-[1000] h-[64px] md:h-[72px] transition-all duration-300 px-[var(--page-x)] flex items-center justify-between ${
+          scrolled
+            ? 'bg-[#0f0f0f]/85 backdrop-blur-md border-b border-white/10 shadow-lg'
+            : 'bg-transparent border-b border-transparent'
+        }`}
       >
-        {/* Brand Logo Link with min 44x44 tap target */}
+        {/* Brand Logo Link on LEFT */}
         <Brand
           variant="nav"
           src={site.logos.navbarLogo}
-          name={site.brand.shortName}
-          className="-ml-2"
+          name={site.brand.displayName || 'KRAQEN INNOVATIONS'}
+          className="-ml-1"
         />
 
-        {/* Desktop Navigation Links (hidden on mobile) */}
-        <ul className="site-nav-links hidden md:flex list-none">
-          {site.navigation.links.map((link) => {
-            const isActive = pathname === link.href;
-            return (
-              <li key={link.label}>
-                <Link
-                  href={link.href}
-                  className={`transition-colors font-mono text-xs uppercase tracking-wider ${
-                    isActive
-                      ? 'text-accent !opacity-100 font-bold'
-                      : 'text-white/80 hover:text-white'
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+        {/* Desktop Navigation Links (at the far right end) */}
+        <nav aria-label="Desktop Navigation" className="hidden md:flex items-center">
+          <ul className="flex items-center gap-6 lg:gap-8 list-none m-0 p-0">
+            {site.navigation.links.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <li key={link.label} className="whitespace-nowrap">
+                  <Link
+                    href={link.href}
+                    className={`transition-colors font-mono text-[11px] uppercase tracking-wider ${
+                      isActive
+                        ? 'text-white font-bold underline underline-offset-8 decoration-2 decoration-[#3D5AFE]'
+                        : 'text-white/80 hover:text-white'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
 
         {/* Mobile Hamburger Button (44x44 tap target) */}
         <button
           type="button"
           onClick={() => setMobileOpen(true)}
-          className="md:hidden flex flex-col justify-center items-center w-11 h-11 p-2 gap-1.5 pointer-events-auto focus:outline-none text-white"
+          className="md:hidden flex flex-col justify-center items-center w-11 h-11 p-2 gap-1.5 focus:outline-none text-white cursor-pointer"
           aria-expanded={mobileOpen}
           aria-controls="mobile-nav-panel"
           aria-label={site.navigation.mobileMenuLabel}
         >
-          <span className="w-6 h-[1.5px] bg-current block transition-transform" />
-          <span className="w-6 h-[1.5px] bg-current block transition-transform" />
+          <span className="w-6 h-[2px] bg-current block transition-transform" />
+          <span className="w-6 h-[2px] bg-current block transition-transform" />
         </button>
-      </nav>
+      </header>
 
       {/* Full-Screen Dark Mobile Navigation Drawer */}
       {mobileOpen && (
@@ -167,14 +183,14 @@ export default function Nav({ site }: NavProps) {
             <Brand
               variant="menu"
               src={site.logos.navbarLogo}
-              name={site.brand.shortName}
+              name={site.brand.displayName || 'KRAQEN INNOVATIONS'}
               onClick={() => setMobileOpen(false)}
             />
 
             <button
               type="button"
               onClick={() => setMobileOpen(false)}
-              className="min-h-[44px] min-w-[44px] flex items-center justify-center font-mono text-[13px] tracking-wider uppercase text-white/80 hover:text-white"
+              className="min-h-[44px] min-w-[44px] flex items-center justify-center font-mono text-[13px] tracking-wider uppercase text-white/80 hover:text-white cursor-pointer"
               aria-label="Close navigation menu"
             >
               {site.navigation.mobileCloseLabel} [✕]
@@ -191,7 +207,7 @@ export default function Nav({ site }: NavProps) {
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   className={`font-tanker text-[clamp(44px,13vw,72px)] leading-none uppercase tracking-tight transition-colors min-h-[56px] flex items-center ${
-                    isActive ? 'text-accent' : 'text-white hover:text-accent'
+                    isActive ? 'text-[#3D5AFE]' : 'text-white hover:text-[#3D5AFE]'
                   }`}
                 >
                   {link.label}
@@ -224,7 +240,7 @@ export default function Nav({ site }: NavProps) {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-accent transition-colors py-1"
+                  className="hover:text-white transition-colors py-1"
                 >
                   {social.label}
                 </a>

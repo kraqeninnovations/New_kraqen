@@ -11,16 +11,16 @@ interface AboutBlueprintProps {
 export default function AboutBlueprint({ data }: AboutBlueprintProps) {
   return (
     <section
-      className="bg-[#0f0f0f] section-px py-[clamp(64px,10vw,140px)] border-b border-white/15"
+      className="bg-[#0f0f0f] px-[var(--page-x)] pt-[var(--space-section)] pb-8 border-b border-white/15"
       aria-label="The Blueprint to Execution"
     >
       <div className="max-w-[1400px] mx-auto">
         {/* Section Header */}
-        <div className="mb-12 md:mb-16">
-          <h2 className="font-tanker text-white uppercase text-[clamp(40px,6.5vw,96px)] leading-[0.88] tracking-tight mb-3">
+        <div className="mb-8 md:mb-10">
+          <h2 className="font-tanker text-white uppercase text-[clamp(36px,5.5vw,84px)] leading-[0.88] tracking-tight mb-2">
             {data.title}
           </h2>
-          <p className="font-mono text-sm text-white/60 tracking-wider">
+          <p className="font-mono text-xs md:text-sm text-white/60 tracking-wider">
             {data.subtitle}
           </p>
         </div>
@@ -31,11 +31,11 @@ export default function AboutBlueprint({ data }: AboutBlueprintProps) {
             <div
               key={step.number || idx}
               tabIndex={0}
-              className="group relative min-h-[clamp(220px,28vw,340px)] border-b border-white/15 py-12 md:py-16 flex flex-col justify-center overflow-hidden rounded-r-2xl transition-all duration-500 focus:outline-none"
+              className="group relative min-h-[clamp(180px,24vw,300px)] border-b border-white/15 py-8 md:py-12 flex flex-col justify-center overflow-hidden rounded-r-2xl transition-all duration-500 focus:outline-none"
             >
               {/* Timeline Indicator Dot */}
               <div
-                className="absolute -left-[31px] md:-left-[47px] top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full border-2 border-white bg-accent group-hover:scale-125 transition-transform"
+                className="absolute -left-[31px] md:-left-[47px] top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full border-2 border-white bg-[#3D5AFE] group-hover:scale-125 transition-transform"
                 aria-hidden="true"
               />
 
@@ -53,7 +53,7 @@ export default function AboutBlueprint({ data }: AboutBlueprintProps) {
 
               {/* Large Faded Numeral Behind */}
               <div
-                className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 font-tanker text-white/[0.08] group-hover:text-white/[0.14] group-focus-within:text-white/[0.14] text-[clamp(140px,22vw,360px)] leading-none select-none pointer-events-none transition-colors duration-300 z-0"
+                className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 font-tanker text-white/[0.08] group-hover:text-white/[0.14] group-focus-within:text-white/[0.14] text-[clamp(120px,20vw,320px)] leading-none select-none pointer-events-none transition-colors duration-300 z-0"
                 aria-hidden="true"
               >
                 {step.number}
@@ -61,13 +61,13 @@ export default function AboutBlueprint({ data }: AboutBlueprintProps) {
 
               {/* Content on Top */}
               <div className="relative z-10 pl-4 md:pl-8 max-w-2xl">
-                <span className="font-mono text-xs uppercase tracking-wider text-accent font-bold mb-2 block">
+                <span className="font-mono text-xs uppercase tracking-wider text-[#B7A8FF] font-bold mb-1 block">
                   PHASE {step.number}
                 </span>
-                <h3 className="font-tanker text-[clamp(36px,6vw,84px)] uppercase leading-[0.9] text-white tracking-tight mb-3">
+                <h3 className="font-tanker text-[clamp(32px,5vw,72px)] uppercase leading-[0.9] text-white tracking-tight mb-2">
                   {step.title}
                 </h3>
-                <p className="font-mono text-xs md:text-sm text-white/80 leading-relaxed max-w-[420px]">
+                <p className="font-mono text-xs md:text-sm text-white/80 leading-relaxed max-w-[420px] normal-case">
                   {step.text}
                 </p>
               </div>
@@ -78,4 +78,3 @@ export default function AboutBlueprint({ data }: AboutBlueprintProps) {
     </section>
   );
 }
-

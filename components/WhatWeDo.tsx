@@ -1,115 +1,239 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import type { HomeContent } from '@/lib/schemas/home';
+
+const Folder = dynamic<any>(() => import('@/components/fx/Folder'), {
+  ssr: false,
+  loading: () => (
+    <div
+      className="w-full aspect-[4/3] rounded-2xl bg-[#151515] border border-white/10 animate-pulse"
+      aria-hidden="true"
+    />
+  ),
+});
 
 interface WhatWeDoProps {
   data: HomeContent['services'];
+  effects?: {
+    folders?: {
+      enabled?: boolean;
+      draggable?: boolean;
+      layout?: 'stack' | 'spread' | 'row';
+    };
+  };
 }
 
-export default function WhatWeDo({ data }: WhatWeDoProps) {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+function ServiceFolderCard({
+  service,
+  layout = 'stack',
+  draggable = false,
+  isFinePointer = true,
+}: {
+  service: NonNullable<HomeContent['services']['items']>[number];
+  layout?: 'stack' | 'spread' | 'row';
+  draggable?: boolean;
+  isFinePointer?: boolean;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [colWidth, setColWidth] = useState(260);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!containerRef.current) return;
+    const ro = new ResizeObserver((entries) => {
+      if (entries[0]) {
+        setColWidth(entries[0].contentRect.width);
+      }
+    });
+    ro.observe(containerRef.current);
+    return () => ro.disconnect();
+  }, []);
 
-    let ctx: { revert: () => void } | null = null;
+  const size = Math.min(1.05, Math.max(0.62, colWidth / 250));
+  const folderItems = service.folderItems || [
+    { title: 'Brand guidelines', description: 'Visual systems & rules' },
+    { title: 'Launch strategy', description: 'Campaign timeline & distribution' },
+    { title: 'Production cut', description: 'Cinema-grade narrative film' },
+  ];
 
-    const init = async () => {
-      const { gsap } = await import('gsap');
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-      gsap.registerPlugin(ScrollTrigger);
+  return (
+    <div
+      ref={containerRef}
+      className={`relative flex flex-col items-center text-center transition-all ${
+        isOpen ? 'z-20' : 'z-10'
+      }`}
+      style={{
+        overflow: 'visible',
+      }}
+    >
+      {/* Folder Stage with padding-top calc(72px * size) so rising pages never overlap heading */}
+      <div
+        className="w-full flex justify-center items-center"
+        style={{
+          paddingTop: `calc(72px * ${size})`,
+          overflow: 'visible',
+        }}
+        tabIndex={0}
+        role="button"
+        aria-label={`${service.title} folder`}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setIsOpen((prev) => !prev);
+          }
+        }}
+      >
+        <Folder
+          mode="flap"
+          variant="solid"
+          layout={layout}
+          tabPosition="right"
+          label={service.folderLabel || service.title.split(' ')[0]}
+          color={service.color || '#5B3CDB'}
+          paperColor="#FFFFFF"
+          size={size}
+          tilt={0.35}
+          bounce={0.4}
+          peek={true}
+          zoomOnClick={true}
+          intro={true}
+          theme="dark"
+          closeOnOutsideClick={true}
+          draggable={draggable}
+          openOn={isFinePointer ? 'hover' : 'click'}
+          open={isOpen}
+          onOpenChange={setIsOpen}
+          items={folderItems}
+        />
+      </div>
 
-      if (!sectionRef.current) return;
+      {/* Under Folder: Number, Title, Description, Link */}
+      <div className="w-full mt-4 flex flex-col items-center text-center px-1">
+        <span className="font-mono text-[11px] text-white/40 tracking-wider uppercase block mb-1">
+          {service.number}
+        </span>
+        <h3 className="font-tanker text-[clamp(20px,2vw,30px)] uppercase leading-[0.9] text-white tracking-tight mb-2">
+          {service.title}
+        </h3>
+        <p className="font-mono text-[12px] text-white/70 leading-relaxed normal-case max-w-[260px] line-clamp-4 mb-3">
+          {service.description}
+        </p>
+        <Link
+          href={service.href || '/work'}
+          className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-white font-bold hover:text-[#3D5AFE] transition-colors"
+        >
+          <span>EXPLORE</span>
+          <span className="text-sm">→</span>
+        </Link>
+      </div>
+    </div>
+  );
+}
 
-      ctx = gsap.context(() => {
-        const rows = sectionRef.current?.querySelectorAll('.service-row');
-        if (rows && rows.length > 0) {
-          gsap.set(rows, { opacity: 0, y: 18 });
-          gsap.to(rows, {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            stagger: 0.07,
-            ease: 'power2.out',
-            scrollTrigger: { trigger: sectionRef.current, start: 'top 75%' },
-          });
-        }
-      }, sectionRef);
-    };
+export default function WhatWeDo({ data, effects }: WhatWeDoProps) {
+  const label = data.label || data.labelLeft || 'WHAT WE DO';
+  const title = data.title || data.labelRight || 'FULL SERVICE PRODUCTION';
+  const intro =
+    data.intro ||
+    'From the first idea to the final cut, one Chennai team handles strategy, production and visual finishing.';
+  const items = data.items || [];
 
-    init();
+  const foldersEnabled = effects?.folders?.enabled !== false;
+  const folderLayout = effects?.folders?.layout || 'stack';
+  const folderDraggable = effects?.folders?.draggable ?? false;
 
-    return () => {
-      ctx?.revert();
-    };
+  const [isClient, setIsClient] = useState(false);
+  const [isFinePointer, setIsFinePointer] = useState(true);
+
+  useEffect(() => {
+    setIsClient(true);
+    setIsFinePointer(window.matchMedia('(pointer: fine)').matches);
   }, []);
 
   return (
     <section
-      ref={sectionRef}
-      id="services"
-      className="bg-[#1a1a1a] section-px"
-      style={{ paddingTop: 'var(--section-gap)', paddingBottom: 'var(--section-gap)' }}
+      className="relative pt-[var(--space-section)] pb-[var(--space-section)] overflow-visible"
+      style={{ backgroundColor: 'var(--bg-hero)' }}
       aria-label="Services"
     >
-      {/* Label row */}
-      <div className="label-row" style={{ borderColor: 'var(--line)' }}>
-        <span style={{ color: 'var(--text-muted)' }}>{data.labelLeft}</span>
-        <span style={{ color: 'var(--text-muted)' }}>{data.labelRight}</span>
-      </div>
+      <div className="max-w-[1440px] mx-auto px-[var(--page-x)]">
+        {/* Section Header */}
+        <div className="border-b border-white/15 pb-4 mb-8">
+          <span className="font-mono text-[11px] uppercase tracking-wider text-white/50 block mb-3">
+            {label}
+          </span>
+          <h2 className="font-tanker text-white uppercase text-[clamp(48px,8vw,110px)] leading-[0.88] tracking-tight">
+            {title}
+          </h2>
+          <p className="font-mono text-xs md:text-sm text-white/70 max-w-xl mt-4 leading-relaxed normal-case">
+            {intro}
+          </p>
+        </div>
 
-      {/* Service rows */}
-      <ul
-        className="mt-[clamp(72px,10vw,160px)] list-none"
-        aria-label="Services list"
-        onMouseLeave={() => setHoveredIndex(null)}
-      >
-        <li className="hairline" style={{ backgroundColor: 'var(--line)' }} aria-hidden="true" />
-        {data.items.map((service, i) => (
-          <li
-            key={service.number}
-            className="service-row border-b border-white/15"
-            onMouseEnter={() => setHoveredIndex(i)}
+        {/* 4-Folder Grid: 4 cols desktop (1024px+), 2x2 from 480px to 1023px, 2x2 on phones */}
+        {foldersEnabled && isClient ? (
+          <div
+            className="grid grid-cols-2 lg:grid-cols-4 gap-[var(--space-block)] items-start"
+            style={{ overflow: 'visible' }}
           >
-            <Link
-              href={service.href || '/work'}
-              aria-label={service.description}
-              className="flex flex-col md:flex-row md:items-end justify-between py-6 md:py-8 gap-4 group focus:outline-none focus:ring-1 focus:ring-accent"
-            >
-              {/* Title (Tanker, var(--text)) */}
+            {items.map((service, idx) => (
+              <ServiceFolderCard
+                key={service.number || idx}
+                service={service}
+                layout={folderLayout}
+                draggable={folderDraggable}
+                isFinePointer={isFinePointer}
+              />
+            ))}
+          </div>
+        ) : (
+          /* Static Card Fallback */
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-[var(--space-block)]">
+            {items.map((service, idx) => (
               <div
-                className="service-title-wrap transition-all duration-300 flex items-baseline gap-4"
-                style={{
-                  transform: hoveredIndex === i ? 'translateX(16px)' : 'translateX(0)',
-                  opacity: hoveredIndex !== null && hoveredIndex !== i ? 0.4 : 1,
-                }}
+                key={service.number || idx}
+                className="h-full flex flex-col bg-[#151515] rounded-[16px] border border-white/10 p-5 group hover:border-white/30 transition-colors"
               >
-                <span className="font-mono text-xs text-white/40 tracking-wider">
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#111] rounded-lg mb-4">
+                  {service.image ? (
+                    <Image
+                      src={service.image}
+                      alt={service.alt || service.title}
+                      fill
+                      sizes="(max-width: 768px) 50vw, 24vw"
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-[#181818] flex items-center justify-center font-mono text-white/30 text-xs">
+                      {service.number}
+                    </div>
+                  )}
+                </div>
+                <span className="font-mono text-[11px] text-white/40 tracking-wider uppercase block mb-1">
                   {service.number}
                 </span>
-                <span className="font-tanker text-[clamp(36px,5.5vw,90px)] uppercase leading-[0.9] text-white tracking-tight break-words">
+                <h3 className="font-tanker text-[clamp(20px,2vw,30px)] uppercase leading-[0.9] text-white tracking-tight mb-2">
                   {service.title}
-                </span>
-              </div>
-
-              {/* Description (mono 12px, sentence case, max-width 320px) */}
-              <div
-                className="text-left md:text-right w-full md:max-w-[320px] transition-opacity duration-300"
-                style={{
-                  opacity: hoveredIndex !== null && hoveredIndex !== i ? 0.4 : 1,
-                }}
-              >
-                <p className="font-mono text-xs text-white/70 leading-relaxed normal-case">
+                </h3>
+                <p className="font-mono text-[12px] text-white/70 leading-relaxed normal-case mb-4 flex-1">
                   {service.description}
                 </p>
+                <Link
+                  href={service.href || '/work'}
+                  className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-white font-bold hover:text-[#3D5AFE] transition-colors mt-auto"
+                >
+                  <span>EXPLORE</span>
+                  <span>→</span>
+                </Link>
               </div>
-            </Link>
-          </li>
-        ))}
-      </ul>
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 }

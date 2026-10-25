@@ -1,22 +1,41 @@
 {
   "brand": {
     "name": "Kraqen Innovations LLP",
+    "displayName": "Kraqen Innovations",
     "legalName": "Kraqen Innovations LLP",
-    "shortName": "Kraqen",
+    "shortName": "Kraqen Innovations",
     "url": "https://www.kraqeninc.com",
     "email": "support@kraqeninc.com",
     "phone": "+91 8939651621",
     "tagline": "Chennai's next-gen creative agency engineering visual culture",
-    "description": "Chennai's next-gen creative agency engineering visual culture through cinema-grade video production, motion design, social creatives and brand direction.",
-    "giantWordmark": "kraqen",
+    "description": "Chennai's next-gen creative agency: cinema-grade video production, motion design, social creatives and brand direction. Start a project with Kraqen Innovations.",
+    "giantWordmark": "kraqen innovations",
+    "giantWordmarkLines": ["kraqen", "innovations"],
     "copyright": "© 2026 KRAQEN INNOVATIONS LLP. ALL RIGHTS RESERVED.",
     "instagramHandle": "kraqen.innovations"
   },
   "seo": {
     "title": "Next-Gen Creative & Social Agency Chennai | Kraqen",
-    "description": "Chennai's next-gen creative agency engineering visual culture through cinema-grade video production, motion design, social creatives and brand direction.",
+    "description": "Chennai's next-gen creative agency: cinema-grade video production, motion design, social creatives and brand direction. Start a project with Kraqen Innovations.",
     "ogImage": "/og-image.png",
-    "keywords": ["creative agency chennai","video production chennai","motion design","social creatives","brand direction","commercial video"]
+    "keywords": {
+      "primary": [
+        "creative agency in Chennai",
+        "video production company in Chennai",
+        "social media creative agency Chennai",
+        "brand film production Chennai",
+        "motorsport videography India"
+      ],
+      "secondary": [
+        "commercial video production Chennai",
+        "motion graphics studio Chennai",
+        "Instagram reels production",
+        "brand identity and creative direction",
+        "cinematic brand films",
+        "social media content creators Chennai",
+        "West Tambaram Chennai"
+      ]
+    }
   },
   "logos": {
     "navbarLogo": "/brand/kraqen-mark.png",
@@ -32,28 +51,106 @@
       { "label": "ABOUT", "href": "/about" },
       { "label": "CONTACT", "href": "/contact" }
     ],
-    "cta": { "label": "START A PROJECT", "href": "/contact" },
     "mobileMenuLabel": "MENU",
     "mobileCloseLabel": "CLOSE"
   },
+  "effects": {
+    "splashCursor": {
+      "enabled": true,
+      "colors": ["#5B3CDB", "#3D5AFE", "#22C55E"],
+      "clickSplash": true,
+      "trailOnMove": true,
+      "desktopQuality": "medium",
+      "touchQuality": "low",
+      "intensity": 0.5,
+      "size": 0.7,
+      "force": 0.6,
+      "swirl": 2,
+      "trail": 0.7,
+      "momentum": 0.8,
+      "shading": 0.6
+    },
+    "specularButtons": {
+      "enabled": true,
+      "maxLiveDesktop": 8,
+      "maxLiveTouch": 3
+    },
+    "folders": {
+      "enabled": true,
+      "draggable": false,
+      "layout": "stack"
+    },
+    "clientCarousel": {
+      "enabled": true,
+      "preset": "arch",
+      "cardHeight": 0.5,
+      "gap": 12,
+      "radius": 16,
+      "squeeze": 0.1,
+      "autoplay": false
+    }
+  },
   "socials": [
-    { "label": "INSTAGRAM", "href": "https://www.instagram.com/kraqen.innovations/" },
-    { "label": "LINKEDIN", "href": "https://linkedin.com/company/kraqeninc" },
-    { "label": "TWITTER / X", "href": "https://x.com/kraqeninc" },
-    { "label": "YOUTUBE", "href": "https://youtube.com/@kraqeninc" }
+    { "label": "INSTAGRAM", "url": "https://www.instagram.com/kraqen.innovations/" },
+    { "label": "LINKEDIN", "url": "https://www.linkedin.com/company/kraqen-inc/" },
+    { "label": "YOUTUBE", "url": "https://www.youtube.com/channel/UCNx7Se1uaIi02eH0Sx7ZDAQ" }
   ],
+  "calendly": {
+    "url": "",
+    "meetingLabel": "30 MINUTE MEETING",
+    "locationNote": "Meeting link (Google Meet) is sent after confirmation."
+  },
+  "booking": {
+    "provider": "builtin",
+    "calendlyUrl": "",
+    "host": "Kraqen Innovations",
+    "title": "30 Minute Meeting",
+    "durationMinutes": 30,
+    "durationLabel": "30 min",
+    "conferencingNote": "Web conferencing details provided upon confirmation.",
+    "selectLabel": "Select a Date & Time",
+    "timezoneLabel": "Time zone",
+    "businessTimezone": "Asia/Kolkata",
+    "availability": {
+      "days": [1, 2, 3, 4, 5, 6],
+      "start": "10:00",
+      "end": "18:00",
+      "slotMinutes": 30,
+      "breaks": [{ "start": "13:00", "end": "14:00" }],
+      "minNoticeHours": 12,
+      "maxDaysAhead": 60
+    },
+    "labels": {
+      "back": "BACK",
+      "next": "NEXT",
+      "noSlots": "No times available on this day.",
+      "enterDetails": "Enter Details",
+      "schedule": "SCHEDULE EVENT",
+      "confirmedTitle": "YOU ARE SCHEDULED",
+      "confirmedText": "A confirmation was sent to your email. Web conferencing details will follow after confirmation.",
+      "name": "NAME",
+      "email": "EMAIL",
+      "phone": "CONTACT NUMBER",
+      "notes": "ANYTHING ELSE WE SHOULD KNOW?",
+      "error": "We could not book this time. Please pick another slot or email us."
+    }
+  },
   "footer": {
     "ctaLines": ["LET'S WORK", "TOGETHER"],
     "ctaHref": "/contact",
+    "formTitle": "START A PROJECT",
+    "bookingTitle": "BOOK A CALL",
+    "rightColumn": {
+      "default": "form",
+      "/about": "booking",
+      "/contact": "none"
+    },
     "columnA": [
       { "label": "WORK", "href": "/work" },
       { "label": "ABOUT", "href": "/about" },
       { "label": "CONTACT", "href": "/contact" }
     ],
     "columnBUseSocials": true,
-    "formTitle": "START A PROJECT",
-    "formSubtitle": "Tell us about your brand. We reply within 1 to 2 business days.",
-    "hideFormOnPaths": ["/about", "/contact"],
     "copyright": "© 2026 KRAQEN INNOVATIONS LLP. ALL RIGHTS RESERVED.",
     "legal": [
       { "label": "PRIVACY POLICY", "href": "/privacy" },
@@ -98,21 +195,26 @@
       "title": "THANK YOU.",
       "text": "We got your enquiry and will reply within 1 to 2 business days."
     },
-    "error": "Something went wrong. Please try again or email us directly."
+    "error": "Something went wrong. Please try again or email us directly at support@kraqeninc.com."
   },
   "office": {
-    "label": "OUR CHENNAI OFFICE",
-    "addressLines": ["", "", "", ""],
-    "mapUrl": "",
+    "label": "OUR OFFICE",
+    "addressLines": [
+      "No 44, Vasantham Nagar,",
+      "Kishkinta Main Road, West Tambaram,",
+      "Chennai, Tamil Nadu, India - 600045"
+    ],
+    "mapUrl": "https://www.google.com/maps/search/?api=1&query=No%2044%20Vasantham%20Nagar%20Kishkinta%20Main%20Road%20West%20Tambaram%20Chennai%20600045",
     "whatsapp": {
       "label": "WHATSAPP",
       "number": "918939651621",
-      "message": "Hi Kraqen, I'd like to discuss a project."
+      "message": "Hi Kraqen Innovations, I'd like to discuss a project."
     },
     "email": {
       "label": "EMAIL",
       "address": "support@kraqeninc.com"
-    }
+    },
+    "phone": "+91 8939651621"
   },
   "notFound": {
     "title": "PAGE NOT FOUND",

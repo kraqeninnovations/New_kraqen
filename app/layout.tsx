@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { getSiteContent } from '@/lib/content';
 import ServiceWorkerRegister from '@/components/ServiceWorkerRegister';
+import FxLayer from '@/components/FxLayer';
 
 export const viewport: Viewport = {
   themeColor: '#0f0f0f',
@@ -13,6 +14,12 @@ export const viewport: Viewport = {
 export async function generateMetadata(): Promise<Metadata> {
   const site = await getSiteContent();
 
+  const keywordsArray = Array.isArray(site.seo.keywords)
+    ? site.seo.keywords
+    : site.seo.keywords
+    ? [...(site.seo.keywords.primary || []), ...(site.seo.keywords.secondary || [])]
+    : undefined;
+
   return {
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || site.brand.url),
     title: {
@@ -20,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
       template: '%s',
     },
     description: site.seo.description || site.brand.description,
-    keywords: site.seo.keywords,
+    keywords: keywordsArray,
     authors: [{ name: site.brand.name, url: site.brand.url }],
     creator: site.brand.name,
     publisher: site.brand.name,
@@ -29,9 +36,13 @@ export async function generateMetadata(): Promise<Metadata> {
       follow: true,
     },
     manifest: '/site.webmanifest',
+    icons: {
+      icon: '/icon.png',
+      apple: '/apple-touch-icon.png',
+    },
     appleWebApp: {
       capable: true,
-      title: 'Kraqen',
+      title: 'Kraqen Innovations',
       statusBarStyle: 'black-translucent',
     },
     openGraph: {
@@ -67,14 +78,29 @@ export default async function RootLayout({
 
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: site.brand.name,
-    legalName: site.brand.legalName,
+    '@type': 'ProfessionalService',
+    name: site.brand.legalName || 'Kraqen Innovations LLP',
     url: site.brand.url,
     logo: `${site.brand.url}${site.logos.navbarLogo}`,
-    email: site.brand.email,
-    telephone: site.brand.phone,
-    sameAs: site.socials.map((s) => s.href),
+    image: `${site.brand.url}${site.seo.ogImage || '/og-image.png'}`,
+    telephone: site.office?.phone || site.brand.phone || '+91 8939651621',
+    email: site.office?.email?.address || site.brand.email || 'support@kraqeninc.com',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'No 44, Vasantham Nagar, Kishkinta Main Road, West Tambaram',
+      addressLocality: 'Chennai',
+      addressRegion: 'Tamil Nadu',
+      postalCode: '600045',
+      addressCountry: 'IN',
+    },
+    areaServed: 'Chennai',
+    sameAs: site.socials.map((s) => s.href || s.url),
+    serviceType: site.serviceOptions || [
+      'Video Production',
+      'Editorial & Motion Designs',
+      'Social Creatives',
+      'Creative Direction & Strategy',
+    ],
   };
 
   return (
@@ -82,7 +108,7 @@ export default async function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico?v=5" sizes="any" />
         <link rel="icon" href="/icon.png?v=5" type="image/png" sizes="512x512" />
-        <link rel="apple-touch-icon" href="/apple-icon.png?v=5" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=5" />
         <link rel="preconnect" href="https://api.fontshare.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -105,6 +131,7 @@ export default async function RootLayout({
         />
       </head>
       <body suppressHydrationWarning>
+        <FxLayer effects={site.effects} />
         <ServiceWorkerRegister />
         {children}
       </body>

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import ScrollRow from '@/components/ScrollRow';
 import type { AboutContent } from '@/lib/schemas/about';
 
 interface AboutTeamProps {
@@ -10,13 +11,11 @@ interface AboutTeamProps {
 
 export default function AboutTeam({ data }: AboutTeamProps) {
   const sectionRef = useRef<HTMLElement>(null);
-  const card1Ref = useRef<HTMLDivElement>(null);
-  const card2Ref = useRef<HTMLDivElement>(null);
-  const img1BoxRef = useRef<HTMLDivElement>(null);
-  const img2BoxRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.innerWidth < 768) return;
 
     let ctx: { revert: () => void } | null = null;
 
@@ -25,38 +24,23 @@ export default function AboutTeam({ data }: AboutTeamProps) {
       const { ScrollTrigger } = await import('gsap/ScrollTrigger');
       gsap.registerPlugin(ScrollTrigger);
 
-      if (!sectionRef.current) return;
+      if (!gridRef.current) return;
 
       ctx = gsap.context(() => {
-        // Card 1 clip-path reveal wipe
-        if (img1BoxRef.current && card1Ref.current) {
+        const cards = gridRef.current?.querySelectorAll('.team-card');
+        if (cards && cards.length > 0) {
           gsap.fromTo(
-            img1BoxRef.current,
-            { clipPath: 'inset(100% 0 0 0)' },
+            cards,
+            { opacity: 0, y: 30 },
             {
-              clipPath: 'inset(0% 0 0 0)',
-              duration: 0.9,
-              ease: 'power3.out',
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              stagger: 0.1,
+              ease: 'power2.out',
               scrollTrigger: {
-                trigger: card1Ref.current,
-                start: 'top 85%',
-              },
-            }
-          );
-        }
-
-        // Card 2 clip-path reveal wipe
-        if (img2BoxRef.current && card2Ref.current) {
-          gsap.fromTo(
-            img2BoxRef.current,
-            { clipPath: 'inset(100% 0 0 0)' },
-            {
-              clipPath: 'inset(0% 0 0 0)',
-              duration: 0.9,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: card2Ref.current,
-                start: 'top 85%',
+                trigger: gridRef.current,
+                start: 'top 80%',
               },
             }
           );
@@ -71,100 +55,78 @@ export default function AboutTeam({ data }: AboutTeamProps) {
     };
   }, []);
 
-  const member1 = data.members[0];
-  const member2 = data.members[1];
+  const members = data.members || [];
 
-  if (!member1 || !member2) return null;
+  const renderCard = (member: typeof members[0]) => (
+    <div className="relative aspect-[3/4] w-full rounded-[16px] overflow-hidden bg-[#151515] border border-white/10 group">
+      {/* Background portrait filling the whole card */}
+      <Image
+        src={member.image}
+        alt={member.alt || member.name}
+        fill
+        sizes="(max-width: 768px) 78vw, (max-width: 1024px) 45vw, 30vw"
+        style={{ objectPosition: '50% 20%' }}
+        className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+      />
+
+      {/* Details inside image at bottom on dark gradient */}
+      <div
+        className="absolute inset-0 flex flex-col justify-end p-5 z-10"
+        style={{
+          background: 'linear-gradient(to top, rgba(15,15,15,0.94) 0%, rgba(15,15,15,0.7) 45%, transparent 100%)',
+        }}
+      >
+        <span className="font-mono text-[11px] uppercase tracking-wider text-[#B7A8FF] font-bold block mb-1">
+          {member.role}
+        </span>
+        <h3 className="font-tanker text-[clamp(24px,2.4vw,36px)] uppercase leading-[0.9] text-white tracking-tight mb-2">
+          {member.name}
+        </h3>
+        <p className="font-mono text-[11px] leading-relaxed text-white/80 line-clamp-3 normal-case">
+          {member.bio}
+        </p>
+      </div>
+    </div>
+  );
 
   return (
     <section
       ref={sectionRef}
-      className="bg-[#1a1a1a] section-px py-[clamp(64px,10vw,140px)] border-b border-white/15"
-      style={{ color: 'var(--text)' }}
+      className="bg-[#0f0f0f] pt-[var(--space-section)] pb-0 text-white"
       aria-label="Our Team"
     >
-      <div className="max-w-[1400px] mx-auto">
+      <div className="px-[var(--page-x)]">
         {/* Section Header */}
-        <div className="mb-12 md:mb-16">
-          <h2 className="font-tanker text-white uppercase text-[clamp(40px,6.5vw,96px)] leading-[0.88] tracking-tight mb-3">
+        <div className="mb-8 md:mb-10">
+          <h2 className="font-tanker text-white uppercase text-[clamp(36px,5.5vw,84px)] leading-[0.88] tracking-tight mb-2">
             {data.title}
           </h2>
-          <p className="font-mono text-sm text-white/60 tracking-wider">
+          <p className="font-mono text-xs md:text-sm text-white/60 tracking-wider">
             {data.subtitle}
           </p>
         </div>
 
-        {/* Staggered Founder Photos */}
-        <div className="relative flex flex-col md:flex-row gap-12 md:gap-0 justify-between items-start">
-          {/* CARD 1: Member 1 (LEFT) */}
-          <div
-            ref={card1Ref}
-            className="w-full md:w-[44%] flex flex-col"
-          >
-            <div
-              ref={img1BoxRef}
-              className={`team-image-box w-full aspect-[1/1.1] rounded-xl overflow-hidden bg-[#222] ${
-                member1.isGreyscaleDefault ? 'grayscale hover:grayscale-0 transition-all duration-500' : ''
-              }`}
-            >
-              <Image
-                src={member1.image}
-                alt={member1.alt}
-                width={700}
-                height={770}
-                className="w-full h-full object-cover"
-                sizes="(max-width: 768px) 100vw, 44vw"
-              />
+        {/* Desktop / Tablet: 3 columns x 2 rows (6 ID cards) */}
+        <div
+          ref={gridRef}
+          className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-[var(--space-block)] w-full"
+        >
+          {members.map((member, idx) => (
+            <div key={idx} className="team-card">
+              {renderCard(member)}
             </div>
-
-            <div className="mt-6 flex flex-col gap-2">
-              <h3 className="font-tanker text-2xl md:text-3xl text-white uppercase tracking-wide">
-                {member1.name}
-              </h3>
-              <span className="font-mono text-xs uppercase tracking-wider text-accent font-bold">
-                {member1.role}
-              </span>
-              <p className="font-mono text-xs md:text-sm text-white/70 leading-relaxed mt-2">
-                {member1.bio}
-              </p>
-            </div>
-          </div>
-
-          {/* CARD 2: Member 2 (RIGHT, staggered down on desktop) */}
-          <div
-            ref={card2Ref}
-            className="w-full md:w-[44%] flex flex-col md:mt-24"
-          >
-            <div
-              ref={img2BoxRef}
-              className={`team-image-box w-full aspect-[1/1.1] rounded-xl overflow-hidden bg-[#222] ${
-                member2.isGreyscaleDefault ? 'grayscale hover:grayscale-0 transition-all duration-500' : ''
-              }`}
-            >
-              <Image
-                src={member2.image}
-                alt={member2.alt}
-                width={700}
-                height={770}
-                className="w-full h-full object-cover"
-                sizes="(max-width: 768px) 100vw, 44vw"
-              />
-            </div>
-
-            <div className="mt-6 flex flex-col gap-2">
-              <h3 className="font-tanker text-2xl md:text-3xl text-white uppercase tracking-wide">
-                {member2.name}
-              </h3>
-              <span className="font-mono text-xs uppercase tracking-wider text-accent font-bold">
-                {member2.role}
-              </span>
-              <p className="font-mono text-xs md:text-sm text-white/70 leading-relaxed mt-2">
-                {member2.bio}
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
+
+      {/* Mobile: ScrollRow with 78vw cards */}
+      <ScrollRow itemCount={members.length} itemWidthClass="w-[78vw] max-w-[340px]">
+        {members.map((member, idx) => (
+          <div key={idx}>
+            {renderCard(member)}
+          </div>
+        ))}
+      </ScrollRow>
     </section>
   );
 }

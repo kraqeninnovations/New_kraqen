@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
+import Button from '@/components/Button';
 import InstagramReelEmbed from '@/components/InstagramReelEmbed';
 import { getSiteContent, getWorkContent } from '@/lib/content';
 
@@ -318,12 +319,12 @@ export default async function ProjectDetailPage({
             <p className="font-mono text-sm md:text-base text-white/80 max-w-xl mb-8 leading-relaxed">
               Ready to engineer visual culture and scale your brand with cinema-grade execution?
             </p>
-            <Link
+            <Button
               href="/contact"
-              className="inline-flex items-center justify-center rounded-full bg-white text-brand-purple font-mono text-sm uppercase tracking-wider font-bold px-9 py-4 hover:bg-black hover:text-white transition-colors"
+              className="!h-[52px] !px-10 !text-[12px]"
             >
-              LET'S TALK GROWTH →
-            </Link>
+              LET&apos;S TALK GROWTH →
+            </Button>
           </div>
         </div>
       </main>

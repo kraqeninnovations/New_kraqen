@@ -8,19 +8,16 @@ import AboutTeam from '@/components/AboutTeam';
 import AboutBlueprint from '@/components/AboutBlueprint';
 import AboutOnSet from '@/components/AboutOnSet';
 import AboutCTA from '@/components/AboutCTA';
-import AboutWhatWeDo from '@/components/AboutWhatWeDo';
-import AboutStudioSplit from '@/components/AboutStudioSplit';
-import AboutApproach from '@/components/AboutApproach';
 import Footer from '@/components/Footer';
-import { getSiteContent, getAboutContent, getHomeContent } from '@/lib/content';
+import { getSiteContent, getAboutContent } from '@/lib/content';
 
 export async function generateMetadata(): Promise<Metadata> {
   const [site, about] = await Promise.all([getSiteContent(), getAboutContent()]);
   return {
-    title: about.seo.title || 'About Kraqen Innovations | Kraqen',
+    title: about.seo.title || 'About Kraqen Innovations | Creative Production Agency in Chennai',
     description: about.seo.description || site.seo.description,
     openGraph: {
-      title: about.seo.title || 'About Kraqen Innovations | Kraqen',
+      title: about.seo.title || 'About Kraqen Innovations | Creative Production Agency in Chennai',
       description: about.seo.description || site.seo.description,
       type: 'website',
     },
@@ -28,14 +25,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  const [site, about, home] = await Promise.all([
+  const [site, about] = await Promise.all([
     getSiteContent(),
     getAboutContent(),
-    getHomeContent(),
   ]);
 
   return (
-    <div className="about-page-wrapper bg-[#0f0f0f]">
+    <div className="about-page-wrapper bg-[#0f0f0f] min-h-screen text-white">
       <LenisInit />
       <PageTransition />
       <Nav site={site} />
@@ -46,32 +42,21 @@ export default async function AboutPage() {
         {/* 2. Intro: We Engineer Visual Culture */}
         <AboutIntro data={about.intro} />
 
-        {/* 3. Team: The Minds Behind the Lens */}
+        {/* 3. Team: The Minds Behind the Lens (6 ID cards) */}
         <AboutTeam data={about.team} />
 
-        {/* 4. The Blueprint to Execution */}
+        {/* 4. The Blueprint to Execution (3-step timeline) */}
         <AboutBlueprint data={about.blueprint} />
 
-        {/* 5. On Set & In the Suite */}
+        {/* 5. On Set & In the Suite (Uniform 4:3 grid) */}
         <AboutOnSet data={about.onSet} />
 
-        {/* 6. Inquiry CTA: Let's Build Something Cult */}
+        {/* 6. Inquiry CTA: Let's Build Something Cult (Form + Office) */}
         <AboutCTA data={about.cta} site={site} />
-
-        {/* Legacy Sections (toggled via about.legacy in about.json) */}
-        {about.legacy?.whatWeDo && about.services && (
-          <AboutWhatWeDo data={about.services} homeServices={home.services} />
-        )}
-        {about.legacy?.studioSplit && about.studioSplit && (
-          <AboutStudioSplit data={about.studioSplit} />
-        )}
-        {about.legacy?.approachClients && about.approach && (
-          <AboutApproach data={about.approach} homeClients={home.partners.items} />
-        )}
-
-        {/* Footer (form card automatically hidden on /about) */}
-        <Footer site={site} />
       </main>
+
+      {/* Footer (shows the booking card on /about) */}
+      <Footer site={site} />
     </div>
   );
 }

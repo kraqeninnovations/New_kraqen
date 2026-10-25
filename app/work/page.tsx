@@ -9,10 +9,10 @@ import { getSiteContent, getWorkContent } from '@/lib/content';
 export async function generateMetadata(): Promise<Metadata> {
   const [site, work] = await Promise.all([getSiteContent(), getWorkContent()]);
   return {
-    title: work.seo.title || `${work.header.title} | Kraqen`,
+    title: work.seo.title || 'Our Portfolio | Video Production & Creative Campaigns | Kraqen Innovations',
     description: work.seo.description || site.seo.description,
     openGraph: {
-      title: work.seo.title || `${work.header.title} | Kraqen`,
+      title: work.seo.title || 'Our Portfolio | Video Production & Creative Campaigns | Kraqen Innovations',
       description: work.seo.description || site.seo.description,
       type: 'website',
     },
@@ -29,8 +29,8 @@ export default async function WorkPage() {
       <Nav site={site} />
       <main>
         <WorkGallery data={work} />
-        <Footer site={site} />
       </main>
+      <Footer site={site} />
     </>
   );
 }

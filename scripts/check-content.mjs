@@ -67,6 +67,7 @@ function scanForAssets(obj, file, currentPath = '') {
         key === 'image' ||
         key === 'logo' ||
         key === 'src' ||
+        key === 'srcMobile' ||
         key === 'poster' ||
         key === 'ogImage' ||
         key === 'navbarLogo' ||
@@ -74,7 +75,7 @@ function scanForAssets(obj, file, currentPath = '') {
         key === 'whiteLogo' ||
         key === 'darkLogo'
       ) {
-        if (value.trim().length > 0) {
+        if (value.trim().length > 0 && !value.startsWith('http')) {
           checkAssetExists(value, { file: `content/${file}.json`, path: keyPath });
         }
       }
@@ -84,7 +85,7 @@ function scanForAssets(obj, file, currentPath = '') {
   }
 }
 
-// Schemas for validation
+// Schemas for validation matching lib/schemas/*
 const formFieldSchema = z.object({
   id: z.string().min(1),
   type: z.enum(['text', 'email', 'tel', 'select', 'textarea']),
@@ -95,17 +96,27 @@ const formFieldSchema = z.object({
   optionsFrom: z.string().optional(),
 });
 
+const seoKeywordsSchema = z.union([
+  z.array(z.string()),
+  z.object({
+    primary: z.array(z.string()).default([]),
+    secondary: z.array(z.string()).default([]),
+  }),
+]).optional();
+
 const siteSchema = z.object({
   brand: z.object({
     name: z.string().min(1, 'Brand name is required'),
     legalName: z.string().min(1, 'Brand legal name is required'),
     shortName: z.string().min(1, 'Brand short name is required'),
+    displayName: z.string().default('KRAQEN INNOVATIONS'),
     url: z.string().url('Brand URL must be a valid URL'),
     email: z.string().email('Brand email must be a valid email'),
     phone: z.string().min(1, 'Brand phone is required'),
     tagline: z.string().min(1, 'Brand tagline is required'),
     description: z.string().min(1, 'Brand description is required'),
     giantWordmark: z.string().min(1, 'Giant wordmark is required'),
+    giantWordmarkLines: z.array(z.string()).default(['kraqen', 'innovations']),
     copyright: z.string().min(1, 'Copyright is required'),
     instagramHandle: z.string().optional(),
   }),
@@ -113,7 +124,7 @@ const siteSchema = z.object({
     title: z.string().min(1, 'SEO title is required'),
     description: z.string().min(1, 'SEO description is required'),
     ogImage: z.string().min(1, 'ogImage path is required'),
-    keywords: z.array(z.string()).default([]),
+    keywords: seoKeywordsSchema,
   }),
   logos: z
     .object({
@@ -141,19 +152,119 @@ const siteSchema = z.object({
         href: z.string().min(1, 'Nav link href required'),
       })
     ),
-    cta: z.object({
-      label: z.string().min(1, 'Nav CTA label required'),
-      href: z.string().min(1, 'Nav CTA href required'),
-    }),
+    cta: z
+      .object({
+        label: z.string(),
+        href: z.string(),
+      })
+      .optional(),
     mobileMenuLabel: z.string().default('MENU'),
     mobileCloseLabel: z.string().default('CLOSE'),
   }),
+  effects: z
+    .object({
+      splashCursor: z
+        .object({
+          enabled: z.boolean().default(true),
+          colors: z.array(z.string()).default(['#5B3CDB', '#3D5AFE', '#22C55E']),
+          clickSplash: z.boolean().default(true),
+          trailOnMove: z.boolean().default(true),
+          desktopQuality: z.enum(['low', 'medium', 'high']).default('medium'),
+          touchQuality: z.enum(['low', 'medium', 'high']).default('low'),
+          intensity: z.number().default(0.5),
+          size: z.number().default(0.7),
+          force: z.number().default(0.6),
+          swirl: z.number().default(2),
+          trail: z.number().default(0.7),
+          momentum: z.number().default(0.8),
+          shading: z.number().default(0.6),
+        })
+        .default({}),
+      specularButtons: z
+        .object({
+          enabled: z.boolean().default(true),
+          maxLiveDesktop: z.number().int().min(1).default(8),
+          maxLiveTouch: z.number().int().min(1).default(3),
+        })
+        .default({}),
+      folders: z
+        .object({
+          enabled: z.boolean().default(true),
+          draggable: z.boolean().default(false),
+          layout: z.enum(['stack', 'spread', 'row']).default('stack'),
+        })
+        .default({}),
+      clientCarousel: z
+        .object({
+          enabled: z.boolean().default(true),
+          preset: z.string().default('arch'),
+          cardHeight: z.number().default(0.5),
+          gap: z.number().default(12),
+          radius: z.number().default(16),
+          squeeze: z.number().default(0.1),
+          autoplay: z.boolean().default(false),
+        })
+        .default({}),
+    })
+    .default({}),
   socials: z.array(
     z.object({
       label: z.string().min(1, 'Social link label required'),
-      href: z.string().min(1, 'Social link href required'),
+      href: z.string().optional(),
+      url: z.string().optional(),
     })
   ),
+  calendly: z.object({
+    url: z.string().default(''),
+    meetingLabel: z.string().default('30 MINUTE MEETING'),
+    locationNote: z.string().default('Meeting link (Google Meet) is sent after confirmation.'),
+  }).optional(),
+  booking: z.object({
+    provider: z.enum(['calendly', 'builtin']).default('builtin'),
+    calendlyUrl: z.string().optional().default(''),
+    host: z.string().default('Kraqen Innovations'),
+    title: z.string().default('30 Minute Meeting'),
+    durationMinutes: z.number().default(30),
+    durationLabel: z.string().default('30 min'),
+    conferencingNote: z.string().default('Web conferencing details provided upon confirmation.'),
+    selectLabel: z.string().default('Select a Date & Time'),
+    timezoneLabel: z.string().default('Time zone'),
+    businessTimezone: z.string().default('Asia/Kolkata'),
+    availability: z.object({
+      days: z.array(z.number().min(0).max(6)).default([1, 2, 3, 4, 5, 6]),
+      start: z.string().default('10:00'),
+      end: z.string().default('18:00'),
+      slotMinutes: z.number().default(30),
+      breaks: z.array(z.object({ start: z.string(), end: z.string() })).default([{ start: '13:00', end: '14:00' }]),
+      minNoticeHours: z.number().default(12),
+      maxDaysAhead: z.number().default(60),
+    }).default({
+      days: [1, 2, 3, 4, 5, 6],
+      start: '10:00',
+      end: '18:00',
+      slotMinutes: 30,
+      breaks: [{ start: '13:00', end: '14:00' }],
+      minNoticeHours: 12,
+      maxDaysAhead: 60,
+    }),
+    labels: z.record(z.string(), z.string()).optional(),
+  }).refine(
+    (b) => {
+      if (b.calendlyUrl && b.calendlyUrl.trim().length > 0) {
+        return b.calendlyUrl.startsWith('https://');
+      }
+      return true;
+    },
+    { message: 'booking.calendlyUrl must be a valid https URL if specified', path: ['calendlyUrl'] }
+  ).refine(
+    (b) => {
+      if (b.availability) {
+        return b.availability.start < b.availability.end;
+      }
+      return true;
+    },
+    { message: 'availability.start must be earlier than availability.end', path: ['availability', 'start'] }
+  ).optional(),
   footer: z.object({
     ctaLines: z.array(z.string().min(1)).min(1, 'Footer CTA lines required'),
     ctaHref: z.string().min(1, 'Footer CTA href required'),
@@ -165,7 +276,9 @@ const siteSchema = z.object({
     ),
     columnBUseSocials: z.boolean().default(true),
     formTitle: z.string().min(1, 'Form title required'),
-    formSubtitle: z.string().min(1, 'Form subtitle required'),
+    formSubtitle: z.string().optional(),
+    bookingTitle: z.string().optional(),
+    rightColumn: z.record(z.string(), z.string()).optional(),
     hideFormOnPaths: z.array(z.string()).default([]),
     copyright: z.string().min(1, 'Copyright is required'),
     legal: z.array(
@@ -212,6 +325,7 @@ const siteSchema = z.object({
       label: z.string().default('EMAIL'),
       address: z.string().email(),
     }),
+    phone: z.string().optional(),
   }),
   notFound: z.object({
     title: z.string().min(1, '404 title is required'),
@@ -229,15 +343,28 @@ const siteSchema = z.object({
 });
 
 const homePartnerSchema = z.object({
-  id: z.string().min(1),
   name: z.string().min(1),
   logo: z.string().min(1),
+  tile: z.string().optional(),
+  url: z.string().optional().default(''),
+});
+
+const folderItemSchema = z.object({
+  title: z.string().min(1),
+  description: z.string().optional(),
+  image: z.string().optional(),
+  alt: z.string().optional(),
 });
 
 const homeServiceItemSchema = z.object({
   number: z.string().min(1),
   title: z.string().min(1),
   description: z.string().min(1),
+  folderLabel: z.string().optional(),
+  color: z.string().optional(),
+  folderItems: z.array(folderItemSchema).optional(),
+  image: z.string().optional(),
+  alt: z.string().optional(),
   href: z.string().min(1).default('/work'),
 });
 
@@ -245,15 +372,22 @@ const homeSchema = z.object({
   seo: z.object({
     title: z.string().min(1, 'SEO title is required'),
     description: z.string().min(1, 'SEO description is required'),
+    keywords: seoKeywordsSchema,
   }),
   hero: z.object({
     headlineLines: z.array(z.string().min(1)).min(1, 'Hero headline lines required'),
-    location: z.string().min(1, 'Hero location is required'),
+    location: z.string().optional().default('CHENNAI - IN'),
     paragraph: z.string().min(1, 'Hero paragraph is required'),
     cta: z.object({
       label: z.string().min(1, 'Hero CTA label is required'),
       href: z.string().min(1, 'Hero CTA href is required'),
     }),
+    video: z.object({
+      src: z.string().min(1),
+      srcMobile: z.string().optional(),
+      poster: z.string().min(1),
+      overlay: z.number().min(0).max(1).default(0.45),
+    }).optional(),
     images: z.array(
       z.object({
         src: z.string().min(1, 'Hero image src is required'),
@@ -275,37 +409,30 @@ const homeSchema = z.object({
     viewLabel: z.string().default('VIEW PROJECT'),
   }),
   services: z.object({
-    labelLeft: z.string().default('WHAT WE DO'),
-    labelRight: z.string().default('FULL SERVICE PRODUCTION'),
+    label: z.string().optional(),
+    title: z.string().optional(),
+    intro: z.string().optional(),
+    labelLeft: z.string().optional(),
+    labelRight: z.string().optional(),
     items: z.array(homeServiceItemSchema).min(1, 'At least one service required'),
   }),
   partners: z.object({
     labelLeft: z.string().default('OUR CLIENTS'),
     labelRight: z.string().default('SELECTED PARTNERS'),
     headingLines: z.array(z.string().min(1)).min(1, 'Heading lines required'),
-    runner: z.object({
-      enabled: z.boolean().default(true),
-      direction: z.enum(['horizontal', 'vertical']).default('horizontal'),
-      speedSeconds: z.number().min(5).max(120).default(40),
-      pauseOnHover: z.boolean().default(true),
-    }).default({
-      enabled: true,
-      direction: 'horizontal',
-      speedSeconds: 40,
-      pauseOnHover: true,
-    }),
+    tileMode: z.enum(['keep', 'white']).default('keep'),
+    runner: z.any().optional(),
     items: z.array(homePartnerSchema).min(1, 'At least one partner item required'),
   }),
 });
 
 const teamMemberSchema = z.object({
-  id: z.string().min(1, 'Team member id is required'),
   name: z.string().min(1, 'Team member name is required'),
   role: z.string().min(1, 'Team member role is required'),
   bio: z.string().min(1, 'Team member bio is required'),
   image: z.string().min(1, 'Team member image is required'),
   alt: z.string().min(1, 'Team member alt text is required'),
-  isGreyscaleDefault: z.boolean().default(false),
+  linkedin: z.string().optional().default(''),
 });
 
 const blueprintStepSchema = z.object({
@@ -319,13 +446,13 @@ const blueprintStepSchema = z.object({
 const onSetItemSchema = z.object({
   src: z.string().min(1),
   alt: z.string().min(1),
-  shape: z.enum(['wide', 'tall', 'square']),
 });
 
 const aboutSchema = z.object({
   seo: z.object({
     title: z.string().min(1, 'SEO title is required'),
     description: z.string().min(1, 'SEO description is required'),
+    keywords: seoKeywordsSchema,
   }),
   hero: z.object({
     title: z.string().min(1, 'Hero title is required'),
@@ -348,6 +475,10 @@ const aboutSchema = z.object({
   onSet: z.object({
     title: z.string().default('ON SET & IN THE SUITE'),
     subtitle: z.string().default('Where raw footage meets visual finishing.'),
+    layout: z.object({
+      aspect: z.string().default('4/3'),
+      columns: z.number().default(3),
+    }).optional(),
     items: z.array(onSetItemSchema).min(1, 'At least one on-set item required'),
   }),
   cta: z.object({
@@ -368,14 +499,10 @@ const aboutSchema = z.object({
   approach: z.any().optional(),
 });
 
-const workFilterSchema = z.object({
-  id: z.string().min(1, 'Filter id is required'),
-  label: z.string().min(1, 'Filter label is required'),
-});
-
 const workCategorySchema = z.object({
   id: z.string().min(1, 'Category id is required'),
   title: z.string().min(1, 'Category title is required'),
+  enabled: z.boolean().optional().default(true),
 });
 
 const workItemSchema = z.object({
@@ -384,7 +511,9 @@ const workItemSchema = z.object({
   category: z.string().min(1, 'Category is required'),
   mediaType: z.enum(['image', 'video', 'reel']).default('image'),
   ratio: z.enum(['4:5', '16:9', '9:16']).default('4:5'),
-  src: z.string().min(1, 'Src image is required'),
+  image: z.string().optional(),
+  src: z.string().optional(),
+  focus: z.string().optional(),
   poster: z.string().optional().default(''),
   video: z.string().optional().default(''),
   instagramUrl: z.string().optional().default(''),
@@ -394,6 +523,7 @@ const workItemSchema = z.object({
   clientIndustry: z.string().default(''),
   deliverable: z.string().default(''),
   result: z.string().default(''),
+  source: z.string().optional(),
   detail: z.object({
     intro: z.string().default(''),
     brief: z.string().default(''),
@@ -401,7 +531,7 @@ const workItemSchema = z.object({
     gear: z.array(z.string()).default([]),
     location: z.string().default(''),
     credits: z.array(z.object({ role: z.string(), name: z.string() })).default([]),
-    gallery: z.array(z.object({ src: z.string(), alt: z.string(), ratio: z.string() })).default([]),
+    gallery: z.array(z.object({ src: z.string(), alt: z.string().default(''), ratio: z.string().default('16:9') })).default([]),
   }),
 });
 
@@ -409,20 +539,25 @@ const workSchema = z.object({
   seo: z.object({
     title: z.string().min(1, 'SEO title is required'),
     description: z.string().min(1, 'SEO description is required'),
+    keywords: seoKeywordsSchema,
   }),
   header: z.object({
     title: z.string().min(1, 'Header title is required'),
     subtitle: z.string().min(1, 'Header subtitle is required'),
   }),
+  sources: z.array(z.any()).optional(),
   filters: z.object({
     enabled: z.boolean().default(false),
-    items: z.array(workFilterSchema).default([]),
+    items: z.array(z.any()).default([]),
   }).default({ enabled: false, items: [] }),
   layout: z.object({
-    maxWidth: z.number().default(1400),
-    gap: z.number().default(12),
-    pattern: z.array(z.array(z.string())),
-  }),
+    maxWidth: z.number().optional(),
+    gap: z.number().optional(),
+    tileAspect: z.string().optional().default('4/5'),
+    columns: z.any().optional(),
+    gridGap: z.number().optional(),
+    pattern: z.array(z.array(z.string())).optional(),
+  }).optional(),
   categories: z.array(workCategorySchema).min(1, 'At least one category required'),
   items: z.array(workItemSchema).min(1, 'At least one work item required'),
 });
@@ -431,6 +566,7 @@ const contactSchema = z.object({
   seo: z.object({
     title: z.string().min(1, 'SEO title is required'),
     description: z.string().min(1, 'SEO description is required'),
+    keywords: seoKeywordsSchema,
   }),
   header: z.object({
     label: z.string().default('CONTACT'),
@@ -441,19 +577,11 @@ const contactSchema = z.object({
     title: z.string().default('SEND A MESSAGE'),
     fieldSet: z.string().default('contact'),
     submit: z.string().default("LET'S TALK GROWTH!"),
+    followLabel: z.string().default('FOLLOW US'),
+    followText: z.string().default('Prefer to talk on social? Say hi and we will reply fast.'),
+    showSocials: z.boolean().default(true),
   }),
-  booking: z.object({
-    enabled: z.boolean().default(true),
-    title: z.string().default('BOOK A CALL'),
-    text: z.string().default('Pick a time that suits you.'),
-    calendlyUrl: z.string().default(''),
-    height: z.object({
-      desktop: z.number().default(700),
-      mobile: z.number().default(760),
-    }).default({ desktop: 700, mobile: 760 }),
-    fallbackText: z.string().default('The calendar could not be loaded.'),
-    openLabel: z.string().default('OPEN CALENDAR'),
-  }),
+  booking: z.any().optional(),
 });
 
 const schemas = {
@@ -550,7 +678,7 @@ if (loadedContent.work && loadedContent.home) {
       totalErrors++;
     }
 
-    if (!['4:5', '16:9', '9:16'].includes(item.ratio)) {
+    if (item.ratio && !['4:5', '16:9', '9:16'].includes(item.ratio)) {
       report.push({
         file: 'content/work.json',
         path: `items[${idx}].ratio`,
@@ -559,20 +687,6 @@ if (loadedContent.work && loadedContent.home) {
       totalErrors++;
     }
   });
-}
-
-if (loadedContent.contact) {
-  const calUrl = loadedContent.contact.booking?.calendlyUrl;
-  if (calUrl && calUrl.trim().length > 0) {
-    if (!calUrl.startsWith('https://')) {
-      report.push({
-        file: 'content/contact.json',
-        path: 'booking.calendlyUrl',
-        message: 'calendlyUrl must be a valid https URL if specified.',
-      });
-      totalErrors++;
-    }
-  }
 }
 
 if (totalErrors > 0) {

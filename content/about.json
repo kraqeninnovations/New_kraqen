@@ -1,7 +1,25 @@
 {
   "seo": {
-    "title": "About Kraqen Innovations | Kraqen",
-    "description": "Chennai's Next-Gen Creative Production Agency engineering visual culture through cinema-grade video production and motion design."
+    "title": "About Kraqen Innovations | Creative Production Agency in Chennai",
+    "description": "Meet the Chennai creative production team behind Kraqen Innovations: cinematography, motion design, social content and brand strategy built to perform.",
+    "keywords": {
+      "primary": [
+        "creative agency in Chennai",
+        "video production company in Chennai",
+        "social media creative agency Chennai",
+        "brand film production Chennai",
+        "motorsport videography India"
+      ],
+      "secondary": [
+        "commercial video production Chennai",
+        "motion graphics studio Chennai",
+        "Instagram reels production",
+        "brand identity and creative direction",
+        "cinematic brand films",
+        "social media content creators Chennai",
+        "West Tambaram Chennai"
+      ]
+    }
   },
   "hero": {
     "title": "ABOUT KRAQEN INNOVATIONS",
@@ -16,22 +34,52 @@
     "subtitle": "Directed by technical precision, driven by creative strategy",
     "members": [
       {
-        "id": "victor-yuen",
-        "name": "VICTOR YUEN",
-        "role": "FOUNDER / CREATIVE DIRECTOR",
-        "bio": "Victor has worked in the creative industry for more than a decade, collaborating with clients at every scale. With a background in design, he puts storytelling and strong visual direction at the forefront of every project.",
-        "image": "/about/victor-yuen.jpg",
-        "alt": "Victor Yuen, Founder and Creative Director at Kraqen Innovations",
-        "isGreyscaleDefault": true
+        "name": "SANJAY KUMAR",
+        "role": "FOUNDER & CREATIVE DIRECTOR",
+        "bio": "Director and visual strategist engineering cinematic brand narratives and high-impact social campaigns.",
+        "image": "/images/about/team-01.webp",
+        "alt": "Sanjay Kumar, Founder and Creative Director at Kraqen Innovations",
+        "linkedin": ""
       },
       {
-        "id": "max-tagesen",
-        "name": "MAX TAGESEN",
-        "role": "EDITOR / CAMERA OPERATOR / ASSISTANT",
-        "bio": "Max is a multidisciplinary creator with an undying passion for sport. He tells real, meaningful stories through photography and video, looking for the emotion and movement that make each frame unique.",
-        "image": "/about/max-tagesen.jpg",
-        "alt": "Max Tagesen, Editor and Camera Operator at Kraqen Innovations",
-        "isGreyscaleDefault": false
+        "name": "DINESH KARTHIK",
+        "role": "HEAD OF CINEMATOGRAPHY",
+        "bio": "Lead director of photography capturing dynamic high-speed motorsport action and cinematic commercial frames.",
+        "image": "/images/about/team-02.webp",
+        "alt": "Dinesh Karthik, Head of Cinematography at Kraqen Innovations",
+        "linkedin": ""
+      },
+      {
+        "name": "ASHWIN RAM",
+        "role": "LEAD MOTION DESIGNER",
+        "bio": "Motion graphic artist and 3D visual finisher turning complex brand ideas into kinetic visual experiences.",
+        "image": "/images/about/team-03.webp",
+        "alt": "Ashwin Ram, Lead Motion Designer at Kraqen Innovations",
+        "linkedin": ""
+      },
+      {
+        "name": "PRIYA DHARSHINI",
+        "role": "PRODUCER & CAMPAIGN STRATEGIST",
+        "bio": "Managing high-scale commercial shoots, talent coordination, and end-to-end production pipelines.",
+        "image": "/images/about/team-04.webp",
+        "alt": "Priya Dharshini, Producer and Campaign Strategist at Kraqen Innovations",
+        "linkedin": ""
+      },
+      {
+        "name": "VISHNU PRASAD",
+        "role": "POST-PRODUCTION LEAD & COLORIST",
+        "bio": "Precision editorial cutter and colorist grading commercial films to cinema-grade exhibition standards.",
+        "image": "/images/about/team-05.webp",
+        "alt": "Vishnu Prasad, Post-Production Lead and Colorist at Kraqen Innovations",
+        "linkedin": ""
+      },
+      {
+        "name": "KAVIN RAJ",
+        "role": "SOUND DESIGNER & CAM OPERATOR",
+        "bio": "Specializing in immersive audio landscapes, location sound capture, and high-energy camera operation.",
+        "image": "/images/about/team-06.webp",
+        "alt": "Kavin Raj, Sound Designer and Camera Operator at Kraqen Innovations",
+        "linkedin": ""
       }
     ]
   },
@@ -43,21 +91,21 @@
         "number": "01",
         "title": "STRATEGY",
         "text": "Crafting narrative decks, visual identities, and campaign hooks.",
-        "image": "/images/hero-city.jpg",
+        "image": "/images/about/onset-01.webp",
         "alt": "Strategy deck and mood board"
       },
       {
         "number": "02",
         "title": "PRODUCTION",
         "text": "Heavy-duty lighting, dynamic framing, and on-location cinematic execution.",
-        "image": "/images/hero-runner.jpg",
+        "image": "/images/about/onset-02.webp",
         "alt": "On-location shoot with lighting rig"
       },
       {
         "number": "03",
         "title": "VISUAL FINISHING",
         "text": "Precision colour grading, motion graphics, and platform-specific editorial cuts.",
-        "image": "/images/hero-ice.jpg",
+        "image": "/images/about/onset-03.webp",
         "alt": "Editing timeline on a monitor"
       }
     ]
@@ -65,13 +113,35 @@
   "onSet": {
     "title": "ON SET & IN THE SUITE",
     "subtitle": "Where raw footage meets visual finishing.",
+    "layout": {
+      "aspect": "4/3",
+      "columns": 3
+    },
     "items": [
-      { "src": "/images/hero-runner.jpg", "alt": "Sony FX30 rigged up on set", "shape": "wide" },
-      { "src": "/images/hero-ice.jpg", "alt": "Crew filming on location", "shape": "tall" },
-      { "src": "/images/hover-mug.jpg", "alt": "Editing monitors glowing in the suite", "shape": "square" },
-      { "src": "/images/hover-kitsune.jpg", "alt": "Camera operator at the track", "shape": "tall" },
-      { "src": "/images/hero-city.jpg", "alt": "Colour grading session", "shape": "wide" },
-      { "src": "/images/hover-staffbase.jpg", "alt": "Action shot of the crew on location", "shape": "square" }
+      {
+        "src": "/images/about/onset-01.webp",
+        "alt": "Sony FX30 cinema rig on location at Kari Motor Speedway"
+      },
+      {
+        "src": "/images/about/onset-02.webp",
+        "alt": "Kraqen production crew filming on track at Madras International Circuit"
+      },
+      {
+        "src": "/images/about/onset-03.webp",
+        "alt": "Color grading suite and timeline monitors at Kraqen Innovations"
+      },
+      {
+        "src": "/images/about/onset-04.webp",
+        "alt": "High-octane motorsport camera tracking rig"
+      },
+      {
+        "src": "/images/about/onset-05.webp",
+        "alt": "Director and crew reviewing monitor playback on set"
+      },
+      {
+        "src": "/images/about/onset-06.webp",
+        "alt": "Commercial lighting setup for automotive campaign"
+      }
     ]
   },
   "cta": {
@@ -82,23 +152,5 @@
     "whatWeDo": false,
     "studioSplit": false,
     "approachClients": false
-  },
-  "services": {
-    "labelLeft": "WHAT WE DO",
-    "labelRight": "FULL SERVICE PRODUCTION",
-    "useHomeServices": true,
-    "items": []
-  },
-  "studioSplit": {
-    "left": { "src": "/about/studio-left.jpg", "alt": "Kraqen Innovations team working at studio", "widthRatio": "66%" },
-    "right": { "src": "/about/studio-right.jpg", "alt": "Studio interior", "widthRatio": "34%" }
-  },
-  "approach": {
-    "labelLeft": "APPROACH",
-    "labelRight": "SELECTED PARTNERS",
-    "headlineLines": ["A POINT OF VIEW, CARRIED", "THROUGH EVERY FRAME."],
-    "useHomePartners": true,
-    "fillEmptyCells": true,
-    "clients": []
   }
 }

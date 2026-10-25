@@ -49,38 +49,121 @@
   --border: rgba(255, 255, 255, 0.35);
   --size-contact-headline: clamp(56px, 7vw, 120px);
 
+  /* Spacing Tokens */
+  --page-x: clamp(16px, 2.4vw, 32px);
+  --space-section: 40px;
+  --space-section-m: 32px;
+  --space-head: 24px;
+  --space-block: 16px;
+
+  /* Button Tokens */
+  --btn-bg: #3D5AFE;
+  --btn-text: #FFFFFF;
+  --btn-bg-hover: #22C55E;
+  --btn-text-hover: #0B0B0B;
+  --btn-radius: 9999px;
+  --btn-h: 48px;
+
+  /* Accent Text */
+  --accent-text: #B7A8FF;
+
   /* Logo and Layout Tokens */
   --logo-h: 28px;
   --footer-wordmark-size: clamp(48px, 18vw, 220px);
-  --footer-logo-h: 40px;
-  --hero-h1-size: clamp(48px, 11.5vw, 240px);
-  --section-gap: clamp(112px, 14vw, 260px);
-  --section-gap-mobile: clamp(88px, 24vw, 140px);
+  --footer-logo-h: 44px;
+  --footer-wordmark-logo-h: 56px;
+  --hero-h1-size: clamp(34px, 8.5vw, 150px);
+  --section-gap: 40px;
+  --section-gap-mobile: 32px;
 
   /* Spacing */
-  --px: clamp(16px, 2.4vw, 40px);
-  --section-py: clamp(96px, 12vw, 180px);
+  --px: var(--page-x);
+  --section-py: var(--space-section);
+}
+
+@property --sb-tint {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #3D5AFE;
+}
+
+.btn-primary,
+.specular-button {
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), --sb-tint 0.25s ease, color 0.25s ease !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible,
+.specular-button:hover,
+.specular-button:focus-visible {
+  --sb-tint: #22C55E !important;
+  --sb-text-color: #0B0B0B !important;
+}
+
+.btn-primary:active,
+.specular-button:active {
+  --sb-tint: #22C55E !important;
+  --sb-text-color: #0B0B0B !important;
+}
+
+.btn-round {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 9999px;
+  background-color: #3D5AFE;
+  color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-round:hover,
+.btn-round:focus-visible {
+  background-color: #22C55E;
+  color: #0B0B0B;
+}
+
+.btn-round:active {
+  transform: scale(0.95);
+  background-color: #22C55E;
+  color: #0B0B0B;
+}
+
+.btn-round:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 @media (max-width: 768px) {
   :root {
     --logo-h: 22px;
-    --section-gap: var(--section-gap-mobile);
-    --footer-wordmark-size: clamp(56px, 21vw, 110px);
-    --footer-logo-h: 36px;
+    --section-gap: var(--space-section-m);
+    --section-py: var(--space-section-m);
+    --btn-h: 44px;
+    --footer-wordmark-size: clamp(48px, 16vw, 110px);
+    --footer-logo-h: 44px;
+    --footer-wordmark-logo-h: 44px;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
   :root {
-    --footer-wordmark-size: clamp(110px, 24vw, 200px);
-    --footer-logo-h: 40px;
+    --footer-wordmark-size: clamp(110px, 20vw, 180px);
+    --footer-logo-h: 44px;
+    --footer-wordmark-logo-h: 50px;
   }
 }
 
 @media (max-width: 640px) {
   :root {
-    --hero-h1-size: clamp(36px, 14vw, 90px);
+    --hero-h1-size: clamp(32px, 11.5vw, 60px);
   }
 }
 
@@ -183,6 +266,49 @@ body {
   text-transform: uppercase;
   line-height: 1.5;
   color: var(--text-muted);
+}
+
+/* ============================================================
+   GLOBAL BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: var(--btn-h);
+  padding: 0 28px;
+  background-color: var(--btn-bg);
+  color: var(--btn-text) !important;
+  font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--btn-radius);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  user-select: none;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background-color: var(--btn-bg-hover);
+  color: var(--btn-text-hover) !important;
+  outline: none;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* ============================================================
@@ -328,67 +454,38 @@ body {
 }
 
 /* ============================================================
-   LOGO RUNNER (Clients Section)
+   HERO FLOATING IMAGES
    ============================================================ */
-.logo-runner-outer {
-  overflow: hidden;
-  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+@keyframes heroFloatA {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
-.logo-runner-track {
-  display: flex;
-  align-items: center;
-  gap: clamp(40px, 6vw, 80px);
-  width: max-content;
-  animation: runner-h var(--runner-speed, 40s) linear infinite;
+@keyframes heroFloatB {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+.hero-float-a {
+  animation: heroFloatA 6s ease-in-out infinite;
   will-change: transform;
 }
 
-.logo-runner-outer:hover .logo-runner-track {
-  animation-play-state: paused;
-}
-
-@keyframes runner-h {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.logo-runner-item {
-  flex-shrink: 0;
-  height: 36px;
-  display: flex;
-  align-items: center;
-}
-
-@media (min-width: 768px) {
-  .logo-runner-item {
-    height: 48px;
-  }
-}
-
-.logo-runner-item img {
-  height: 100%;
-  width: auto;
-  object-fit: contain;
-  opacity: 0.55;
-  filter: brightness(0) saturate(100%) invert(1);
-  transition: opacity 0.3s ease;
-}
-
-.logo-runner-item:hover img {
-  opacity: 1;
+.hero-float-b {
+  animation: heroFloatB 6s ease-in-out infinite;
+  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .logo-runner-track {
+  .hero-float-a,
+  .hero-float-b {
     animation: none !important;
-    flex-wrap: wrap;
-    width: auto;
-    justify-content: center;
   }
 }
 
+/* ============================================================
+   LOGO RUNNER (Clients Section)
+   ============================================================ */
 /* ============================================================
    NAV
    ============================================================ */

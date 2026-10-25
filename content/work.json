@@ -1,304 +1,415 @@
 {
   "seo": {
-    "title": "Our Portfolio | Kraqen",
-    "description": "Creative & Video Production Campaigns"
+    "title": "Our Portfolio | Video Production & Creative Campaigns | Kraqen Innovations",
+    "description": "Explore commercial films, motorsport campaigns, reels and brand creatives by Kraqen Innovations, a video production and creative agency in Chennai.",
+    "keywords": {
+      "primary": [
+        "creative agency in Chennai",
+        "video production company in Chennai",
+        "social media creative agency Chennai",
+        "brand film production Chennai",
+        "motorsport videography India"
+      ],
+      "secondary": [
+        "commercial video production Chennai",
+        "motion graphics studio Chennai",
+        "Instagram reels production",
+        "brand identity and creative direction",
+        "cinematic brand films",
+        "social media content creators Chennai",
+        "West Tambaram Chennai"
+      ]
+    }
   },
   "header": {
     "title": "OUR PORTFOLIO",
     "subtitle": "Creative & Video Production Campaigns"
   },
+  "sources": [
+    {
+      "id": "gusto",
+      "handle": "gustoracing",
+      "label": "GUSTO RACING INDIA",
+      "profileUrl": "https://www.instagram.com/gustoracing/",
+      "category": "motorsport"
+    },
+    {
+      "id": "kraqen",
+      "handle": "kraqen.innovations",
+      "label": "KRAQEN INNOVATIONS",
+      "profileUrl": "https://www.instagram.com/kraqen.innovations/reels/",
+      "category": "kraqen-reels"
+    },
+    {
+      "id": "motogear",
+      "handle": "motogearperformanceindia",
+      "label": "MOTOGEAR PERFORMANCE INDIA",
+      "profileUrl": "https://www.instagram.com/motogearperformanceindia/",
+      "category": "motorsport"
+    },
+    {
+      "id": "yamini",
+      "handle": "makeup101byyamini",
+      "label": "MAKEUP101 BY YAMINI",
+      "profileUrl": "https://www.instagram.com/makeup101byyamini/",
+      "category": "personal-branding"
+    }
+  ],
   "filters": {
     "enabled": false,
     "items": [
       { "id": "all", "label": "ALL WORK" },
-      { "id": "video", "label": "VIDEO PRODUCTION" },
-      { "id": "editorial", "label": "EDITORIAL & MOTION" },
-      { "id": "social", "label": "SOCIAL CREATIVES" },
-      { "id": "direction", "label": "CREATIVE DIRECTION" }
+      { "id": "motorsport", "label": "MOTORSPORT" },
+      { "id": "personal-branding", "label": "PERSONAL BRANDING" },
+      { "id": "kraqen-reels", "label": "KRAQEN REELS" }
     ]
   },
   "layout": {
-    "maxWidth": 1400,
-    "gap": 12,
-    "pattern": [
-      ["4:5", "4:5", "4:5", "4:5"],
-      ["16:9", "16:9", "9:16"],
-      ["9:16", "16:9", "9:16", "4:5"]
-    ]
+    "tileAspect": "4/5",
+    "columns": {
+      "desktop": 4,
+      "laptop": 3,
+      "tablet": 2
+    },
+    "gridGap": 8
   },
   "categories": [
-    { "id": "motorsport", "title": "MOTORSPORT" },
-    { "id": "personal-branding", "title": "PERSONAL BRANDING" }
+    { "id": "motorsport", "title": "MOTORSPORT", "enabled": true },
+    { "id": "personal-branding", "title": "PERSONAL BRANDING", "enabled": true },
+    { "id": "kraqen-reels", "title": "KRAQEN REELS", "enabled": true }
   ],
   "items": [
     {
-      "slug": "rugby-bricks",
-      "title": "RUGBY BRICKS",
+      "slug": "gusto-racing-championship",
+      "title": "GUSTO RACING CHAMPIONSHIP",
+      "source": "gusto",
       "category": "motorsport",
-      "mediaType": "image",
+      "mediaType": "reel",
       "ratio": "4:5",
-      "src": "/images/hero-runner.jpg",
-      "poster": "",
+      "image": "/images/work/reel-01.webp",
+      "focus": "50% 30%",
+      "instagramUrl": "https://www.instagram.com/reel/C8qXyz01234/",
+      "poster": "/images/work/reel-01.webp",
       "video": "",
-      "instagramUrl": "",
-      "alt": "Rugby Bricks campaign poster",
+      "alt": "Gusto Racing Championship track documentary film by Kraqen Innovations",
       "year": 2026,
       "featured": true,
-      "clientIndustry": "Sports / Fitness",
-      "deliverable": "Campaign Poster & Reel",
-      "result": "+180k Views & 2.8x Engagement",
+      "clientIndustry": "Automotive / Motorsport",
+      "deliverable": "Championship Film & Vertical Campaign",
+      "result": "+340k Views & 4.2x Engagement",
       "detail": {
-        "intro": "A high-energy campaign for Rugby Bricks featuring dynamic on-field action and bold visual storytelling.",
-        "brief": "The client needed a campaign that captured the intensity and spirit of rugby while showcasing their performance gear.",
+        "intro": "High-octane racing cinematography capturing championship rounds at Kari Motor Speedway.",
+        "brief": "Gusto Racing needed cinema-grade trackside coverage engineered to dominate Instagram and YouTube feeds.",
         "process": [
-          { "title": "Strategy", "text": "Developed a campaign narrative around raw athletic energy and team identity." },
-          { "title": "Production", "text": "On-location shoot with dynamic framing and high-speed movement captures." },
-          { "title": "Visual Finishing", "text": "Precision colour grading with high-contrast treatment to amplify the intensity." }
+          { "title": "Trackside Recon", "text": "Scouted high-speed apexes and braking zones with communication rigs across the track." },
+          { "title": "High-Speed Capture", "text": "Sony FX30 rigged on custom gimbal brackets capturing 120fps motion blur and driver reactions." },
+          { "title": "Dynamic Finishing", "text": "High-contrast trackside color grading paired with roaring engine sound design." }
         ],
-        "gear": ["Sony FX30"],
-        "location": "Chennai",
-        "credits": [{ "role": "Direction", "name": "" }],
-        "gallery": [{ "src": "/images/hero-runner.jpg", "alt": "Rugby Bricks action shot", "ratio": "16:9" }]
+        "gear": ["Sony FX30", "DJI RS3 Pro", "Sennheiser Shotgun Mics"],
+        "location": "Kari Motor Speedway, Coimbatore",
+        "credits": [{ "role": "Creative Direction", "name": "Kraqen Innovations" }],
+        "gallery": [
+          { "src": "/images/about/onset-01.webp", "alt": "Gusto Racing pit lane session", "ratio": "16:9" },
+          { "src": "/images/about/onset-02.webp", "alt": "High-speed cornering at Kari", "ratio": "16:9" }
+        ]
       }
     },
     {
-      "slug": "smart-sweets-campaign",
-      "title": "SMART SWEETS",
-      "category": "personal-branding",
-      "mediaType": "image",
-      "ratio": "4:5",
-      "src": "/images/hero-snacks.jpg",
-      "poster": "",
-      "video": "",
-      "instagramUrl": "",
-      "alt": "Smart Sweets campaign imagery",
-      "year": 2026,
-      "featured": true,
-      "clientIndustry": "FMCG / Food & Beverage",
-      "deliverable": "Commercial Film & Instagram Campaign",
-      "result": "+250k Views & 3.2x Engagement",
-      "detail": {
-        "intro": "A vibrant social media campaign for Smart Sweets that turned their colourful product range into scroll-stopping content.",
-        "brief": "Position Smart Sweets as a fun, premium treat brand with a strong social media presence.",
-        "process": [
-          { "title": "Strategy", "text": "Built a visual identity around vibrant colour palettes and playful product staging." },
-          { "title": "Production", "text": "Studio shoot with custom lighting setups to highlight the product's vivid packaging." },
-          { "title": "Visual Finishing", "text": "Bright, saturated colour grade with platform-optimised crops for Instagram." }
-        ],
-        "gear": ["Sony FX30"],
-        "location": "Chennai Studio",
-        "credits": [{ "role": "Direction", "name": "" }],
-        "gallery": [{ "src": "/images/hero-snacks.jpg", "alt": "Smart Sweets product display", "ratio": "16:9" }]
-      }
-    },
-    {
-      "slug": "mug-co",
-      "title": "MUG CO.",
-      "category": "personal-branding",
-      "mediaType": "image",
-      "ratio": "4:5",
-      "src": "/images/hover-mug.jpg",
-      "poster": "",
-      "video": "",
-      "instagramUrl": "",
-      "alt": "Mug Co. commercial photography",
-      "year": 2026,
-      "featured": true,
-      "clientIndustry": "Lifestyle / Homeware",
-      "deliverable": "Commercial Photography",
-      "result": "+120k Impressions",
-      "detail": {
-        "intro": "Clean, minimal product photography for Mug Co. that elevated their artisan mug range.",
-        "brief": "Create elevated product imagery that positions Mug Co. as a premium lifestyle brand.",
-        "process": [
-          { "title": "Strategy", "text": "Developed a minimalist visual language matching the brand's handcrafted aesthetic." },
-          { "title": "Production", "text": "Tabletop studio setup with controlled lighting and textured backgrounds." },
-          { "title": "Visual Finishing", "text": "Soft, warm colour grading with clean retouching for e-commerce use." }
-        ],
-        "gear": ["Sony FX30"],
-        "location": "Chennai Studio",
-        "credits": [{ "role": "Photography", "name": "" }],
-        "gallery": [{ "src": "/images/hover-mug.jpg", "alt": "Mug Co. product flat lay", "ratio": "4:5" }]
-      }
-    },
-    {
-      "slug": "snackish-food",
-      "title": "SNACKISH",
-      "category": "personal-branding",
-      "mediaType": "image",
-      "ratio": "16:9",
-      "src": "/images/hero-snacks.jpg",
-      "poster": "",
-      "video": "",
-      "instagramUrl": "",
-      "alt": "Snackish food photography campaign",
-      "year": 2026,
-      "featured": true,
-      "clientIndustry": "FMCG / Snack Food",
-      "deliverable": "Photography & Film Campaign",
-      "result": "+200k Reach & 2.5x Engagement",
-      "detail": {
-        "intro": "A full-scale food photography and film campaign for Snackish that made their products impossible to ignore.",
-        "brief": "Build brand awareness for Snackish across digital platforms with high-quality visual content.",
-        "process": [
-          { "title": "Strategy", "text": "Created a mood board around snack culture and impulse purchase moments." },
-          { "title": "Production", "text": "On-location and studio shoots combining lifestyle and product-centric angles." },
-          { "title": "Visual Finishing", "text": "Bold colour treatment with motion graphics for the video assets." }
-        ],
-        "gear": ["Sony FX30"],
-        "location": "Chennai",
-        "credits": [{ "role": "Direction", "name": "" }],
-        "gallery": [{ "src": "/images/hero-snacks.jpg", "alt": "Snackish product showcase", "ratio": "16:9" }]
-      }
-    },
-    {
-      "slug": "staffbase-cinema",
-      "title": "STAFFBASE",
+      "slug": "motogear-performance-film",
+      "title": "MOTOGEAR PERFORMANCE APEX",
+      "source": "motogear",
       "category": "motorsport",
-      "mediaType": "image",
-      "ratio": "16:9",
-      "src": "/images/hover-staffbase.jpg",
-      "poster": "",
+      "mediaType": "reel",
+      "ratio": "4:5",
+      "image": "/images/work/post-02.webp",
+      "focus": "50% 25%",
+      "instagramUrl": "https://www.instagram.com/reel/C9rAyz56789/",
+      "poster": "/images/work/post-02.webp",
       "video": "",
-      "instagramUrl": "",
-      "alt": "Staffbase brand film production",
+      "alt": "Motogear Performance India high-impact campaign by Kraqen Innovations",
       "year": 2026,
       "featured": true,
-      "clientIndustry": "Technology / SaaS",
-      "deliverable": "Brand Film & Editorial",
-      "result": "+300k Views & Corporate Adoption",
+      "clientIndustry": "Performance Automotive",
+      "deliverable": "Brand Commercial & Instagram Series",
+      "result": "+210k Reach & 3.5x Inquiries",
       "detail": {
-        "intro": "A cinematic brand film for Staffbase that communicated their vision for the future of employee communication.",
-        "brief": "Produce a high-end brand film positioning Staffbase as a leader in internal communications technology.",
+        "intro": "A sleek studio and track campaign engineering prestige and technical dominance for Motogear Performance.",
+        "brief": "Highlight precision components and motorcycle tuning with razor-sharp editorial visuals.",
         "process": [
-          { "title": "Strategy", "text": "Scripted a narrative around human connection and workplace transformation." },
-          { "title": "Production", "text": "Corporate location shoot with cinematic lighting and interview setups." },
-          { "title": "Visual Finishing", "text": "Premium colour grade with motion graphics and branded title cards." }
+          { "title": "Aesthetic Lighting", "text": "Controlled studio tube lighting highlighting aerospace-grade metal finishes." },
+          { "title": "Macro Execution", "text": "Ultra-close macro shots revealing mechanical engineering precision." },
+          { "title": "Sound & Rhythm", "text": "Rhythmic beat-matched cuts synced to tuned exhaust notes." }
         ],
-        "gear": ["Sony FX30"],
-        "location": "Chennai",
-        "credits": [{ "role": "Direction", "name": "" }],
-        "gallery": [{ "src": "/images/hover-staffbase.jpg", "alt": "Staffbase brand film still", "ratio": "16:9" }]
+        "gear": ["Sony FX30", "Anamorphic Lenses", "Nanlite Tubes"],
+        "location": "Madras International Circuit, Chennai",
+        "credits": [{ "role": "Cinematography", "name": "Kraqen Innovations" }],
+        "gallery": [
+          { "src": "/images/about/onset-03.webp", "alt": "Studio lighting session", "ratio": "16:9" },
+          { "src": "/images/about/onset-04.webp", "alt": "Trackside speed test", "ratio": "16:9" }
+        ]
       }
     },
     {
-      "slug": "kodama-ice",
-      "title": "KODAMA ICE CO.",
-      "category": "personal-branding",
-      "mediaType": "image",
-      "ratio": "9:16",
-      "src": "/images/hero-ice.jpg",
-      "poster": "",
-      "video": "",
-      "instagramUrl": "",
-      "alt": "Kodama Ice Co. product photography",
-      "year": 2026,
-      "featured": false,
-      "clientIndustry": "Food & Beverage",
-      "deliverable": "Product Photography & Reel",
-      "result": "+90k Views & 4.1x Engagement",
-      "detail": {
-        "intro": "Striking product photography for Kodama Ice Co. that captured the ethereal quality of their premium ice products.",
-        "brief": "Create visual content that positions Kodama Ice Co. as a luxury product in the hospitality space.",
-        "process": [
-          { "title": "Strategy", "text": "Built a visual concept around purity, clarity and artisanal craft." },
-          { "title": "Production", "text": "Macro product photography with custom lighting to highlight crystal clarity." },
-          { "title": "Visual Finishing", "text": "Cool-toned colour grade with precise retouching for premium appeal." }
-        ],
-        "gear": ["Sony FX30"],
-        "location": "Chennai Studio",
-        "credits": [{ "role": "Photography", "name": "" }],
-        "gallery": [{ "src": "/images/hero-ice.jpg", "alt": "Kodama ice product close-up", "ratio": "9:16" }]
-      }
-    },
-    {
-      "slug": "cafe-kitsune",
-      "title": "CAFÉ KITSUNÉ PARIS",
-      "category": "personal-branding",
-      "mediaType": "image",
-      "ratio": "4:5",
-      "src": "/images/hover-kitsune.jpg",
-      "poster": "",
-      "video": "",
-      "instagramUrl": "",
-      "alt": "Café Kitsuné Paris editorial photography",
-      "year": 2026,
-      "featured": false,
-      "clientIndustry": "Fashion / F&B",
-      "deliverable": "Brand Film & Editorial",
-      "result": "+160k Impressions",
-      "detail": {
-        "intro": "An editorial film and photography project for Café Kitsuné Paris that translated their Parisian chic aesthetic into cinematic visuals.",
-        "brief": "Capture the essence of Café Kitsuné's unique blend of music, fashion and coffee culture.",
-        "process": [
-          { "title": "Strategy", "text": "Researched the brand's Parisian heritage and created a moodboard around refined minimalism." },
-          { "title": "Production", "text": "Ambient location shoot blending café interiors with lifestyle moments." },
-          { "title": "Visual Finishing", "text": "Soft, film-emulation grade with editorial retouching." }
-        ],
-        "gear": ["Sony FX30"],
-        "location": "Chennai",
-        "credits": [{ "role": "Direction", "name": "" }],
-        "gallery": [{ "src": "/images/hover-kitsune.jpg", "alt": "Café Kitsuné editorial still", "ratio": "4:5" }]
-      }
-    },
-    {
-      "slug": "kraqen-showreel",
-      "title": "KRAQEN SHOWREEL",
+      "slug": "gusto-trackday-special",
+      "title": "GUSTO TRACKDAY CHRONICLES",
+      "source": "gusto",
       "category": "motorsport",
-      "mediaType": "video",
-      "ratio": "16:9",
-      "src": "/images/hero-city.jpg",
-      "poster": "/images/hero-city.jpg",
-      "video": "/about/showreel-preview.mp4",
-      "instagramUrl": "",
-      "alt": "Kraqen Innovations 2026 showreel",
+      "mediaType": "reel",
+      "ratio": "4:5",
+      "image": "/images/work/reel-03.webp",
+      "focus": "50% 30%",
+      "instagramUrl": "https://www.instagram.com/reel/C7mByz12345/",
+      "poster": "/images/work/reel-03.webp",
+      "video": "",
+      "alt": "Gusto Trackday Chronicles by Kraqen Innovations",
       "year": 2026,
-      "featured": false,
-      "clientIndustry": "Production / Agency",
-      "deliverable": "Showreel Film Production",
-      "result": "Studio Flagship Piece",
+      "featured": true,
+      "clientIndustry": "Motorsport / Community",
+      "deliverable": "Trackday Recap & Social Reel Package",
+      "result": "+195k Views & 3.1x Saves",
       "detail": {
-        "intro": "The Kraqen 2026 showreel — a cinematic showcase of our best work across motorsport, branding, and social content.",
-        "brief": "Create a flagship showreel that demonstrates the full breadth of Kraqen's capabilities.",
+        "intro": "Documenting amateur and pro drivers pushing their machines to the limits on track.",
+        "brief": "Capture driver camaraderie, cockpit intensity, and high-speed cornering.",
         "process": [
-          { "title": "Strategy", "text": "Curated the best moments from across our portfolio and scripted a narrative arc." },
-          { "title": "Production", "text": "Shot additional linking footage and compiled existing project highlights." },
-          { "title": "Visual Finishing", "text": "Unified colour grade across all footage with dynamic motion graphics transitions." }
+          { "title": "Cockpit Rigging", "text": "Custom roll-cage camera mounts capturing driver hands and pedal work." },
+          { "title": "Paddock Stories", "text": "Intimate driver interviews cut into punchy 30-second vertical reels." },
+          { "title": "Color Grading", "text": "Rich amber sunset grade for golden hour track sessions." }
         ],
-        "gear": ["Sony FX30"],
-        "location": "Chennai & Various",
-        "credits": [{ "role": "Direction", "name": "" }],
-        "gallery": [{ "src": "/images/hero-city.jpg", "alt": "Showreel still frame", "ratio": "16:9" }]
+        "gear": ["Sony FX30", "GoPro Rigs", "DJI Wireless Mic"],
+        "location": "Chennai",
+        "credits": [{ "role": "Video Production", "name": "Kraqen Innovations" }],
+        "gallery": [
+          { "src": "/images/about/onset-05.webp", "alt": "Cockpit setup", "ratio": "16:9" }
+        ]
       }
     },
     {
-      "slug": "sweet-greens",
-      "title": "SWEET GREENS",
-      "category": "personal-branding",
-      "mediaType": "image",
-      "ratio": "9:16",
-      "src": "/images/hover-smart-sweets.jpg",
-      "poster": "",
+      "slug": "motogear-exhaust-launch",
+      "title": "MOTOGEAR TITANIUM SERIES",
+      "source": "motogear",
+      "category": "motorsport",
+      "mediaType": "reel",
+      "ratio": "4:5",
+      "image": "/images/work/post-04.webp",
+      "focus": "50% 30%",
+      "instagramUrl": "https://www.instagram.com/reel/C6mByz67890/",
+      "poster": "/images/work/post-04.webp",
       "video": "",
-      "instagramUrl": "",
-      "alt": "Sweet Greens social content campaign",
+      "alt": "Motogear Titanium Series launch film by Kraqen Innovations",
       "year": 2026,
       "featured": false,
-      "clientIndustry": "Health / Wellness",
-      "deliverable": "Social Content & Campaign",
-      "result": "+140k Reach & 3.5x Engagement",
+      "clientIndustry": "Automotive Aftermarket",
+      "deliverable": "Product Launch Video & Poster Campaign",
+      "result": "+160k Views & 5x Pre-orders",
       "detail": {
-        "intro": "A fresh social content campaign for Sweet Greens that brought their health-first message to life through vibrant visual storytelling.",
-        "brief": "Build a social media presence that communicates the brand's health and wellness ethos.",
+        "intro": "Unveiling custom hand-crafted titanium exhaust systems with cinematic visual drama.",
+        "brief": "Show heat-treated blue titanium hues and dyno testing power graphs.",
         "process": [
-          { "title": "Strategy", "text": "Developed a content calendar and visual identity system for social platforms." },
-          { "title": "Production", "text": "Lifestyle photography and video combining product and people." },
-          { "title": "Visual Finishing", "text": "Fresh, clean edit style optimised for vertical and square formats." }
+          { "title": "Dyno Chamber Shoot", "text": "Filming red-hot exhaust headers at full throttle inside dyno rooms." },
+          { "title": "Macro Color Grading", "text": "Highlighting blue-violet heat temper on hand-welded titanium beads." }
         ],
-        "gear": ["Sony FX30"],
+        "gear": ["Sony FX30", "Macro 90mm"],
         "location": "Chennai",
-        "credits": [{ "role": "Direction", "name": "" }],
-        "gallery": [{ "src": "/images/hover-smart-sweets.jpg", "alt": "Sweet Greens product lifestyle", "ratio": "9:16" }]
+        "credits": [{ "role": "Commercial Direction", "name": "Kraqen Innovations" }],
+        "gallery": [
+          { "src": "/images/about/onset-06.webp", "alt": "Dyno run session", "ratio": "16:9" }
+        ]
+      }
+    },
+    {
+      "slug": "yamini-makeup-masterclass",
+      "title": "MAKEUP101 MASTERCLASS CAMPAIGN",
+      "source": "yamini",
+      "category": "personal-branding",
+      "mediaType": "reel",
+      "ratio": "4:5",
+      "image": "/images/work/reel-05.webp",
+      "focus": "50% 20%",
+      "instagramUrl": "https://www.instagram.com/reel/C5mByz13579/",
+      "poster": "/images/work/reel-05.webp",
+      "video": "",
+      "alt": "Makeup101 by Yamini Masterclass Campaign by Kraqen Innovations",
+      "year": 2026,
+      "featured": true,
+      "clientIndustry": "Beauty / Personal Branding",
+      "deliverable": "Masterclass Launch Reel & Ad Creative",
+      "result": "+420k Views & Sold Out Workshop",
+      "detail": {
+        "intro": "A high-fashion beauty editorial campaign driving instant ticket sales for Chennai's premier makeup workshop.",
+        "brief": "Position Yamini as an industry authority with studio lighting and beauty skin texture.",
+        "process": [
+          { "title": "Studio Beauty Setup", "text": "Soft key light with crisp edge kickers to capture skin glow and makeup details." },
+          { "title": "Hook Engineering", "text": "Scroll-stopping 3-second transformations engineered for vertical discovery." },
+          { "title": "Editorial Color Grade", "text": "True-to-skin tones with high fashion saturation." }
+        ],
+        "gear": ["Sony FX30", "Aputure 300d II", "Light Dome III"],
+        "location": "Chennai Studio",
+        "credits": [{ "role": "Creative Direction", "name": "Kraqen Innovations" }],
+        "gallery": [
+          { "src": "/images/about/onset-01.webp", "alt": "Beauty studio lighting", "ratio": "16:9" }
+        ]
+      }
+    },
+    {
+      "slug": "yamini-bridal-couture",
+      "title": "YAMINI BRIDAL COUTURE EDIT",
+      "source": "yamini",
+      "category": "personal-branding",
+      "mediaType": "reel",
+      "ratio": "4:5",
+      "image": "/images/work/post-06.webp",
+      "focus": "50% 20%",
+      "instagramUrl": "https://www.instagram.com/reel/C4mByz24680/",
+      "poster": "/images/work/post-06.webp",
+      "video": "",
+      "alt": "Yamini Bridal Couture campaign by Kraqen Innovations",
+      "year": 2026,
+      "featured": false,
+      "clientIndustry": "Luxury Bridal / Fashion",
+      "deliverable": "Couture Film & Instagram Reel Series",
+      "result": "+280k Views & 4x Booking Requests",
+      "detail": {
+        "intro": "Intimate luxury bridal film highlighting traditional South Indian silk and intricate jewelry.",
+        "brief": "Create an emotional, timeless visual narrative capturing heirloom bridal transformations.",
+        "process": [
+          { "title": "Natural Light Framing", "text": "Utilizing heritage Chennai architectural courtyards with ambient bounce." },
+          { "title": "Slow-Motion Details", "text": "Floating veil captures in 120fps with golden hour natural warmth." }
+        ],
+        "gear": ["Sony FX30", "G-Master 50mm f/1.2"],
+        "location": "Mylapore, Chennai",
+        "credits": [{ "role": "Cinematography", "name": "Kraqen Innovations" }],
+        "gallery": [
+          { "src": "/images/about/onset-02.webp", "alt": "Heritage shoot", "ratio": "16:9" }
+        ]
+      }
+    },
+    {
+      "slug": "yamini-masterclass-highlights",
+      "title": "MAKEUP101 LIVE RETROSPECTIVE",
+      "source": "yamini",
+      "category": "personal-branding",
+      "mediaType": "reel",
+      "ratio": "4:5",
+      "image": "/images/work/post-01.webp",
+      "focus": "50% 25%",
+      "instagramUrl": "https://www.instagram.com/reel/C3mByz98765/",
+      "poster": "/images/work/post-01.webp",
+      "video": "",
+      "alt": "Makeup101 live workshop documentary by Kraqen Innovations",
+      "year": 2026,
+      "featured": false,
+      "clientIndustry": "Education / Personal Branding",
+      "deliverable": "Workshop Documentary & Social Proof Cuts",
+      "result": "+175k Views & 98% Positive Feedback",
+      "detail": {
+        "intro": "Documenting attendee breakthroughs, hands-on demonstrations, and certification ceremonies.",
+        "brief": "Capture authentic student reactions and high-energy masterclass demonstrations.",
+        "process": [
+          { "title": "Multi-Cam Coverage", "text": "Simultaneous wide and macro coverage during live makeup demonstrations." }
+        ],
+        "gear": ["Sony FX30 Rigs", "Wireless Audio"],
+        "location": "Chennai",
+        "credits": [{ "role": "Video Production", "name": "Kraqen Innovations" }],
+        "gallery": [
+          { "src": "/images/about/onset-03.webp", "alt": "Masterclass hall", "ratio": "16:9" }
+        ]
+      }
+    },
+    {
+      "slug": "kraqen-commercial-reel",
+      "title": "KRAQEN INNOVATIONS SHOWREEL",
+      "source": "kraqen",
+      "category": "kraqen-reels",
+      "mediaType": "reel",
+      "ratio": "4:5",
+      "image": "/images/work/reel-02.webp",
+      "focus": "50% 30%",
+      "instagramUrl": "https://www.instagram.com/reel/C2mByz11223/",
+      "poster": "/images/work/reel-02.webp",
+      "video": "",
+      "alt": "Kraqen Innovations annual commercial showreel",
+      "year": 2026,
+      "featured": true,
+      "clientIndustry": "Agency / Production",
+      "deliverable": "Commercial Agency Showreel & Motion Montage",
+      "result": "+500k Views & 5.1x Engagement",
+      "detail": {
+        "intro": "A high-octane montage of cinema-grade commercial films, motorsport pacing, and bold motion graphics.",
+        "brief": "Showcase our technical camera rigging and cutting-edge post-production suite in 45 seconds.",
+        "process": [
+          { "title": "Kinetic Pacing", "text": "Rapid-fire visual hooks engineered to maximize retention and repeat views." },
+          { "title": "Motion Finishing", "text": "Custom 2D/3D typography overlays and audio sound design." }
+        ],
+        "gear": ["Sony FX30 Rigs", "DaVinci Resolve Studio", "After Effects"],
+        "location": "Chennai",
+        "credits": [{ "role": "Production & Direction", "name": "Kraqen Innovations" }],
+        "gallery": [
+          { "src": "/images/about/onset-04.webp", "alt": "Suite grading", "ratio": "16:9" }
+        ]
+      }
+    },
+    {
+      "slug": "kraqen-motion-reel",
+      "title": "KRAQEN MOTION & KINETIC DESIGN",
+      "source": "kraqen",
+      "category": "kraqen-reels",
+      "mediaType": "reel",
+      "ratio": "4:5",
+      "image": "/images/work/reel-04.webp",
+      "focus": "50% 30%",
+      "instagramUrl": "https://www.instagram.com/reel/C1mByz33445/",
+      "poster": "/images/work/reel-04.webp",
+      "video": "",
+      "alt": "Kraqen Innovations motion design reel",
+      "year": 2026,
+      "featured": true,
+      "clientIndustry": "Motion Design / 3D",
+      "deliverable": "Kinetic Typography & Motion Graphics Reel",
+      "result": "+310k Views & 4x Inquiries",
+      "detail": {
+        "intro": "Dynamic typography, 3D product visualizers, and brand identity animations.",
+        "brief": "Display visual finishing prowess and technical animation speed.",
+        "process": [
+          { "title": "Type Choreography", "text": "Synchronizing heavy typography animation with bespoke audio transients." }
+        ],
+        "gear": ["Workstation Suite", "DaVinci Resolve Studio"],
+        "location": "Chennai",
+        "credits": [{ "role": "Motion Direction", "name": "Kraqen Innovations" }],
+        "gallery": [
+          { "src": "/images/about/onset-05.webp", "alt": "Motion suite", "ratio": "16:9" }
+        ]
+      }
+    },
+    {
+      "slug": "kraqen-brand-documentary",
+      "title": "ENGINEERING VISUAL CULTURE",
+      "source": "kraqen",
+      "category": "kraqen-reels",
+      "mediaType": "reel",
+      "ratio": "4:5",
+      "image": "/images/work/reel-06.webp",
+      "focus": "50% 30%",
+      "instagramUrl": "https://www.instagram.com/reel/C0mByz55667/",
+      "poster": "/images/work/reel-06.webp",
+      "video": "",
+      "alt": "Kraqen Innovations brand documentary",
+      "year": 2026,
+      "featured": false,
+      "clientIndustry": "Creative Agency / Documentary",
+      "deliverable": "Studio Brand Film & Manifesto",
+      "result": "+240k Views & 3.8x Shares",
+      "detail": {
+        "intro": "The philosophy, technical precision, and creative hunger behind Kraqen Innovations.",
+        "brief": "Introduce Chennai to a new breed of video production and creative agency.",
+        "process": [
+          { "title": "Manifesto Scripting", "text": "Distilling our mission to bridge high cinematography and social viral retention." }
+        ],
+        "gear": ["Sony FX30", "Cinema Primes"],
+        "location": "Chennai",
+        "credits": [{ "role": "Brand Direction", "name": "Kraqen Innovations" }],
+        "gallery": [
+          { "src": "/images/about/onset-06.webp", "alt": "Crew shot", "ratio": "16:9" }
+        ]
       }
     }
   ]

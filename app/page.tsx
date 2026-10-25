@@ -12,7 +12,7 @@ import { getSiteContent, getHomeContent, getWorkContent } from '@/lib/content';
 export async function generateMetadata(): Promise<Metadata> {
   const [site, home] = await Promise.all([getSiteContent(), getHomeContent()]);
   return {
-    title: home.seo.title || site.seo.title || 'Next-Gen Creative & Social Agency Chennai | Kraqen',
+    title: home.seo.title || 'Next-Gen Creative & Social Agency Chennai | Kraqen',
     description: home.seo.description || site.seo.description,
   };
 }
@@ -32,10 +32,10 @@ export default async function HomePage() {
       <main>
         <Hero data={home.hero} />
         <SelectedWork data={home.selectedWork} workItems={work.items} />
-        <WhatWeDo data={home.services} />
-        <Partners data={home.partners} />
-        <Footer site={site} />
+        <WhatWeDo data={home.services} effects={site.effects} />
+        <Partners data={home.partners} effects={site.effects} />
       </main>
+      <Footer site={site} />
     </>
   );
 }
